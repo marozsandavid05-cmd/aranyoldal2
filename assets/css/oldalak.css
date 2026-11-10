@@ -837,9 +837,9 @@ fieldset.mezo legend{width:100%;margin-bottom:10px}
   .js.mo .bs{height:calc(var(--bsH) + 3.5 * var(--lep) + 30px)}
   .js.mo .bs__szinpad{position:sticky;top:0;height:var(--bsH);grid-template-rows:var(--bsH);overflow:clip}
   .js.mo .bs [data-lepes]{grid-row:1}
-  .js.mo .bs__kep{opacity:0;pointer-events:none;z-index:0;transition:opacity .75s var(--ease)}
-  .js.mo .bs__kep.elozo{opacity:1;z-index:1;transition:none}
-  .js.mo .bs__kep.aktiv{opacity:1;z-index:2;pointer-events:auto}
+  /* két ütem: a kimenő kép a lencséjével .2s alatt eltűnik, a becsles.js csak utána teszi aktívvá az újat */
+  .js.mo .bs__kep{opacity:0;pointer-events:none;z-index:0;transition:opacity .2s linear}
+  .js.mo .bs__kep.aktiv{opacity:1;z-index:2;pointer-events:auto;transition:opacity .5s var(--ease)}
   .js.mo .bs__jegy{opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .3s var(--ease),transform .3s var(--ease)}
   .js.mo .bs__jegy.aktiv{opacity:1;transform:none;pointer-events:auto;transition:opacity .55s var(--ease) .18s,transform .55s var(--ease) .18s}
 }

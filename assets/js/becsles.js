@@ -1,6 +1,6 @@
 /* Becslés: a nyitó négy lépése. Asztalon mozgással a színpad ragad (CSS sticky), és a görgetés helyzete választja ki
-   az aktív lépést: a kép és a szám osztállyal vált, az áttűnést a CSS viszi (egy driver). Az előző kép az új alatt
-   teljes fedéssel marad, amíg az új be nem úszik, így nincs üres háttér. A lépéslista mutatja, hol tartunk, és
+   az aktív lépést: a kép és a szám osztállyal vált, az áttűnést a CSS viszi (egy driver). A régi kép előbb eltűnik,
+   az új csak utána úszik be, így egyszerre egy kép és egy lencse látszik. A lépéslista mutatja, hol tartunk, és
    kattintásra a lépéshez görget. Telefonon, reduced-motion alatt és JS nélkül a négy lépés egymás alatt áll. */
 (function () {
   'use strict';
@@ -19,21 +19,26 @@
   function jelol(i) {
     linkek.forEach(function (a, k) { if (k === i) a.setAttribute('aria-current', 'step'); else a.removeAttribute('aria-current'); });
   }
+  /* képváltás két ütemben: a régi kép a lencséjével együtt KI ms alatt eltűnik, és csak utána úszik be az új.
+     Egyszerre soha nincs két kép (a két kép más arányú dobozban áll, egymáson kettős képnek látszana).
+     Gyors görgetésnél a köztes lépések képe meg sem jelenik: mindig csak az utolsó cél úszik be. */
+  var KI = 230;
+  function lathato() { return kepek.some(function (k) { return parseFloat(getComputedStyle(k).opacity) > .02; }); }
+  function bekapcsol(i) {
+    kepek.forEach(function (k, n) {
+      if (n !== i) return;
+      k.classList.add('aktiv'); k.removeAttribute('data-alszik'); k.dispatchEvent(new CustomEvent('lupe:ebred'));
+    });
+  }
   function valt(i, azonnal) {
     if (i === aktiv && !azonnal) return;
-    var regi = aktiv;
-    kepek.forEach(function (k, n) {
-      k.classList.remove('elozo');
-      if (!azonnal && n === regi && n !== i) k.classList.add('elozo');
-      k.classList.toggle('aktiv', n === i);
-      if (n === i) { k.removeAttribute('data-alszik'); k.dispatchEvent(new CustomEvent('lupe:ebred')); }
-      else k.setAttribute('data-alszik', '');
-    });
+    clearTimeout(tiszt);
+    kepek.forEach(function (k) { k.classList.remove('aktiv'); k.setAttribute('data-alszik', ''); });
     jegyek.forEach(function (j, n) { j.classList.toggle('aktiv', n === i); });
     jelol(i);
     aktiv = i;
-    clearTimeout(tiszt);
-    tiszt = setTimeout(function () { kepek.forEach(function (k) { k.classList.remove('elozo'); }); }, 900);
+    if (azonnal || !lathato()) bekapcsol(i);
+    else tiszt = setTimeout(function () { bekapcsol(aktiv); }, KI);
   }
 
   var f = false;
@@ -46,7 +51,8 @@
   function mod() {
     if (ragad()) { valt(aktiv, true); figyel(); }
     else {
-      kepek.forEach(function (k) { k.classList.remove('elozo'); k.removeAttribute('data-alszik'); k.dispatchEvent(new CustomEvent('lupe:ebred')); });
+      clearTimeout(tiszt);
+      kepek.forEach(function (k) { k.classList.remove('aktiv'); k.removeAttribute('data-alszik'); k.dispatchEvent(new CustomEvent('lupe:ebred')); });
       jegyek.forEach(function (j) { j.classList.remove('aktiv'); });
       jelol(-1);
     }
