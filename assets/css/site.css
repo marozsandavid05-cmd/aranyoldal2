@@ -125,7 +125,8 @@ ul,ol{margin:0;padding:0;list-style:none}
 /* lábléc */
 .lab{position:relative;background:var(--ej);color:var(--csont);padding:clamp(80px,11vh,130px) var(--margo) 36px;overflow:clip}
 .lab__jel{font:400 clamp(44px,8.4vw,150px)/1.04 var(--serif);letter-spacing:-.02em;margin-bottom:clamp(48px,7vh,80px);color:var(--arany-mely)}
-.lab__jel span{display:block}
+.lab__jel span{display:inline}
+.lab__jel span+span::before{content:" "}
 .lab__racs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px;max-width:1500px}
 .lab__fej{font:600 14px/1 var(--sans);color:var(--arany-vil);margin-bottom:16px}
 .lab__racs p,.lab__racs li{color:var(--hamu);font-size:16px;line-height:1.7}
