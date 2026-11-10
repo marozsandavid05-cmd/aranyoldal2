@@ -891,9 +891,10 @@ fieldset.mezo legend{width:100%;margin-bottom:10px}
    Ezüst: valódi, hideg ezüst asztali készlet (tálak, fedők, evőeszköz). A szó és a panel a kép fölötti sötét sávban áll,
    a fotó alatta kezdődik, így a cím semmilyen tárgyat nem takar. Régiségek: Lepaute asztali órája a bal félen, meleg feketén.
    Mindkét lupe nagyobb, a lencse belseje nem sötétül. */
+/* a felső 70 px-es beúszás a lupe-ter maszkjában, így a lencse is együtt halványul a fotóval a tetején, nem vágódik élesen */
 .p-ezust .eh .lupe-ter{inset:calc(var(--fej) + min(150px,17svh)) 0 0 0;
-  -webkit-mask-image:linear-gradient(#000 86%,transparent);mask-image:linear-gradient(#000 86%,transparent)}
-.p-ezust .eh .lupe-mozgo{-webkit-mask-image:linear-gradient(transparent,#000 70px);mask-image:linear-gradient(transparent,#000 70px)}
+  -webkit-mask-image:linear-gradient(transparent,#000 70px,#000 86%,transparent);mask-image:linear-gradient(transparent,#000 70px,#000 86%,transparent)}
+.p-ezust .eh .lupe-mozgo{-webkit-mask-image:none;mask-image:none}
 .p-ezust .eh .lupe-kep{object-position:50% 40%}
 .p-ezust .eh__szo{top:calc(var(--fej) - .06em);bottom:auto;font-size:min(calc(56vw / 2.91),26svh);line-height:.8}
 .p-ezust .eh__panel{top:calc(var(--fej) + 10px);bottom:auto;width:min(470px,34vw);padding:0;background:none;box-shadow:none;border-radius:0;

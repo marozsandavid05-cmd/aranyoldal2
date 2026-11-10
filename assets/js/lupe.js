@@ -49,7 +49,7 @@
     var mod = '', K = cfg.d, Z = 3, R = 110, aktiv = 0;
     var geo = { s: 1, ox: 0, oy: 0 };
     var cel = { x: 0, y: 0 }, cur = { x: 0, y: 0 }, eger = false, utolso = 0, lathato = true, fut = false, t0 = performance.now(), betoltve = false;
-    var kez = false, cimkeAkt = -1;
+    var kez = false, cimkeAkt = -1, szabad = 0, tElo = 0;
 
     function kepValt() {
       var m = mq && mq.matches && cfg.m ? 'm' : 'd';
@@ -141,12 +141,22 @@
       return { x: x, y: y };
     }
     function szorit(x, y) {
+      /* egérrel a lencse közepe pontosan az egér alatt marad a kép teljes területén: a határ csak a középpontra vonatkozik,
+         a lencse a kép szélén és a halványuló sávban a képpel együtt vágódik és halványul (a lupe-ter maszkja és clip-je).
+         A két mód között a szabad (0..1) úsztat, így az egér be- és kilépésekor nincs ugrás. */
+      var tr, sz = null;
+      if (szabad > 0) {
+        tr = ter.getBoundingClientRect();
+        sz = { x: Math.min(tr.width, Math.max(0, x)), y: Math.min(tr.height, Math.max(0, y)) };
+        if (szabad >= 1) return sz;
+      }
       var h = hatar(), RR = R + BEZ;
       var x0 = h.x0 + RR, x1 = h.x1 - RR; if (x1 < x0) x0 = x1 = (h.x0 + h.x1) / 2;
       x = Math.min(x1, Math.max(x0, x));
       var y0 = h.y0 + RR, y1 = h.y1 - RR;
       if (y1 < y0) y0 = y1 = (h.y0 + h.y1) / 2;
       var kt = kiter(x, Math.min(y1, Math.max(y0, y)), h, false);
+      if (sz) return { x: kt.x + (sz.x - kt.x) * szabad, y: kt.y + (sz.y - kt.y) * szabad };
       return { x: kt.x, y: kt.y };
     }
     function vonalRajz(x, y) {
@@ -209,8 +219,12 @@
       if (feny) feny.style.transform = 'translate3d(' + (Math.sin(s * .07) * 9).toFixed(2) + '%,' + (Math.cos(s * .05) * 6).toFixed(2) + '%,0)';
       geom();
       if (!eger && !kez) { var pc = pontXY(aktiv); cel.x = pc.x; cel.y = pc.y; }
-      var k = eger ? .18 : .05;
+      /* időarányos simítás (60 fps-re hangolva): lassú vagy fojtott képkockánál sem marad le a lencse az egértől */
+      var dt = Math.min(100, Math.max(1, t - (tElo || t - 16.7))); tElo = t;
+      var f = dt / 16.7, k = 1 - Math.pow(1 - (eger ? .3 : .05), f);
+      szabad += ((eger ? 1 : 0) - szabad) * (1 - Math.pow(.85, f)); if (Math.abs((eger ? 1 : 0) - szabad) < .004) szabad = eger ? 1 : 0;
       cur.x += (cel.x - cur.x) * k; cur.y += (cel.y - cur.y) * k;
+      if (eger && Math.abs(cel.x - cur.x) < .3 && Math.abs(cel.y - cur.y) < .3) { cur.x = cel.x; cur.y = cel.y; }
       var lx = cur.x, ly = cur.y;
       if (!eger) { lx += Math.sin(s * .8) * 3; ly += Math.cos(s * .6) * 2.5; }
       rajzol(lx, ly);
