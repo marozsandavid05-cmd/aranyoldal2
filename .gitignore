@@ -1,0 +1,7 @@
+_qa/
+workers/
+ekezet-jelentes.json
+*.py
+*.log
+.DS_Store
+Thumbs.db

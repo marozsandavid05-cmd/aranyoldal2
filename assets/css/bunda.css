@@ -1,0 +1,107 @@
+/* Arany Régiség Center · Bundafelvásárlás aloldal (a közös site.css és oldalak.css után töltődik) */
+
+/* ===================================================================== NYITÓKÉP
+   Teljes szélességű divatfotó (csincsilla bunda, ékszerrel, sötét háttér előtt), a kép a nyakláncnál indul, így az arc
+   nem látszik, a prém tölti ki a képernyőt. Az alsó negyed alfával a meleg feketébe fut (festett réteg nincs a fotón):
+   ott ül az óriás cím, balra a feltétel, jobbra a gomb. A lupe nagy és éles, csak a prémen jár. */
+.p-bunda .buh{position:relative;height:max(100svh,700px)}
+.p-bunda .buh .lupe-ter{position:absolute;inset:var(--fej) 0 0 0;
+  -webkit-mask-image:linear-gradient(180deg,transparent,#000 5%,#000 54%,transparent 88%);mask-image:linear-gradient(180deg,transparent,#000 5%,#000 54%,transparent 88%)}
+.p-bunda .buh .lupe-mozgo{position:absolute;inset:-2%;width:104%;height:104%}
+.p-bunda .buh .lupe-kep{width:100%;height:100%;object-fit:cover;object-position:50% 86%}
+.p-bunda .buh .lupe-feny{background:radial-gradient(30% 34% at 64% 30%,rgb(var(--arany-vil-rgb) / .06),transparent 70%)}
+
+.p-bunda .buh h1{position:absolute;z-index:3;left:0;right:0;bottom:clamp(18px,3vh,36px);margin:0;display:flex;flex-direction:column-reverse;align-items:center;
+  color:var(--csont);text-align:center;pointer-events:none}
+.buh__nagy{display:block;font-size:clamp(96px,min(13.5vw,19vh),250px);line-height:1;letter-spacing:-.035em}
+.buh__kis{display:block;margin-bottom:-.1em;font-size:clamp(22px,min(2.4vw,3.8vh),42px);line-height:1.2;letter-spacing:.01em;color:var(--arany-vil)}
+
+.buh__bal,.buh__jobb{position:absolute;z-index:3;bottom:clamp(34px,5.6vh,62px);
+  width:calc((100% - (100svh - var(--fej)) * .58) / 2 - var(--margo) - 24px);max-width:380px}
+.buh__bal{left:var(--margo);font-size:18px;line-height:1.6;color:var(--csont)}
+.buh__bal strong{display:block;margin-top:14px;font-weight:600;color:var(--arany-vil)}
+.buh__jobb{right:var(--margo);display:grid;justify-items:end;gap:8px;text-align:right}
+.buh__tel{font:400 clamp(22px,1.7vw,28px)/1 var(--serif);text-decoration:none;color:var(--csont);font-variant-numeric:tabular-nums lining-nums;
+  display:inline-flex;align-items:center;min-height:48px}
+.buh__tel:hover{color:var(--arany-vil)}
+
+/* ===================================================================== SÁV: a két szélső ár
+   Papír alapon a két szám átlósan szemben, köztük egy vonal. Sűrített elrendezés: a magyarázó mondat
+   a felső szám sorának üres jobb oldalára került, a betűméretet a képernyő magassága is korlátozza, így a szakasz
+   asztalon legfeljebb kb. 70svh, és nincs félbehagyott üres felület. */
+.bu-sav{position:relative;z-index:2;background:var(--papir);color:var(--tinta);padding:clamp(64px,8vh,110px) var(--margo)}
+.bu-sav__in{max-width:1500px;margin:0 auto;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;align-items:end}
+.bu-sav h2{grid-column:1/8;grid-row:1;font-size:clamp(30px,2.7vw,48px);line-height:1.12;margin-bottom:clamp(18px,3vh,34px)}
+.bu-sav__ar{display:contents}
+.bu-sav__ar>span{display:flex;align-items:baseline;gap:.35em;flex-wrap:wrap;font-family:var(--serif);color:var(--tinta)}
+.bu-sav__tol{grid-column:1/9;grid-row:2}
+.bu-sav__ig{grid-column:1/-1;grid-row:4;justify-content:flex-end;text-align:right}
+.bu-sav__ar b{font-weight:400;font-size:clamp(60px,min(11.6vw,19vh),224px);line-height:1.06;letter-spacing:-.035em;white-space:nowrap}
+.bu-sav__ar small{font:500 clamp(17px,1.35vw,22px)/1.3 var(--sans);color:var(--tinta-2)}
+.bu-sav__vonal{grid-column:1/-1;grid-row:3;display:block;height:1px;margin:clamp(4px,.8vh,10px) 0 clamp(14px,2.2vh,26px);background:rgb(var(--tinta-rgb) / .28);position:relative}
+.bu-sav__vonal::before,.bu-sav__vonal::after{content:"";position:absolute;top:-4px;width:9px;height:9px;border-radius:50%;background:var(--arany-mely)}
+.bu-sav__vonal::before{left:0}
+.bu-sav__vonal::after{right:0}
+.bu-sav__pl{grid-column:9/13;grid-row:2;align-self:end;margin:0 0 clamp(14px,2.2vh,26px);font-size:18.5px;line-height:1.6;color:var(--tinta-2);max-width:34ch}
+
+/* ===================================================================== FELTÉTEL: arany ékszerrel együtt
+   Dohány mélység, a cím a bal kétharmadon, jobbra álló kép: sötét kabát, rajta a gombsor (a gomb a kabáton,
+   oldalról látszó domborulattal, így nem érme). Görgetésre a kép a kereten belül alig közelít. */
+.bu-gomb{position:relative;padding:clamp(110px,14vh,180px) var(--margo);overflow:clip}
+.bu-gomb__in{max-width:1500px;margin:0 auto;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;row-gap:clamp(28px,4vh,44px);align-items:start}
+.bu-gomb h2{grid-column:1/8;grid-row:1;font-size:clamp(48px,6.2vw,116px);line-height:1.04;letter-spacing:-.028em;color:var(--csont)}
+.bu-gomb h2 span{display:block;color:var(--arany-vil)}
+.bu-gomb__szoveg{grid-column:2/7;grid-row:2;display:grid;gap:22px}
+.bu-gomb__szoveg p{font-size:clamp(18px,1.4vw,21px);line-height:1.6;color:var(--hamu)}
+.bu-gomb__szoveg p strong{font-weight:600;color:var(--csont)}
+.bu-gomb__kep{grid-column:8/13;grid-row:1/3;justify-self:end;align-self:center;margin:0;width:min(100%,420px);aspect-ratio:4/5;overflow:hidden;border-radius:3px;
+  box-shadow:0 0 0 1px rgb(var(--arany-rgb) / .3),0 40px 90px -34px rgb(var(--arnyek-rgb) / .9)}
+.bu-gomb__kep img{width:100%;height:100%;object-fit:cover;object-position:50% 50%}
+
+@supports (animation-timeline: view()){
+  html.mo .bu-gomb__kep img{animation:bu-kozel linear both;animation-timeline:view();animation-range:entry 0% exit 100%}
+}
+@keyframes bu-kozel{from{transform:scale(1.1)}to{transform:scale(1)}}
+
+/* ===================================================================== ZÁRÁS */
+.bu-zar{padding:clamp(90px,12vh,150px) var(--margo) clamp(40px,6vh,80px)}
+.bu-zar__in{max-width:1500px;margin:0 auto;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;align-items:start;row-gap:32px}
+.bu-zar h2{grid-column:1/7;font-size:clamp(40px,4.6vw,84px);line-height:1.06;letter-spacing:-.022em}
+.bu-zar__jobb{grid-column:8/13;display:grid;gap:26px}
+.bu-zar__jobb p{font-size:18px;line-height:1.6;color:var(--hamu);max-width:42ch}
+.bu-zar__cta{display:flex;flex-wrap:wrap;align-items:center;gap:10px 26px}
+.bu-zar__cta .buh__tel{font-size:clamp(24px,1.9vw,32px)}
+
+/* ===================================================================== TELEFON ÉS TABLET */
+@media (min-width:981px) and (max-height:820px){
+  .buh__nagy{font-size:min(13.5vw,17vh)}
+}
+@media (max-width:980px){
+  .p-bunda .buh{height:auto;display:grid;padding:var(--fej) var(--margo) 32px;gap:18px}
+  .p-bunda .buh .lupe-ter{position:relative;inset:auto;margin:0 calc(-1 * var(--margo));height:min(103vw,47svh);
+    -webkit-mask-image:linear-gradient(180deg,transparent,#000 8%,#000 80%,transparent);mask-image:linear-gradient(180deg,transparent,#000 8%,#000 80%,transparent)}
+  .p-bunda .buh .lupe-mozgo{inset:-2% -20%;width:140%;height:104%}
+  .p-bunda .buh .lupe-kep{width:100%;height:100%;aspect-ratio:auto;object-position:50% 100%;-webkit-mask-image:none;mask-image:none}
+  .p-bunda .buh h1{position:relative;inset:auto;margin-top:-6px;align-items:flex-start;text-align:left}
+  .buh__bal,.buh__jobb{position:static;transform:none;width:auto;max-width:44ch}
+  .buh__bal{font-size:16.5px}
+  .buh__bal strong{margin-top:8px}
+  .buh__jobb{justify-items:start;text-align:left;display:flex;flex-wrap:wrap;align-items:center;gap:10px 24px}
+  .buh__jobb .buh__tel{display:none}
+  .bu-sav{padding:clamp(56px,8vh,80px) var(--margo) clamp(48px,7vh,72px)}
+  .bu-sav h2,.bu-sav__tol,.bu-sav__pl{grid-column:1/-1}
+  .bu-sav__pl{grid-row:5;margin:clamp(20px,3vh,32px) 0 0;max-width:38ch}
+  .bu-gomb{padding:clamp(72px,10vh,100px) var(--margo)}
+  .bu-gomb h2,.bu-gomb__szoveg,.bu-gomb__kep{grid-column:1/-1;grid-row:auto}
+  .bu-gomb__kep{justify-self:end;width:min(72vw,340px)}
+  .bu-zar{padding:clamp(72px,10vh,100px) var(--margo) 8px}
+  .p-bunda .lab{padding-top:clamp(56px,8vh,72px)}
+  .bu-zar h2,.bu-zar__jobb{grid-column:1/-1}
+}
+@media (max-width:560px){
+  .bu-sav__ar b{white-space:normal}
+  .bu-sav__ar>span{gap:.1em .35em}
+}
+@media (prefers-reduced-motion:reduce){
+  html:not(.mo) .bu-gomb__kep img{animation:none}
+}
