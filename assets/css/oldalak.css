@@ -394,16 +394,6 @@
 .ajto .gomb,.ajto .link{justify-self:start}
 
 /* ===================================================================== KAPCSOLAT */
-.p-kap .kh{min-height:max(100svh,700px);padding:calc(var(--fej) + 3vh) var(--margo) clamp(30px,5vh,56px);display:grid;grid-template-rows:auto 1fr auto;gap:20px}
-.p-kap h1{font:500 17px/1.4 var(--sans);color:var(--arany-vil)}
-.p-kap .kh__tel{align-self:center;text-decoration:none;font:400 min(15.4vw,26svh)/.95 var(--serif);letter-spacing:-.035em;font-variant-numeric:tabular-nums lining-nums;display:grid}
-.p-kap .kh__tel span:last-child{padding-left:1.1em}
-.p-kap .kh__tel:hover{color:var(--arany-vil)}
-.p-kap .kh__lent{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;align-items:end}
-.p-kap .kh__lent>div{grid-column:span 4}
-.p-kap .kh__lent b{display:block;font:600 14px/1 var(--sans);color:var(--arany-vil);margin-bottom:10px}
-.p-kap .kh__lent p{font-size:17px}
-.p-kap .kh__lent a{color:var(--csont)}
 
 .terkep-szek{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;row-gap:40px;padding:clamp(80px,10vh,120px) var(--margo);max-width:1700px;margin:0 auto}
 .terkep{grid-column:1/8;position:relative;height:clamp(380px,62vh,640px);border-radius:6px;overflow:hidden;background:var(--mely);box-shadow:inset 0 0 0 1px rgb(var(--csont-rgb) / .08)}
@@ -561,9 +551,6 @@ fieldset.mezo legend{width:100%;margin-bottom:10px}
   .p-rol .tenyek4{grid-template-columns:1fr 1fr;row-gap:22px}
   .korut__sz1{margin-bottom:20px}
   .ajtok{grid-template-columns:1fr}
-  .p-kap .kh__tel{font-size:clamp(54px,17vw,140px)}
-  .p-kap .kh__tel span:last-child{padding-left:.5em}
-  .p-kap .kh__lent{display:grid;grid-template-columns:1fr;gap:22px}
   .terkep{height:360px}
   .nyitva{margin-top:40px}
   .urlap{grid-template-columns:1fr}
@@ -715,7 +702,6 @@ fieldset.mezo legend{width:100%;margin-bottom:10px}
 .zar-b.v-2{max-width:none;padding-left:max(var(--margo),calc((100vw - 1560px) / 2 + var(--margo)));padding-right:max(var(--margo),calc((100vw - 1560px) / 2 + var(--margo)))}
 .gyik.v-2 details,.gyik.v-2 details:last-child{border-color:rgb(var(--csont-rgb) / .24)}
 .gyik.v-2 details p{color:var(--hamu)}
-.p-kap .kh__lent.v-2{margin:0 calc(-1 * var(--margo)) calc(-1 * clamp(30px,5vh,56px));padding:30px var(--margo) clamp(30px,5vh,56px)}
 /* Érmék „Ne tisztítsa”: a pecsét a jobb oldalra kerül, a szöveg balra, így nincs üres jobb fél */
 @media (min-width:981px){
   .tisztit h2{grid-column:1/9;grid-row:1}
@@ -735,16 +721,9 @@ fieldset.mezo legend{width:100%;margin-bottom:10px}
 .p-rol .rlh .lupe-ter{-webkit-mask-image:linear-gradient(transparent,#000 26%,#000 82%,transparent);mask-image:linear-gradient(transparent,#000 26%,#000 82%,transparent)}
 .p-rol .tenyek4 li{color:var(--hamu-s)}
 
-.p-kap .kh__szam{position:relative;align-self:center;display:grid}
-.p-kap .kh__tel{align-self:auto}
-.p-kap .kh__hol{position:absolute;right:0;top:.4em;max-width:24ch;text-align:right;font:400 clamp(26px,2.4vw,42px)/1.15 var(--serif);color:var(--csont)}
-.p-kap .kh__hol span{display:block;margin-top:10px;font:500 16px/1.45 var(--sans);color:var(--hamu)}
-.p-kap .kh{padding-top:calc(var(--fej) + 2vh)}
-.p-kap h1{font:500 15px/1.4 var(--sans);color:var(--arany-vil)}
 
 @media (max-width:980px){
   .p-rol .rlh .lupe-ter{-webkit-mask-image:none;mask-image:none}
-  .p-kap .kh__hol{position:static;text-align:left;margin-top:26px;font-size:26px}
 }
 
 /* ===================================================================== VILÁGOSSÁG-LÉPCSŐ
@@ -917,3 +896,51 @@ fieldset.mezo legend{width:100%;margin-bottom:10px}
   .p-regi .rh .lupe-mozgo{-webkit-mask-image:none;mask-image:none}
   .p-regi .rh__szoveg{width:auto}
 }
+
+/* ===================================================================== KAPCSOLAT NYITÓKÉP: a ház és a cégtábla
+   A Teréz körút 35. homlokzata 1960-ban (Fortepan / Budapest Főváros Levéltára) a fejléc alatt a teljes szélességben,
+   a palettára hangolva. A telefonszám egy sorban, egy sötét, foglalatos cégtáblán ül a kapu fölött; a lupe a földszinti
+   kapualjat és az akkori boltokat nézi. A kép alja a járda széle, így a kapu és a boltok a képernyő alsó harmadában vannak. */
+.p-kap .kh{position:relative;height:max(100svh,700px);overflow:clip;background:var(--ej)}
+.p-kap .kh__haz{position:absolute;inset:var(--fej) 0 0 0;margin:0}
+.p-kap .kh .lupe-ter{position:absolute;inset:0;
+  -webkit-mask-image:linear-gradient(transparent,#000 70px);mask-image:linear-gradient(transparent,#000 70px)}
+.p-kap .kh .lupe-mozgo{position:absolute;inset:-2%;width:104%;height:104%}
+.p-kap .kh .lupe-kep{width:100%;height:100%;object-fit:cover;object-position:50% 100%}
+.p-kap .kh__felirat{position:absolute;z-index:3;right:var(--margo);bottom:14px;max-width:min(560px,60vw);padding:7px 12px;
+  background:var(--ej);border-radius:2px;font:500 13px/1.45 var(--sans);color:var(--hamu)}
+.p-kap .kh__felirat a{color:var(--hamu);text-underline-offset:3px}
+.p-kap .kh__felirat a:hover{color:var(--csont)}
+.p-kap .kh__tabla{position:absolute;z-index:3;right:var(--margo);top:calc(var(--fej) + clamp(14px,3vh,40px));container-type:inline-size;
+  width:min(600px,44vw);padding:clamp(24px,3.4vh,38px) clamp(26px,2.6vw,40px);display:grid;gap:10px;
+  background:var(--mely);border-radius:3px;
+  box-shadow:inset 0 0 0 1px rgb(var(--arany-rgb) / .6),inset 0 0 0 7px var(--mely),inset 0 0 0 8px rgb(var(--arany-rgb) / .26),0 40px 90px -34px rgb(var(--arnyek-rgb) / .9)}
+.p-kap .kh__tabla h1{margin:0;font:500 15.5px/1.4 var(--sans);color:var(--arany-vil)}
+.p-kap .kh__tel{display:block;white-space:nowrap;text-decoration:none;color:var(--csont);
+  font:400 min(11.6cqi,68px)/1.08 var(--serif);letter-spacing:-.02em;font-variant-numeric:tabular-nums lining-nums;transition:color .25s var(--ease)}
+.p-kap .kh__tel:hover{color:var(--arany-vil)}
+.p-kap .kh__adat{margin:clamp(8px,1.4vh,16px) 0 0;display:grid;grid-template-columns:auto 1fr;column-gap:22px;row-gap:12px}
+.p-kap .kh__adat>div{display:contents}
+.p-kap .kh__adat dt{font:600 14px/1.55 var(--sans);color:var(--arany-vil);padding-top:1px}
+.p-kap .kh__adat dd{margin:0;font-size:16px;line-height:1.5;color:var(--csont)}
+.p-kap .kh__adat dd span{display:block;color:var(--hamu-s)}
+.p-kap .kh__adat a{color:var(--csont);text-underline-offset:3px;overflow-wrap:anywhere}
+.p-kap .kh__adat a:hover{color:var(--arany-vil)}
+@media (min-width:981px) and (max-height:820px){
+  .p-kap .kh__tabla{top:calc(var(--fej) + 10px);padding-block:18px 20px;gap:6px}
+  .p-kap .kh__adat{margin-top:6px;row-gap:8px}
+  .p-kap .kh__adat dd{font-size:15.5px;line-height:1.45}
+}
+@media (max-width:980px){
+  .p-kap .kh{height:auto;min-height:max(100svh,700px);display:flex;flex-direction:column;padding-top:var(--fej)}
+  .p-kap .kh__haz{position:relative;inset:auto;flex:none;display:flex;flex-direction:column}
+  .p-kap .kh .lupe-ter{position:relative;inset:auto;height:min(66svh,150vw);-webkit-mask-image:none;mask-image:none}
+  .p-kap .kh .lupe-kep{object-position:42% 100%}
+  .p-kap .kh__felirat{position:static;max-width:none;margin:10px var(--margo) 0;padding:0;background:none;font-size:12.5px}
+  .p-kap .kh__tabla{position:relative;right:auto;top:auto;width:auto;margin:26px var(--margo) 40px;padding:0;
+    background:none;box-shadow:none;border-radius:0}
+  .p-kap .kh__tel{font-size:min(12.4cqi,64px)}
+  .p-kap .kh__adat{grid-template-columns:1fr;row-gap:6px}
+  .p-kap .kh__adat dd{margin-bottom:12px}
+}
+

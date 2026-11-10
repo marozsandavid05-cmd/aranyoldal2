@@ -2,6 +2,13 @@
    és az üzenet-űrlap (ellenőrzés, majd a levelezőprogram nyílik a kitöltött levéllel). */
 (function () {
   'use strict';
+  /* e-mail: asztali gépen a Gmail új levél ablaka nyílik a kitöltött címzettel, telefonon marad a mailto (a levelezőapp) */
+  if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    document.querySelectorAll('a[data-gmail]').forEach(function (a) {
+      a.href = a.getAttribute('data-gmail'); a.target = '_blank'; a.rel = 'noopener';
+    });
+  }
+
   var tk = document.querySelector('.terkep');
   if (tk) {
     var start = function () {
