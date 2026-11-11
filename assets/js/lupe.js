@@ -205,7 +205,8 @@
          a hosszú tartás és a böngésző által megszakított érintés (pointercancel) nem mozdít semmit. */
       var KOP_MS = 400, KOP_PX = 10, erint = null;
       ter.addEventListener('pointerdown', function (e) {
-        if (e.pointerType === 'mouse' || (e.target.closest && e.target.closest('a, button'))) { erint = null; return; }
+        /* a kártyára, panelre (lupe-tiltott) koppintás a lencsét nem hívja oda, ugyanúgy, mint egérrel */
+        if (e.pointerType === 'mouse' || (e.target.closest && e.target.closest('a, button, .lupe-tiltott'))) { erint = null; return; }
         erint = { id: e.pointerId, x: e.clientX, y: e.clientY, t: performance.now() };
       });
       ter.addEventListener('pointermove', function (e) {
@@ -234,12 +235,16 @@
       if (!eger && !kez) { var pc = pontXY(aktiv); cel.x = pc.x; cel.y = pc.y; }
       /* időarányos simítás (60 fps-re hangolva): lassú vagy fojtott képkockánál sem marad le a lencse az egértől */
       var dt = Math.min(100, Math.max(1, t - (tElo || t - 16.7))); tElo = t;
-      var f = dt / 16.7, k = 1 - Math.pow(1 - (eger ? .3 : .05), f);
-      szabad += ((eger ? 1 : 0) - szabad) * (1 - Math.pow(.85, f)); if (Math.abs((eger ? 1 : 0) - szabad) < .004) szabad = eger ? 1 : 0;
+      /* koppintás után (kez) ugyanaz a szabad mód, mint egérrel: a lencse közepe a kép teljes területén az ujj alá megy,
+         a szűkített határ csak a vándorlásra marad; a szabad úsztatása miatt oda- és visszaúton sincs ugrás */
+      var sc = (eger || kez) ? 1 : 0;
+      var f = dt / 16.7, k = 1 - Math.pow(1 - (eger ? .3 : kez ? .09 : .05), f);
+      szabad += (sc - szabad) * (1 - Math.pow(.85, f)); if (Math.abs(sc - szabad) < .004) szabad = sc;
       cur.x += (cel.x - cur.x) * k; cur.y += (cel.y - cur.y) * k;
-      if (eger && Math.abs(cel.x - cur.x) < .3 && Math.abs(cel.y - cur.y) < .3) { cur.x = cel.x; cur.y = cel.y; }
+      if ((eger || kez) && Math.abs(cel.x - cur.x) < .3 && Math.abs(cel.y - cur.y) < .3) { cur.x = cel.x; cur.y = cel.y; }
       var lx = cur.x, ly = cur.y;
-      if (!eger) { lx += Math.sin(s * .8) * 3; ly += Math.cos(s * .6) * 2.5; }
+      /* a halk lebegés a vándorláshoz tartozik: koppintás után a lencse az ujj alatt áll, átmenettel */
+      if (!eger) { var lb = finom ? 1 : 1 - szabad; lx += Math.sin(s * .8) * 3 * lb; ly += Math.cos(s * .6) * 2.5 * lb; }
       rajzol(lx, ly);
       indit();
     }
