@@ -2,7 +2,7 @@
    Beállítás a [data-lupe] elem JSON-attribútumából:
    { "d": { "src": nagy kép, "w": szélesség, "h": magasság, "p": [[x, y], ...] },   asztali kép, pontok arányban
      "m": { ... } (nem kötelező, telefonos kép és pontok, saját "nev" listával is), "nev": [címkék], "z": legnagyobb nagyítás, "mq": telefonos media query }
-   Egér: a lupe követi. Érintés: a koppintás helyére megy. Üresjárat: lassan vándorol a részletek között.
+   Egér: a lupe követi. Érintés: csak valódi koppintásra megy oda, a képen induló görgetésre nem. Üresjárat: lassan vándorol a részletek között.
    Ugyanaz a rAF viszi a kép halk sodródását és a lámpa fényét (egy driver elemenként), csak látható nyitókép alatt.
    Reduced-motion: a lupe az első részleten áll, sodródás nélkül. */
 (function () {
@@ -201,10 +201,23 @@
       });
       ter.addEventListener('pointerleave', function () { eger = false; valaszt(aktiv); });
     } else if (!RM) {
+      /* érintés: a lencse csak valódi koppintásra megy oda (rövid, szinte mozdulatlan érintés). A képen induló görgetés,
+         a hosszú tartás és a böngésző által megszakított érintés (pointercancel) nem mozdít semmit. */
+      var KOP_MS = 400, KOP_PX = 10, erint = null;
       ter.addEventListener('pointerdown', function (e) {
-        if (e.pointerType === 'mouse' || (e.target.closest && e.target.closest('a, button'))) return;
+        if (e.pointerType === 'mouse' || (e.target.closest && e.target.closest('a, button'))) { erint = null; return; }
+        erint = { id: e.pointerId, x: e.clientX, y: e.clientY, t: performance.now() };
+      });
+      ter.addEventListener('pointermove', function (e) {
+        if (erint && e.pointerId === erint.id && Math.abs(e.clientX - erint.x) + Math.abs(e.clientY - erint.y) > KOP_PX) erint = null;
+      });
+      ter.addEventListener('pointercancel', function () { erint = null; });
+      ter.addEventListener('pointerup', function (e) {
+        var k = erint; erint = null;
+        if (!k || e.pointerId !== k.id || performance.now() - k.t > KOP_MS) return;
+        if (Math.abs(e.clientX - k.x) + Math.abs(e.clientY - k.y) > KOP_PX) return;
         var r = ter.getBoundingClientRect();
-        cel.x = e.clientX - r.left; cel.y = e.clientY - r.top; kez = true; utolso = performance.now() + 4000; indit();
+        cel.x = k.x - r.left; cel.y = k.y - r.top; kez = true; utolso = performance.now() + 4000; indit();
       });
     }
 
