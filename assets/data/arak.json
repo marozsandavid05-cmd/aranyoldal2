@@ -1,30 +1,30 @@
 {
-  "datum": "2026-11-10",
-  "forras": "Arany: gold-api.com, ezüst: gold-api.com, árfolyam: MNB",
+  "datum": "2026-11-12",
+  "forras": "Arany: gold-api.com, ezüst: gold-api.com, platina: gold-api.com, palládium: gold-api.com, árfolyam: MNB",
   "arany": {
     "333": [
-      11200,
-      14100
+      11000,
+      13900
     ],
     "375": [
-      12600,
-      15800
+      12400,
+      15600
     ],
     "585": [
-      19700,
-      24700
+      19400,
+      24400
     ],
     "750": [
-      25200,
-      31600
+      24900,
+      31200
     ],
     "916": [
-      30800,
-      38600
+      30400,
+      38100
     ],
     "999": [
-      33600,
-      42100
+      33200,
+      41600
     ]
   },
   "ezust": {
@@ -49,11 +49,35 @@
       540
     ]
   },
+  "platina": {
+    "900": [
+      6900,
+      8700
+    ],
+    "950": [
+      7300,
+      9200
+    ]
+  },
+  "palladium": {
+    "500": [
+      2600,
+      3200
+    ],
+    "950": [
+      4900,
+      6200
+    ]
+  },
   "alap": {
-    "usdHuf": 322.92,
-    "aranyUsdOz": 4058,
-    "ezustUsdOz": 52.036999,
-    "aranyNap": "2026-11-10",
-    "ezustNap": "2026-11-10"
+    "usdHuf": 328.16,
+    "aranyUsdOz": 3939.699951,
+    "ezustUsdOz": 51.178001,
+    "platinaUsdOz": 1535,
+    "palladiumUsdOz": 1034,
+    "aranyNap": "2026-11-12",
+    "ezustNap": "2026-11-12",
+    "platinaNap": "2026-11-12",
+    "palladiumNap": "2026-11-12"
   }
 }

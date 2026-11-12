@@ -4,17 +4,17 @@
    és ebbe a megjegyzésbe kapcsos zárójel nem kerülhet.
    Mértékegység: arany és ezüst Ft/g, érme Ft/db. A "jeloles" mező szövegét az ár mellé kell kiírni. */
 window.ARC_ARAK = {
-  "frissitve": "2026. november 10.",
+  "frissitve": "2026. november 12.",
   "minta": false,
   "jeloles": "Tájékoztató ár, a végleges ajánlat bevizsgálás után.",
   "megjegyzes": "Tájékoztató mintaár. A végleges ajánlat a bevizsgálás után születik.",
   "arany": [
-    { "karat": "8 karát", "finomsag": "333", "pelda": "régi, olcsóbb ékszer", "tol": 11200, "ig": 14100, "egyseg": "Ft/g", "jeloles": "Tájékoztató ár, a végleges ajánlat bevizsgálás után." },
-    { "karat": "9 karát", "finomsag": "375", "pelda": "angol és külföldi ékszer", "tol": 12600, "ig": 15800, "egyseg": "Ft/g", "jeloles": "Tájékoztató ár, a végleges ajánlat bevizsgálás után." },
-    { "karat": "14 karát", "finomsag": "585", "pelda": "a leggyakoribb magyar ékszer", "tol": 19700, "ig": 24700, "egyseg": "Ft/g", "jeloles": "Tájékoztató ár, a végleges ajánlat bevizsgálás után." },
-    { "karat": "18 karát", "finomsag": "750", "pelda": "nemesebb gyűrű, óratok", "tol": 25200, "ig": 31600, "egyseg": "Ft/g", "jeloles": "Tájékoztató ár, a végleges ajánlat bevizsgálás után." },
-    { "karat": "22 karát", "finomsag": "916", "pelda": "aranyérme, keleti ékszer", "tol": 30800, "ig": 38600, "egyseg": "Ft/g", "jeloles": "Tájékoztató ár, a végleges ajánlat bevizsgálás után." },
-    { "karat": "24 karát", "finomsag": "999", "pelda": "befektetési rúd és érme", "tol": 33600, "ig": 42100, "egyseg": "Ft/g", "jeloles": "Tájékoztató ár, a végleges ajánlat bevizsgálás után." }
+    { "karat": "8 karát", "finomsag": "333", "pelda": "régi, olcsóbb ékszer", "tol": 11000, "ig": 13900, "egyseg": "Ft/g", "jeloles": "Tájékoztató ár, a végleges ajánlat bevizsgálás után." },
+    { "karat": "9 karát", "finomsag": "375", "pelda": "angol és külföldi ékszer", "tol": 12400, "ig": 15600, "egyseg": "Ft/g", "jeloles": "Tájékoztató ár, a végleges ajánlat bevizsgálás után." },
+    { "karat": "14 karát", "finomsag": "585", "pelda": "a leggyakoribb magyar ékszer", "tol": 19400, "ig": 24400, "egyseg": "Ft/g", "jeloles": "Tájékoztató ár, a végleges ajánlat bevizsgálás után." },
+    { "karat": "18 karát", "finomsag": "750", "pelda": "nemesebb gyűrű, óratok", "tol": 24900, "ig": 31200, "egyseg": "Ft/g", "jeloles": "Tájékoztató ár, a végleges ajánlat bevizsgálás után." },
+    { "karat": "22 karát", "finomsag": "916", "pelda": "aranyérme, keleti ékszer", "tol": 30400, "ig": 38100, "egyseg": "Ft/g", "jeloles": "Tájékoztató ár, a végleges ajánlat bevizsgálás után." },
+    { "karat": "24 karát", "finomsag": "999", "pelda": "befektetési rúd és érme", "tol": 33200, "ig": 41600, "egyseg": "Ft/g", "jeloles": "Tájékoztató ár, a végleges ajánlat bevizsgálás után." }
   ],
   "ezust": [
     { "finomsag": "800", "pelda": "régi magyar és osztrák evőeszköz", "tol": 120, "ig": 440, "egyseg": "Ft/g", "jeloles": "Tájékoztató ár, a végleges ajánlat bevizsgálás után." },
