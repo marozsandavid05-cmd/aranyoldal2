@@ -1,0 +1,101 @@
+/* Arany Régiség Center · Platina, palládium aloldal (a közös site.css és oldalak.css után töltődik) */
+
+/* ===================================================================== NYITÓKÉP
+   Egy sor, három tag: „Platina [gyűrű] palládium”. Az álló gyűrű-fotó keskeny oszlopban a képernyő közepén áll, a két
+   fém neve egy vonalon fogja közre, mindkettő a fotó halványuló széléhez simul. A platina alatt a leírás, a palládium
+   alatt a felvásárlás szó és a gomb. A fotó oldalt, fent és lent alfával a meleg feketébe fut (festett réteg nincs rajta).
+   A lupe a gyűrű részletein vándorol: karmos foglalat, markíz kő, baguette-sor, fehér fém sín. */
+.p-platina .pph{position:relative;height:max(100svh,700px);overflow:clip;container-type:inline-size;
+  --oszl:calc((max(100svh,700px) - var(--fej)) * .6667);
+  --szel:calc((100cqw - var(--oszl)) / 2);
+  --be:18px;
+  --sor:calc(var(--fej) + (max(100svh,700px) - var(--fej)) * .34);
+  --kis:clamp(20px,min(1.9vw,3.2vh),34px)}
+.p-platina .pph .lupe-ter{position:absolute;top:var(--fej);bottom:0;left:50%;width:var(--oszl);transform:translateX(-50%);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent),linear-gradient(transparent,#000 5%,#000 88%,transparent);-webkit-mask-composite:source-in;
+  mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent),linear-gradient(transparent,#000 5%,#000 88%,transparent);mask-composite:intersect}
+.p-platina .pph .lupe-mozgo{position:absolute;inset:-2%;width:104%;height:104%}
+.p-platina .pph .lupe-kep{width:100%;height:100%;object-fit:cover;object-position:50% 50%}
+.p-platina .pph .lupe-feny{background:radial-gradient(34% 26% at 50% 30%,rgb(var(--arany-vil-rgb) / .06),transparent 70%)}
+
+.pph__cim{position:absolute;inset:0;z-index:3;margin:0;pointer-events:none;color:var(--csont);
+  font-size:min(clamp(56px,min(7vw,12vh),132px),calc((var(--szel) - var(--margo) + var(--be)) / 5));line-height:1;letter-spacing:-.03em}
+.pph__pt,.pph__pd{position:absolute;top:var(--sor);display:block}
+.pph__pt{right:calc(50% + var(--oszl) / 2 - var(--be));text-align:right}
+.pph__pd{left:calc(50% + var(--oszl) / 2 - var(--be));color:var(--ezust)}
+.pph__pd small{display:block;margin-top:calc(var(--kis) * .5);font-family:var(--serif);font-weight:400;font-size:var(--kis);line-height:1.2;letter-spacing:.01em;color:var(--arany-vil)}
+
+.pph__bal,.pph__jobb{position:absolute;z-index:3;width:min(340px,calc(var(--szel) - var(--margo) - var(--be)))}
+.pph__bal{right:calc(50% + var(--oszl) / 2 - var(--be));top:calc(var(--sor) + min(clamp(56px,min(7vw,12vh),132px),calc((var(--szel) - var(--margo) + var(--be)) / 5)) * 1.1 + 22px);
+  font-size:17px;line-height:1.6;color:var(--hamu-s)}
+.pph__jobb{left:calc(50% + var(--oszl) / 2 - var(--be));top:calc(var(--sor) + min(clamp(56px,min(7vw,12vh),132px),calc((var(--szel) - var(--margo) + var(--be)) / 5)) + var(--kis) * 1.7 + 30px);
+  display:grid;justify-items:start;gap:8px}
+.pph__tel{font:400 clamp(22px,1.7vw,28px)/1 var(--serif);text-decoration:none;color:var(--csont);font-variant-numeric:tabular-nums lining-nums;
+  display:inline-flex;align-items:center;min-height:48px}
+.pph__tel:hover{color:var(--arany-vil)}
+
+/* ===================================================================== A FÉMJEL DÖNT
+   Dohány mélység. Bal oldalt a szöveg, jobbra két kerek beütés-kép, ugyanaz a foglalat, mint a lupe pereme. */
+.jel{position:relative;padding:clamp(110px,14vh,180px) var(--margo) clamp(100px,13vh,160px)}
+.jel__racs{max-width:1500px;margin:0 auto;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;align-items:center}
+.jel__szoveg{grid-column:1/6;display:grid;gap:22px}
+.jel h2{font-size:clamp(46px,5.4vw,100px);line-height:1.04;letter-spacing:-.025em}
+.jel__szoveg p{font-size:clamp(17.5px,1.3vw,20px);line-height:1.6;color:var(--hamu)}
+.jel__beutes b{font-weight:600;color:var(--csont);font-variant-numeric:lining-nums;white-space:nowrap}
+.jel__kor{margin:0;display:grid;gap:22px;justify-items:center;text-align:center}
+.jel__kor:nth-of-type(1){grid-column:7/10;align-self:start}
+.jel__kor:nth-of-type(2){grid-column:10/13;align-self:end;margin-top:clamp(60px,10vh,120px)}
+.jel__kor img{width:min(100%,300px);aspect-ratio:1;border-radius:50%;object-fit:cover;
+  box-shadow:0 0 0 2px var(--arany-vil),0 0 0 14px var(--mely),0 0 0 15px rgb(var(--arany-rgb) / .5),0 40px 80px -30px rgb(var(--arnyek-rgb) / .8)}
+.jel__kor figcaption{font-size:15px;line-height:1.5;color:var(--hamu);max-width:24ch}
+.jel__kor figcaption b{display:block;font:400 24px/1.2 var(--serif);color:var(--csont);margin-bottom:4px}
+
+/* ===================================================================== ÁRAK
+   Papír lap csúszik rá a dohányra: cím és bevezető egy sorban, alatta a tábla teljes szélességben. */
+.pp-arak{position:relative;z-index:2;background:var(--papir);color:var(--tinta);padding:clamp(100px,13vh,160px) var(--margo);border-radius:30px 30px 0 0;margin-top:-30px}
+.pp-arak__racs{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;row-gap:clamp(40px,6vh,64px);align-items:end}
+.pp-arak h2{grid-column:1/7;font-size:clamp(42px,4.6vw,82px)}
+.pp-arak__bev{grid-column:8/13;font-size:17.5px;color:var(--tinta-2)}
+.pp-arak__tabla{grid-column:1/-1}
+.pp-arak .tabla tbody th{white-space:nowrap}
+
+/* ===================================================================== AMIT MEGVESZÜNK
+   Meleg fekete, négy sor: a tárgy neve a bal hasábban, a magyarázat a jobb oldalon, a végén egy zárósor. */
+.pp-mit{padding:clamp(120px,16vh,190px) var(--margo) clamp(110px,14vh,170px)}
+.pp-mit__racs{max-width:1500px;margin:0 auto}
+.pp-mit h2{max-width:16ch;font-size:clamp(40px,4.4vw,78px);line-height:1.06;margin-bottom:clamp(40px,6vh,64px)}
+.pp-mit__sorok li{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;align-items:baseline;padding:28px 0;border-top:1px solid rgb(var(--csont-rgb) / .16)}
+.pp-mit__sorok li:last-child{border-bottom:1px solid rgb(var(--csont-rgb) / .16)}
+.pp-mit__sorok h3{grid-column:3/7;font-size:clamp(28px,2.4vw,40px)}
+.pp-mit__sorok p{grid-column:7/12;font-size:17.5px;color:var(--hamu)}
+.pp-mit__zar{margin-top:clamp(50px,8vh,80px);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px 40px}
+.pp-mit__zar p{max-width:46ch;font-size:18px;color:var(--hamu)}
+.pp-mit__cta{display:flex;flex-wrap:wrap;align-items:center;gap:8px 26px}
+
+/* ===================================================================== TELEFON */
+@media (max-width:980px){
+  .p-platina .pph{height:auto;min-height:max(100svh,760px);display:flex;flex-direction:column;padding-top:var(--fej)}
+  .p-platina .pph .lupe-ter{position:relative;top:auto;bottom:auto;left:auto;transform:none;width:100%;height:46svh;flex:none;order:2;
+    -webkit-mask-image:linear-gradient(transparent,#000 8%,#000 86%,transparent);mask-image:linear-gradient(transparent,#000 8%,#000 86%,transparent)}
+  .p-platina .pph .lupe-kep{object-position:50% 34%}
+  .pph__cim{position:relative;inset:auto;order:1;padding:14px var(--margo) 6px;font-size:clamp(46px,13vw,92px);display:grid}
+  .pph__pt,.pph__pd{position:relative;left:auto;right:auto;top:auto;bottom:auto;text-align:left}
+  .pph__pd small{margin-top:.35em}
+  .pph__bal,.pph__jobb{position:relative;left:auto;right:auto;top:auto;bottom:auto;width:auto;order:3}
+  .pph__bal{padding:14px var(--margo) 0}
+  .pph__jobb{order:4;justify-items:start;text-align:left;padding:14px var(--margo) 30px}
+  .jel__racs{display:block}
+  .jel__szoveg{margin-bottom:50px}
+  .jel__kor{display:inline-grid;width:calc(50% - 12px);vertical-align:top}
+  .jel__kor:nth-of-type(2){margin:0 0 0 20px}
+  .pp-arak__racs{display:block}
+  .pp-arak__bev{margin-top:16px}
+  .pp-arak__tabla{margin-top:40px}
+  .pp-mit__sorok li{display:block}
+  .pp-mit__sorok h3{margin-bottom:8px}
+}
+@media (max-width:560px){
+  .jel__kor{display:grid;width:auto}
+  .jel__kor:nth-of-type(2){margin:40px 0 0}
+  .jel__kor img{width:min(62vw,260px)}
+}
