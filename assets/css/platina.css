@@ -12,8 +12,12 @@
   --be:18px;
   --sor:calc(var(--fej) + (var(--kh) - var(--fej)) * .2);
   --kis:clamp(20px,min(1.9vw,3.2vh),34px)}
+/* A fotó a képernyő legtetejétől: a fejléc és a morzsamenü alatti sáv a fotó saját feketéje (a kép felső sorainak
+   renderelt színe, mérve #020202), a kép teteje 40 px-en ebbe a feketébe úszik, így a gyűrű fölött nincs vízszintes váltás.
+   A lupe-doboz helye és mérete változatlan (a lencse sugara és a megállók ehhez vannak mérve). */
+.p-platina .pph{background:linear-gradient(#020202 calc(var(--fej) + 40px),transparent calc(var(--fej) + 40px))}
 .p-platina .pph .lupe-ter{position:absolute;top:var(--fej);right:0;bottom:0;left:0;
-  -webkit-mask-image:linear-gradient(transparent,#000 4%,#000 93%,transparent);mask-image:linear-gradient(transparent,#000 4%,#000 93%,transparent)}
+  -webkit-mask-image:linear-gradient(transparent,#000 40px,#000 93%,transparent);mask-image:linear-gradient(transparent,#000 40px,#000 93%,transparent)}
 .p-platina .pph .lupe-mozgo{position:absolute;inset:-2%;width:104%;height:104%}
 .p-platina .pph .lupe-mozgo picture{display:block;width:100%;height:100%}
 .p-platina .pph .lupe-kep{width:100%;height:100%;object-fit:cover;object-position:50% 50%}
@@ -80,9 +84,10 @@
 
 /* ===================================================================== TELEFON */
 @media (max-width:980px){
-  .p-platina .pph{height:auto;min-height:max(100svh,760px);display:flex;flex-direction:column;padding-top:var(--fej)}
+  .p-platina .pph{height:auto;min-height:max(100svh,760px);display:flex;flex-direction:column;padding-top:var(--fej);
+    background:linear-gradient(#010101 calc(var(--fej) + 24px),transparent calc(var(--fej) + 24px))}
   .p-platina .pph .lupe-ter{position:relative;inset:auto;width:100%;height:auto;aspect-ratio:2800/5780;flex:none;order:2;
-    -webkit-mask-image:linear-gradient(#000 90%,transparent);mask-image:linear-gradient(#000 90%,transparent)}
+    -webkit-mask-image:linear-gradient(transparent,#000 24px,#000 90%,transparent);mask-image:linear-gradient(transparent,#000 24px,#000 90%,transparent)}
   .p-platina .pph .lupe-kep{object-position:50% 0}
   .pph__cim{position:absolute;inset:auto;top:calc(var(--fej) + 10px);left:0;right:0;padding:0 var(--margo);font-size:clamp(46px,13vw,92px);display:grid}
   .pph__pt,.pph__pd{position:relative;left:auto;right:auto;top:auto;bottom:auto;text-align:left}
