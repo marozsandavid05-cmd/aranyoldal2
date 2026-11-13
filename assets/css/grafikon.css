@@ -1,0 +1,94 @@
+/* Arany Régiség Center · árfolyam-grafikon (assets/js/grafikon.js). Világos papír- és sötét barna változat. */
+.arf{
+  --arf-tinta:var(--tinta);--arf-halk:var(--tinta-2);--arf-vonal:var(--arany-mely);--arf-ter:126 78 30;
+  --arf-racs:rgb(var(--tinta-rgb) / .1);--arf-alap:rgb(var(--tinta-rgb) / .34);--arf-fel:#3F5F27;--arf-le:var(--hiba);
+  --arf-gomb:rgb(var(--tinta-rgb) / .07);--arf-gomb-akt:var(--tinta);--arf-gomb-akt-sz:var(--papir-2);--arf-keret:rgb(var(--tinta-rgb) / .2);
+  --arf-buborek:var(--tinta);--arf-buborek-sz:var(--papir-2);
+  margin:0;padding-top:clamp(28px,3.4vw,44px);border-top:1px solid rgb(var(--tinta-rgb) / .22);color:var(--arf-tinta)
+}
+.arf--sotet{
+  --arf-tinta:var(--csont);--arf-halk:var(--hamu-s);--arf-vonal:var(--arany-vil);--arf-ter:235 200 142;
+  --arf-racs:rgb(var(--csont-rgb) / .1);--arf-alap:rgb(var(--csont-rgb) / .36);--arf-fel:#B9D59A;--arf-le:#F0A893;
+  --arf-gomb:rgb(var(--csont-rgb) / .08);--arf-gomb-akt:var(--csont);--arf-gomb-akt-sz:var(--ej);--arf-keret:rgb(var(--csont-rgb) / .26);
+  --arf-buborek:var(--csont);--arf-buborek-sz:var(--ej);
+  border-top-color:rgb(var(--csont-rgb) / .28)
+}
+.arf__fej{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:18px 32px;margin-bottom:clamp(26px,3vw,40px)}
+.arf__fej h3{font:400 clamp(26px,2.3vw,38px)/1.12 var(--serif);max-width:22ch}
+.arf__vezerlo{display:flex;flex-wrap:wrap;gap:10px 14px}
+.arf__kapcs{display:inline-flex;padding:3px;border-radius:3px;background:var(--arf-gomb);box-shadow:inset 0 0 0 1px var(--arf-keret)}
+.arf__kapcs button{min-height:40px;min-width:54px;padding:0 14px;border:0;border-radius:2px;background:transparent;color:var(--arf-tinta);
+  font:600 14.5px/1 var(--sans);cursor:pointer;transition:background-color .25s var(--ease),color .25s var(--ease)}
+.arf__kapcs button:hover{background:var(--arf-gomb)}
+.arf__kapcs button[aria-pressed="true"]{background:var(--arf-gomb-akt);color:var(--arf-gomb-akt-sz)}
+.arf:not(.arf--el) .arf__vezerlo{visibility:hidden}
+
+.arf__nezet{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);column-gap:clamp(28px,3.4vw,56px);align-items:start}
+.arf__stat{padding-top:4px}
+.arf__ar{margin:0;font-family:var(--serif);font-variant-numeric:tabular-nums lining-nums;line-height:1}
+.arf__ar-szam{font-size:clamp(46px,4.6vw,76px);letter-spacing:-.02em}
+.arf__ar-egys{font-size:clamp(20px,1.6vw,26px);color:var(--arf-halk)}
+.arf__ar-cim{margin:14px 0 0;font-size:15px;line-height:1.5;color:var(--arf-halk);max-width:30ch}
+.arf__valt{margin:clamp(26px,3vw,38px) 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 20px}
+.arf__v{padding:12px 0;border-top:1px solid var(--arf-racs)}
+.arf__v dt{font:600 13.5px/1.2 var(--sans);color:var(--arf-halk)}
+.arf__v dd{margin:6px 0 0;display:flex;align-items:center;gap:7px;font:400 22px/1 var(--serif);font-variant-numeric:tabular-nums lining-nums}
+.arf__v--fel dd{color:var(--arf-fel)}
+.arf__v--le dd{color:var(--arf-le)}
+.arf__nyil{width:10px;height:10px;flex:none;fill:currentColor;stroke:currentColor;stroke-width:1.6}
+
+.arf__rajz{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto auto auto;column-gap:14px}
+.arf__terulet{position:relative;grid-column:1;grid-row:1;height:clamp(230px,24vw,330px);cursor:crosshair;touch-action:pan-y;outline-offset:6px}
+.arf__terulet svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.arf__racs line{stroke:var(--arf-racs);stroke-width:1;vector-effect:non-scaling-stroke}
+.arf__alap{stroke:var(--arf-alap);stroke-width:1;stroke-dasharray:3 5;vector-effect:non-scaling-stroke}
+.arf__ter{fill:rgb(var(--arf-ter) / .1)}
+.arf__vonal{fill:none;stroke:var(--arf-vonal);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.arf__veg{position:absolute;right:-4px;width:9px;height:9px;margin-top:-4.5px;border-radius:50%;background:var(--arf-vonal);box-shadow:0 0 0 4px rgb(var(--arf-ter) / .18)}
+.arf__y{grid-column:2;grid-row:1;position:relative;min-width:52px}
+.arf__y span{position:absolute;left:0;transform:translateY(-50%);font:500 12.5px/1 var(--sans);color:var(--arf-halk);font-variant-numeric:tabular-nums;white-space:nowrap}
+.arf__x{grid-column:1;grid-row:2;position:relative;height:30px}
+.arf__x span{position:absolute;top:10px;transform:translateX(-50%);font:500 12.5px/1 var(--sans);color:var(--arf-halk);white-space:nowrap}
+
+.arf__jel{grid-column:1/-1;grid-row:3;margin:4px 0 0;display:flex;align-items:center;gap:10px;font-size:13.5px;line-height:1.4;color:var(--arf-halk)}
+.arf__jel-alap{width:26px;flex:none;border-top:1px dashed var(--arf-alap)}
+.arf__kurzor{position:absolute;top:0;bottom:0;width:0;pointer-events:none}
+.arf__kurzor::before{content:"";position:absolute;top:0;bottom:0;left:-.5px;width:1px;background:var(--arf-alap)}
+.arf__pont{position:absolute;left:-6px;width:12px;height:12px;margin-top:-6px;border-radius:50%;background:var(--arf-vonal);box-shadow:0 0 0 3px var(--arf-gomb-akt-sz)}
+.arf__buborek{position:absolute;top:6px;left:14px;display:grid;gap:5px;padding:10px 13px;border-radius:3px;background:var(--arf-buborek);color:var(--arf-buborek-sz);white-space:nowrap;
+  box-shadow:0 10px 28px -12px rgb(var(--arnyek-rgb) / .5)}
+.arf__buborek b{font:400 19px/1 var(--serif);font-variant-numeric:tabular-nums lining-nums}
+.arf__buborek span{font:500 13px/1 var(--sans);opacity:.86}
+.arf__buborek--bal{left:auto;right:14px}
+.arf__buborek--le{top:auto;bottom:6px}
+
+.arf__osszeg{grid-column:2;margin:18px 0 0;font-size:16px;line-height:1.55;color:var(--arf-tinta);max-width:68ch}
+.arf__forras{margin:clamp(22px,2.4vw,30px) 0 0;font-size:14px;line-height:1.55;color:var(--arf-halk);max-width:96ch}
+
+/* oldalankénti elhelyezés */
+.arak .arf{grid-column:1/-1;margin-top:clamp(70px,9vh,110px)}
+.pp-arak .arf{grid-column:1/-1}
+.ermearak .arf{grid-column:1/-1;margin-top:clamp(30px,5vh,56px)}
+.finom .arf{max-width:1560px;margin:clamp(70px,9vh,110px) auto 0}
+
+@media (max-width:980px){
+  .arf__nezet{grid-template-columns:1fr}
+  .arf__osszeg{grid-column:1}
+  .arf__valt{grid-template-columns:repeat(4,minmax(0,1fr));margin:24px 0 28px}
+  .arak .arf,.finom .arf{margin-top:64px}
+  .pp-arak .arf{margin-top:56px}
+}
+@media (max-width:560px){
+  .arf__fej{align-items:flex-start;flex-direction:column}
+  .arf__vezerlo{width:100%}
+  .arf__kapcs{flex:1 1 100%}
+  .arf__kapcs button{flex:1;min-height:44px}
+  .arf__valt{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .arf__terulet{height:220px}
+  .arf__y{min-width:44px}
+  .arf__y span,.arf__x span{font-size:12px}
+  .arf__osszeg{font-size:15.5px}
+}
+@media (prefers-reduced-motion:reduce){
+  .arf__kapcs button{transition:none}
+}
