@@ -1,22 +1,23 @@
 /* Arany Régiség Center · Platina, palládium aloldal (a közös site.css és oldalak.css után töltődik) */
 
 /* ===================================================================== NYITÓKÉP
-   Egy sor, három tag: „Platina [gyűrű] palládium”. Az álló gyűrű-fotó keskeny oszlopban a képernyő közepén áll, a két
-   fém neve egy vonalon fogja közre, mindkettő a fotó halványuló széléhez simul. A platina alatt a leírás, a palládium
-   alatt a felvásárlás szó és a gomb. A fotó oldalt, fent és lent alfával a meleg feketébe fut (festett réteg nincs rajta).
-   A lupe a gyűrű részletein vándorol: karmos foglalat, markíz kő, baguette-sor, fehér fém sín. */
+   A gyűrű-fotó tölti ki a teljes nyitóképernyőt, a gyűrű a képernyő közepén. A fekvő kép a Pexels-fotó saját
+   sötét hátterének kinyújtása oldalra (a gyűrű pixelei érintetlenek), festett réteg nincs rajta, csak alul fut ki
+   a következő szakasz felé. Egy sor, három tag: „Platina [gyűrű] palládium”, a két név a gyűrű feje mellett,
+   a kép sötét, nyugodt részén. A lupe a gyűrű részletein vándorol: karmos foglalat, markíz kő, baguette-sor, fehér fém sín. */
 .p-platina .pph{position:relative;height:max(100svh,700px);overflow:clip;container-type:inline-size;
-  --oszl:calc((max(100svh,700px) - var(--fej)) * .6667);
+  --kh:max(100svh,700px);
+  --oszl:calc((var(--kh) - var(--fej)) * .72);
   --szel:calc((100cqw - var(--oszl)) / 2);
   --be:18px;
-  --sor:calc(var(--fej) + (max(100svh,700px) - var(--fej)) * .34);
+  --sor:calc(var(--fej) + (var(--kh) - var(--fej)) * .2);
   --kis:clamp(20px,min(1.9vw,3.2vh),34px)}
-.p-platina .pph .lupe-ter{position:absolute;top:var(--fej);bottom:0;left:50%;width:var(--oszl);transform:translateX(-50%);
-  -webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent),linear-gradient(transparent,#000 5%,#000 88%,transparent);-webkit-mask-composite:source-in;
-  mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent),linear-gradient(transparent,#000 5%,#000 88%,transparent);mask-composite:intersect}
+.p-platina .pph .lupe-ter{position:absolute;top:var(--fej);right:0;bottom:0;left:0;
+  -webkit-mask-image:linear-gradient(transparent,#000 4%,#000 93%,transparent);mask-image:linear-gradient(transparent,#000 4%,#000 93%,transparent)}
 .p-platina .pph .lupe-mozgo{position:absolute;inset:-2%;width:104%;height:104%}
+.p-platina .pph .lupe-mozgo picture{display:block;width:100%;height:100%}
 .p-platina .pph .lupe-kep{width:100%;height:100%;object-fit:cover;object-position:50% 50%}
-.p-platina .pph .lupe-feny{background:radial-gradient(34% 26% at 50% 30%,rgb(var(--arany-vil-rgb) / .06),transparent 70%)}
+.p-platina .pph .lupe-feny{background:radial-gradient(16% 26% at 52% 32%,rgb(var(--arany-vil-rgb) / .05),transparent 70%)}
 
 .pph__cim{position:absolute;inset:0;z-index:3;margin:0;pointer-events:none;color:var(--csont);
   font-size:min(clamp(56px,min(7vw,12vh),132px),calc((var(--szel) - var(--margo) + var(--be)) / 5));line-height:1;letter-spacing:-.03em}
@@ -68,6 +69,11 @@
 .pp-mit__sorok li:last-child{border-bottom:1px solid rgb(var(--csont-rgb) / .16)}
 .pp-mit__sorok h3{grid-column:3/7;font-size:clamp(28px,2.4vw,40px)}
 .pp-mit__sorok p{grid-column:7/12;font-size:17.5px;color:var(--hamu)}
+.pp-mit__sorok li{grid-template-rows:auto}
+.pp-mit__sorok h3,.pp-mit__sorok p{grid-row:1}
+.pp-mit__sorok .aru__kor{grid-row:1;align-self:center}
+.pp-mit__sorok li:hover .aru__kor{transform:scale(1.12);opacity:1}
+.pp-mit__sorok li:hover .aru__kor img{transform:scale(1.4)}
 .pp-mit__zar{margin-top:clamp(50px,8vh,80px);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px 40px}
 .pp-mit__zar p{max-width:46ch;font-size:18px;color:var(--hamu)}
 .pp-mit__cta{display:flex;flex-wrap:wrap;align-items:center;gap:8px 26px}
@@ -75,10 +81,10 @@
 /* ===================================================================== TELEFON */
 @media (max-width:980px){
   .p-platina .pph{height:auto;min-height:max(100svh,760px);display:flex;flex-direction:column;padding-top:var(--fej)}
-  .p-platina .pph .lupe-ter{position:relative;top:auto;bottom:auto;left:auto;transform:none;width:100%;height:46svh;flex:none;order:2;
-    -webkit-mask-image:linear-gradient(transparent,#000 8%,#000 86%,transparent);mask-image:linear-gradient(transparent,#000 8%,#000 86%,transparent)}
-  .p-platina .pph .lupe-kep{object-position:50% 34%}
-  .pph__cim{position:relative;inset:auto;order:1;padding:14px var(--margo) 6px;font-size:clamp(46px,13vw,92px);display:grid}
+  .p-platina .pph .lupe-ter{position:relative;inset:auto;width:100%;height:auto;aspect-ratio:2800/5780;flex:none;order:2;
+    -webkit-mask-image:linear-gradient(#000 90%,transparent);mask-image:linear-gradient(#000 90%,transparent)}
+  .p-platina .pph .lupe-kep{object-position:50% 0}
+  .pph__cim{position:absolute;inset:auto;top:calc(var(--fej) + 10px);left:0;right:0;padding:0 var(--margo);font-size:clamp(46px,13vw,92px);display:grid}
   .pph__pt,.pph__pd{position:relative;left:auto;right:auto;top:auto;bottom:auto;text-align:left}
   .pph__pd small{margin-top:.35em}
   .pph__bal,.pph__jobb{position:relative;left:auto;right:auto;top:auto;bottom:auto;width:auto;order:3}
@@ -91,8 +97,9 @@
   .pp-arak__racs{display:block}
   .pp-arak__bev{margin-top:16px}
   .pp-arak__tabla{margin-top:40px}
-  .pp-mit__sorok li{display:block}
-  .pp-mit__sorok h3{margin-bottom:8px}
+  .pp-mit__sorok li{grid-template-columns:minmax(0,1fr) auto;column-gap:20px;row-gap:8px;align-items:start;padding:22px 0}
+  .pp-mit__sorok h3,.pp-mit__sorok p{grid-column:1/2;grid-row:auto}
+  .pp-mit__sorok .aru__kor{grid-column:2/3;grid-row:1/3;width:72px;transform:none;opacity:1}
 }
 @media (max-width:560px){
   .jel__kor{display:grid;width:auto}
