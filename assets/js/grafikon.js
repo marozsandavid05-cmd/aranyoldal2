@@ -90,6 +90,8 @@
     var ticks = szep(lo, hi, 4).filter(function (v) { return v > y0 && v < y1; });
     var maxP = p[vals.indexOf(hi)], minP = p[vals.indexOf(lo)];
     var vk = (adat.valtozas && adat.valtozas[fem]) || {};
+    var kulcs = tav === 1 ? 'havi' : tav === 12 ? 'eves' : null;
+    if (kulcs && typeof vk[kulcs] === 'number') { valt = vk[kulcs]; ir = irany(valt); }
     var tavSzo = TAVOK[String(tav)];
 
     var racs = ticks.map(function (v) { return '<line x1="0" x2="' + W + '" y1="' + Y(v).toFixed(1) + '" y2="' + Y(v).toFixed(1) + '"/>'; }).join('');
