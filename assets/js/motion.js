@@ -112,10 +112,14 @@
   var nav = document.querySelector('.nav');
   if (nav) {
     var lastY = scrollY, acc = 0, nf = false;
+    /* sötét nyitókép ([data-fej-sotet]): amíg a fejléc a fotó fölött áll, a tömör fejléc a fotó saját feketéjét kapja
+       (a szín a CSS-ben), a fotó alsó 8%-a már a következő szakaszba úszik, ott a szokásos tömör fejléc jön vissza */
+    var sotet = document.querySelector('[data-fej-sotet]');
     var navAll = function () {
       nf = false;
       var y = scrollY, d = y - lastY; lastY = y;
       nav.classList.toggle('tomor', y > 40);
+      if (sotet) { var rs = sotet.getBoundingClientRect(); nav.classList.toggle('fej-sotet', rs.bottom - rs.height * .08 > nav.offsetHeight); }
       if (doc.classList.contains('menu-nyitva') || nav.querySelector('.nyitva')) { nav.classList.remove('rejtve'); return; }
       if ((d > 0) !== (acc > 0)) acc = 0;
       acc += d;

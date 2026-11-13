@@ -16,6 +16,15 @@
    renderelt színe, mérve #020202), a kép teteje 40 px-en ebbe a feketébe úszik, így a gyűrű fölött nincs vízszintes váltás.
    A lupe-doboz helye és mérete változatlan (a lencse sugara és a megállók ehhez vannak mérve). */
 .p-platina .pph{background:linear-gradient(#020202 calc(var(--fej) + 40px),transparent calc(var(--fej) + 40px))}
+/* Görgetés közben a tömör fejléc is a fotó feketéjén marad, amíg a gyűrű-fotó fölött áll (a motion.js teszi rá a
+   .fej-sotet osztályt a [data-fej-sotet] fotó alapján), és az alsó 1 px-es vonala nem jelenik meg: így a fejléc alja
+   és a fotó között nincs barna sáv, nincs vonal: a vonal helyén a fekete puhán fut ki a fotóba. A fotó után a szokásos
+   tömör fejléc jön vissza. Nyitott mobil menünél a közös viselkedés marad. */
+:root:not(.menu-nyitva) .p-platina .nav.tomor.fej-sotet{background:#020202}
+/* A fejléc alja nem éles él: a fekete 40 px-en át a fotóba fut ki (a korábbi 1 px-es vonal helyén), így ahol a fotó
+   a fejléc alatt már nem tiszta fekete, ott sincs vízszintes ugrás. */
+:root:not(.menu-nyitva) .p-platina .nav.tomor.fej-sotet::after{top:100%;bottom:auto;height:40px;pointer-events:none;
+  background:linear-gradient(#020202,rgb(2 2 2 / .55) 45%,rgb(2 2 2 / 0))}
 .p-platina .pph .lupe-ter{position:absolute;top:var(--fej);right:0;bottom:0;left:0;
   -webkit-mask-image:linear-gradient(transparent,#000 40px,#000 93%,transparent);mask-image:linear-gradient(transparent,#000 40px,#000 93%,transparent)}
 .p-platina .pph .lupe-mozgo{position:absolute;inset:-2%;width:104%;height:104%}
