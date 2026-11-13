@@ -1,4 +1,4 @@
-const ARAK_URL = '';
+const ARAK_URL = 'https://aranyregiseg-arfolyam.marozsandavid05.workers.dev/arak';
 /* Arany Régiség Center · napi tájékoztató árak a táblákba.
    ARAK_URL üresen: a helyi assets/data/arak.json (élesítéskor ide kerül a Worker /arak címe).
    Kitölti a <td class="ar" data-ar-fem="arany" data-ar-fin="585"> cellákat és a <span data-arak-datum> elemeket.

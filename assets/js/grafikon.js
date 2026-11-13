@@ -4,7 +4,7 @@
    A figure-be égetett [data-arf-nezet] tartalom akkor is látszik, ha ez a fájl nem fut le. */
 (function () {
   'use strict';
-  var TORTENET_URL = 'assets/data/arfolyam-tortenet.json';
+  var TORTENET_URL = 'https://aranyregiseg-arfolyam.marozsandavid05.workers.dev/tortenet';
   var HONAP = ['január', 'február', 'március', 'április', 'május', 'június', 'július', 'augusztus', 'szeptember', 'október', 'november', 'december'];
   var HO_ROVID = ['jan.', 'febr.', 'márc.', 'ápr.', 'máj.', 'jún.', 'júl.', 'aug.', 'szept.', 'okt.', 'nov.', 'dec.'];
   var NEV = { arany: 'Arany', ezust: 'Ezüst', platina: 'Platina', palladium: 'Palládium' };
