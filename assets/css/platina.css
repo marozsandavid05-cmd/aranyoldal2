@@ -71,8 +71,8 @@
 .pp-mit h2{max-width:16ch;font-size:clamp(40px,4.4vw,78px);line-height:1.06;margin-bottom:clamp(40px,6vh,64px)}
 .pp-mit__sorok li{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;align-items:baseline;padding:28px 0;border-top:1px solid rgb(var(--csont-rgb) / .16)}
 .pp-mit__sorok li:last-child{border-bottom:1px solid rgb(var(--csont-rgb) / .16)}
-.pp-mit__sorok h3{grid-column:3/7;font-size:clamp(28px,2.4vw,40px)}
-.pp-mit__sorok p{grid-column:7/12;font-size:17.5px;color:var(--hamu)}
+.pp-mit__sorok h3{grid-column:1/5;font-size:clamp(28px,2.4vw,40px)}
+.pp-mit__sorok p{grid-column:5/11;max-width:42ch;text-wrap:balance;font-size:17.5px;color:var(--hamu)}
 .pp-mit__sorok li{grid-template-rows:auto}
 .pp-mit__sorok h3,.pp-mit__sorok p{grid-row:1}
 .pp-mit__sorok .aru__kor{grid-row:1;align-self:center}
