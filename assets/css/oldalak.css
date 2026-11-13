@@ -944,3 +944,16 @@ fieldset.mezo legend{width:100%;margin-bottom:10px}
   .p-kap .kh__adat dd{margin-bottom:12px}
 }
 
+/* ===================================================================== ÓRÁK NYITÓKÉP: NAGYOBB „ÓRÁK” FELIRAT
+   Az elrendezés változatlan (felirat középen fent, alatta három hasáb: alcím, gombok, tipp, ugyanazzal a mérettel és
+   helyen), csak a felirat és benne a számlap nagyobb, ugyanazzal az aránnyal. A korábbi magassági korlát 290 px-et és
+   2,5vh felső ráhagyást tartott vissza; most a betűméret a tinta valódi magasságából (az ékezet tetejétől a számlap
+   aljáig kb. 1,03em) és az alsó sáv mért helyéből jön, a szélességi korlát az eredeti. Az alsó sáv lejjebb kerül, de a
+   hajtás felett marad. Az ékezet a morzsamenü sorába is érhet, mert a morzsamenü a bal margón áll, a felirat középen. */
+@media (min-width:981px){
+  .p-orak .oh{padding-top:var(--fej);padding-bottom:clamp(24px,3.6vh,42px)}
+  .p-orak h1{line-height:.9;margin-bottom:clamp(16px,2.4vh,30px);
+    font-size:min(calc((100vw - 2 * var(--margo)) / 2.52),calc((100svh - var(--nav) - var(--orak-tart,212px)) / 1.03))}
+}
+@media (min-width:1700px){.p-orak .oh{--orak-tart:200px}}
+@media (min-width:981px) and (max-width:1180px){.p-orak .oh{--orak-tart:300px}}
