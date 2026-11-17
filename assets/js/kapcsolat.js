@@ -54,10 +54,15 @@
       });
       if (!ok) return;
       var v = function (n) { var x = f.querySelector('[name="' + n + '"]:checked') || f.querySelector('[name="' + n + '"]'); return x ? x.value.trim() : ''; };
-      var body = 'Név: ' + v('nev') + '\nTelefon: ' + v('telefon') + '\nHol nézzük meg: ' + v('hol') + '\nTárgy: ' + v('targy') + '\nMikor hívhatjuk: ' + v('mikor') + '\n\n' + v('uzenet');
-      location.href = 'mailto:aranyregisegcenter@gmail.com?subject=' + encodeURIComponent('Becslést kérek: ' + (v('targy') || 'tárgy')) + '&body=' + encodeURIComponent(body);
+      /* az angol oldalon (html lang="en") a levél címkéi és az állapotüzenet is angolul */
+      var EN = document.documentElement.lang === 'en';
+      var C = EN ? ['Name', 'Phone', 'Where to look at it', 'Item', 'When to call', 'Valuation request: ', 'item']
+        : ['Név', 'Telefon', 'Hol nézzük meg', 'Tárgy', 'Mikor hívhatjuk', 'Becslést kérek: ', 'tárgy'];
+      var body = C[0] + ': ' + v('nev') + '\n' + C[1] + ': ' + v('telefon') + '\n' + C[2] + ': ' + v('hol') + '\n' + C[3] + ': ' + v('targy') + '\n' + C[4] + ': ' + v('mikor') + '\n\n' + v('uzenet');
+      location.href = 'mailto:aranyregisegcenter@gmail.com?subject=' + encodeURIComponent(C[5] + (v('targy') || C[6])) + '&body=' + encodeURIComponent(body);
       var st = f.querySelector('.allapot');
-      if (st) st.textContent = 'Megnyílt a levelezőprogramja a kitöltött levéllel. Ha nem nyílt meg, hívjon minket: 06 20 620 1377.';
+      if (st) st.textContent = EN ? 'Your email program has opened with the message filled in. If it did not open, call us on +36 20 620 1377.'
+        : 'Megnyílt a levelezőprogramja a kitöltött levéllel. Ha nem nyílt meg, hívjon minket: 06 20 620 1377.';
     });
   }
 })();

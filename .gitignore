@@ -5,3 +5,4 @@ ekezet-jelentes.json
 *.log
 .DS_Store
 Thumbs.db
+!nyelv/build-en.py

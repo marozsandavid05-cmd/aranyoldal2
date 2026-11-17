@@ -5,20 +5,28 @@
 (function () {
   'use strict';
   var TORTENET_URL = 'https://aranyregiseg-arfolyam.marozsandavid05.workers.dev/tortenet';
-  var HONAP = ['január', 'február', 'március', 'április', 'május', 'június', 'július', 'augusztus', 'szeptember', 'október', 'november', 'december'];
-  var HO_ROVID = ['jan.', 'febr.', 'márc.', 'ápr.', 'máj.', 'jún.', 'júl.', 'aug.', 'szept.', 'okt.', 'nov.', 'dec.'];
-  var NEV = { arany: 'Arany', ezust: 'Ezüst', platina: 'Platina', palladium: 'Palládium' };
-  var NEV_KIS = { arany: 'az arany', ezust: 'az ezüst', platina: 'a platina', palladium: 'a palládium' };
-  var TAVOK = { '1': 'egy hónap', '3': 'három hónap', '12': 'egy év' };
-  var EZELOTT = { '1': 'egy hónapja', '3': 'három hónapja', '12': 'egy éve' };
-  var VALT = [['napi', 'Nap'], ['heti', 'Hét'], ['havi', 'Hónap'], ['eves', 'Év']];
+  /* az angol oldalon (html lang="en") minden felirat, a dátum és a számformátum angol: 41,325 HUF/g, 13 November 2026 */
+  var EN = document.documentElement.lang === 'en';
+  var HONAP = EN ? ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    : ['január', 'február', 'március', 'április', 'május', 'június', 'július', 'augusztus', 'szeptember', 'október', 'november', 'december'];
+  var HO_ROVID = EN ? ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    : ['jan.', 'febr.', 'márc.', 'ápr.', 'máj.', 'jún.', 'júl.', 'aug.', 'szept.', 'okt.', 'nov.', 'dec.'];
+  var NEV = EN ? { arany: 'Gold', ezust: 'Silver', platina: 'Platinum', palladium: 'Palladium' }
+    : { arany: 'Arany', ezust: 'Ezüst', platina: 'Platina', palladium: 'Palládium' };
+  var NEV_KIS = EN ? { arany: 'gold', ezust: 'silver', platina: 'platinum', palladium: 'palladium' }
+    : { arany: 'az arany', ezust: 'az ezüst', platina: 'a platina', palladium: 'a palládium' };
+  var TAVOK = EN ? { '1': 'one month', '3': 'three months', '12': 'one year' } : { '1': 'egy hónap', '3': 'három hónap', '12': 'egy év' };
+  var EZELOTT = EN ? { '1': 'one month ago', '3': 'three months ago', '12': 'one year ago' } : { '1': 'egy hónapja', '3': 'három hónapja', '12': 'egy éve' };
+  var VALT = EN ? [['napi', 'Day'], ['heti', 'Week'], ['havi', 'Month'], ['eves', 'Year']] : [['napi', 'Nap'], ['heti', 'Hét'], ['havi', 'Hónap'], ['eves', 'Év']];
+  var FTG = EN ? 'HUF/g' : 'Ft/g';
+  var ELMULT = { '1': 'month', '3': 'three months', '12': 'year' };
   var W = 1000, H = 320;
 
-  function ezres(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '\u00a0'); }
+  function ezres(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, EN ? ',' : '\u00a0'); }
   function ft(v) { return ezres(Math.round(v)); }
-  function szaz(v) { return Math.abs(v).toFixed(2).replace('.', ','); }
-  function datum(iso) { var p = iso.split('-'); return p[0] + '. ' + HONAP[+p[1] - 1] + ' ' + (+p[2]) + '.'; }
-  function datumRovid(iso) { var p = iso.split('-'); return p[0] + '. ' + HO_ROVID[+p[1] - 1] + ' ' + (+p[2]) + '.'; }
+  function szaz(v) { var s = Math.abs(v).toFixed(2); return EN ? s : s.replace('.', ','); }
+  function datum(iso) { var p = iso.split('-'); return EN ? (+p[2]) + ' ' + HONAP[+p[1] - 1] + ' ' + p[0] : p[0] + '. ' + HONAP[+p[1] - 1] + ' ' + (+p[2]) + '.'; }
+  function datumRovid(iso) { var p = iso.split('-'); return EN ? (+p[2]) + ' ' + HO_ROVID[+p[1] - 1] + ' ' + p[0] : p[0] + '. ' + HO_ROVID[+p[1] - 1] + ' ' + (+p[2]) + '.'; }
   function nap(iso) { return Date.UTC(+iso.slice(0, 4), +iso.slice(5, 7) - 1, +iso.slice(8, 10)) / 864e5; }
   function irany(v) { return v > 0.004 ? 'fel' : v < -0.004 ? 'le' : 'all'; }
   function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;'); }
@@ -27,7 +35,7 @@
     if (ir === 'all') return '<svg class="arf__nyil" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 5h8"/></svg>';
     return '<svg class="arf__nyil" viewBox="0 0 10 10" aria-hidden="true"><path d="' + (ir === 'fel' ? 'M5 1.5 9 8H1z' : 'M5 8.5 1 2h8z') + '"/></svg>';
   }
-  function iranySzo(ir) { return ir === 'fel' ? 'emelkedett' : ir === 'le' ? 'csökkent' : 'változatlan'; }
+  function iranySzo(ir) { return EN ? (ir === 'fel' ? 'up' : ir === 'le' ? 'down' : 'unchanged') : ir === 'fel' ? 'emelkedett' : ir === 'le' ? 'csökkent' : 'változatlan'; }
 
   /* a teljes JSON (napok tömb) átalakítása a figure-ben tárolt tömör formára */
   function tomorit(j) {
@@ -63,7 +71,7 @@
   function xCimkek(p, tav) {
     var out = [], t0 = p[0].t, t1 = p[p.length - 1].t, span = t1 - t0 || 1, seen = {};
     if (tav <= 1) {
-      for (var i = p.length - 1; i >= 0; i -= 5) out.unshift({ x: (p[i].t - t0) / span, s: HO_ROVID[+p[i].d.slice(5, 7) - 1] + ' ' + (+p[i].d.slice(8, 10)) + '.' });
+      for (var i = p.length - 1; i >= 0; i -= 5) out.unshift({ x: (p[i].t - t0) / span, s: HO_ROVID[+p[i].d.slice(5, 7) - 1] + ' ' + (+p[i].d.slice(8, 10)) + (EN ? '' : '.') });
       return out.filter(function (c) { return c.x > 0.04 && c.x < 0.97; });
     }
     var lep = tav > 3 ? 2 : 1;
@@ -105,19 +113,23 @@
       return '<div class="arf__v arf__v--' + i + '"><dt>' + k[1] + '</dt><dd>' + nyil(i) + '<span class="sr">' + iranySzo(i) + ' </span>' + szaz(v) + '%</dd></div>';
     }).join('');
 
-    var osszeg = 'Az elmúlt ' + tavSzo + ' alatt ' + NEV_KIS[fem] + ' piaci ára forintban ' +
-      (ir === 'all' ? 'nem változott érdemben' : szaz(valt) + '%-kal ' + (ir === 'fel' ? 'emelkedett' : 'csökkent')) +
-      ': ' + ft(kezd.v) + ' Ft/g-ról ' + ft(utolso.v) + ' Ft/g-ra. Legmagasabb ' + ft(hi) + ' Ft/g (' + datumRovid(maxP.d) + '), legalacsonyabb ' + ft(lo) + ' Ft/g (' + datumRovid(minP.d) + ').';
+    var osszeg = EN
+      ? 'Over the past ' + ELMULT[String(tav)] + ' the market price of ' + NEV_KIS[fem] + ' in forints ' +
+        (ir === 'all' ? 'did not change significantly' : (ir === 'fel' ? 'rose' : 'fell') + ' by ' + szaz(valt) + '%') +
+        ': from ' + ft(kezd.v) + ' to ' + ft(utolso.v) + ' HUF/g. High ' + ft(hi) + ' HUF/g (' + datumRovid(maxP.d) + '), low ' + ft(lo) + ' HUF/g (' + datumRovid(minP.d) + ').'
+      : 'Az elmúlt ' + tavSzo + ' alatt ' + NEV_KIS[fem] + ' piaci ára forintban ' +
+        (ir === 'all' ? 'nem változott érdemben' : szaz(valt) + '%-kal ' + (ir === 'fel' ? 'emelkedett' : 'csökkent')) +
+        ': ' + ft(kezd.v) + ' Ft/g-ról ' + ft(utolso.v) + ' Ft/g-ra. Legmagasabb ' + ft(hi) + ' Ft/g (' + datumRovid(maxP.d) + '), legalacsonyabb ' + ft(lo) + ' Ft/g (' + datumRovid(minP.d) + ').';
 
     var nezet = fig.querySelector('[data-arf-nezet]');
     nezet.innerHTML =
       '<div class="arf__stat">' +
-        '<p class="arf__ar"><span class="arf__ar-szam">' + ft(utolso.v) + '</span> <span class="arf__ar-egys">Ft/g</span></p>' +
-        '<p class="arf__ar-cim">' + NEV[fem] + ', 999-es finomság, világpiaci ár forintban · ' + datum(utolso.d) + '</p>' +
+        '<p class="arf__ar"><span class="arf__ar-szam">' + ft(utolso.v) + '</span> <span class="arf__ar-egys">' + FTG + '</span></p>' +
+        '<p class="arf__ar-cim">' + NEV[fem] + (EN ? ', 999 fineness, world market price in forints · ' : ', 999-es finomság, világpiaci ár forintban · ') + datum(utolso.d) + '</p>' +
         '<dl class="arf__valt">' + valtHtml + '</dl>' +
       '</div>' +
       '<div class="arf__rajz arf__rajz--' + ir + '">' +
-        '<div class="arf__terulet" tabindex="0" role="img" aria-label="' + esc(NEV[fem] + ' piaci ára forintban, ' + tavSzo + ': ' + osszeg.replace(/^[^:]*: /, '')) + '">' +
+        '<div class="arf__terulet" tabindex="0" role="img" aria-label="' + esc(NEV[fem] + (EN ? ' market price in forints, ' : ' piaci ára forintban, ') + tavSzo + ': ' + osszeg.replace(/^[^:]*: /, '')) + '">' +
           '<svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none" aria-hidden="true" focusable="false">' +
             '<g class="arf__racs">' + racs + '</g>' +
             '<line class="arf__alap" x1="0" x2="' + W + '" y1="' + kezdoY * H / 100 + '" y2="' + kezdoY * H / 100 + '"/>' +
@@ -129,7 +141,7 @@
         '</div>' +
         '<div class="arf__y" aria-hidden="true">' + yc + '</div>' +
         '<div class="arf__x" aria-hidden="true">' + xc + '</div>' +
-        '<p class="arf__jel" aria-hidden="true"><span class="arf__jel-alap"></span>Szaggatott vonal: az ár ' + EZELOTT[String(tav)] + ', ' + ft(kezd.v) + ' Ft/g</p>' +
+        '<p class="arf__jel" aria-hidden="true"><span class="arf__jel-alap"></span>' + (EN ? 'Dashed line: the price ' : 'Szaggatott vonal: az ár ') + EZELOTT[String(tav)] + ', ' + ft(kezd.v) + ' ' + FTG + '</p>' +
       '</div>' +
       '<p class="arf__osszeg">' + osszeg + '</p>';
 
@@ -148,10 +160,10 @@
       k.hidden = false;
       k.style.left = x + '%';
       pont.style.top = y + '%';
-      bub.firstChild.textContent = ft(q.v) + ' Ft/g';
+      bub.firstChild.textContent = ft(q.v) + ' ' + FTG;
       bub.lastChild.textContent = datumRovid(q.d);
       bub.className = 'arf__buborek' + (x > 62 ? ' arf__buborek--bal' : '') + (y < 30 ? ' arf__buborek--le' : '');
-      if (bemond && elo) elo.textContent = datum(q.d) + ': ' + ft(q.v) + ' forint grammonként';
+      if (bemond && elo) elo.textContent = datum(q.d) + ': ' + ft(q.v) + (EN ? ' forints per gram' : ' forint grammonként');
     }
     function rejt() { k.hidden = true; idx = -1; }
     function hol(cx) {

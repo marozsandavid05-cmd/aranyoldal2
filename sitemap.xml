@@ -1,16 +1,159 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://aranyregisegcenter.hu/</loc></url>
-  <url><loc>https://aranyregisegcenter.hu/arany</loc></url>
-  <url><loc>https://aranyregisegcenter.hu/ezust</loc></url>
-  <url><loc>https://aranyregisegcenter.hu/platina-palladium</loc></url>
-  <url><loc>https://aranyregisegcenter.hu/orak</loc></url>
-  <url><loc>https://aranyregisegcenter.hu/regisegek</loc></url>
-  <url><loc>https://aranyregisegcenter.hu/ermek</loc></url>
-  <url><loc>https://aranyregisegcenter.hu/bunda</loc></url>
-  <url><loc>https://aranyregisegcenter.hu/becsles</loc></url>
-  <url><loc>https://aranyregisegcenter.hu/rolunk</loc></url>
-  <url><loc>https://aranyregisegcenter.hu/kapcsolat</loc></url>
-  <url><loc>https://aranyregisegcenter.hu/impresszum</loc></url>
-  <url><loc>https://aranyregisegcenter.hu/adatvedelem</loc></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://aranyregisegcenter.hu/</loc>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://aranyregisegcenter.hu/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://aranyregisegcenter.hu/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aranyregisegcenter.hu/"/>
+  </url>
+  <url>
+    <loc>https://aranyregisegcenter.hu/en/</loc>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://aranyregisegcenter.hu/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://aranyregisegcenter.hu/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aranyregisegcenter.hu/"/>
+  </url>
+  <url>
+    <loc>https://aranyregisegcenter.hu/arany</loc>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://aranyregisegcenter.hu/arany"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://aranyregisegcenter.hu/en/arany"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aranyregisegcenter.hu/arany"/>
+  </url>
+  <url>
+    <loc>https://aranyregisegcenter.hu/en/arany</loc>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://aranyregisegcenter.hu/arany"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://aranyregisegcenter.hu/en/arany"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aranyregisegcenter.hu/arany"/>
+  </url>
+  <url>
+    <loc>https://aranyregisegcenter.hu/ezust</loc>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://aranyregisegcenter.hu/ezust"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://aranyregisegcenter.hu/en/ezust"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aranyregisegcenter.hu/ezust"/>
+  </url>
+  <url>
+    <loc>https://aranyregisegcenter.hu/en/ezust</loc>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://aranyregisegcenter.hu/ezust"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://aranyregisegcenter.hu/en/ezust"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aranyregisegcenter.hu/ezust"/>
+  </url>
+  <url>
+    <loc>https://aranyregisegcenter.hu/platina-palladium</loc>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://aranyregisegcenter.hu/platina-palladium"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://aranyregisegcenter.hu/en/platina-palladium"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aranyregisegcenter.hu/platina-palladium"/>
+  </url>
+  <url>
+    <loc>https://aranyregisegcenter.hu/en/platina-palladium</loc>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://aranyregisegcenter.hu/platina-palladium"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://aranyregisegcenter.hu/en/platina-palladium"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aranyregisegcenter.hu/platina-palladium"/>
+  </url>
+  <url>
+    <loc>https://aranyregisegcenter.hu/orak</loc>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://aranyregisegcenter.hu/orak"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://aranyregisegcenter.hu/en/orak"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aranyregisegcenter.hu/orak"/>
+  </url>
+  <url>
+    <loc>https://aranyregisegcenter.hu/en/orak</loc>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://aranyregisegcenter.hu/orak"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://aranyregisegcenter.hu/en/orak"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aranyregisegcenter.hu/orak"/>
+  </url>
+  <url>
+    <loc>https://aranyregisegcenter.hu/regisegek</loc>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://aranyregisegcenter.hu/regisegek"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://aranyregisegcenter.hu/en/regisegek"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aranyregisegcenter.hu/regisegek"/>
+  </url>
+  <url>
+    <loc>https://aranyregisegcenter.hu/en/regisegek</loc>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://aranyregisegcenter.hu/regisegek"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://aranyregisegcenter.hu/en/regisegek"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aranyregisegcenter.hu/regisegek"/>
+  </url>
+  <url>
+    <loc>https://aranyregisegcenter.hu/ermek</loc>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://aranyregisegcenter.hu/ermek"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://aranyregisegcenter.hu/en/ermek"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aranyregisegcenter.hu/ermek"/>
+  </url>
+  <url>
+    <loc>https://aranyregisegcenter.hu/en/ermek</loc>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://aranyregisegcenter.hu/ermek"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://aranyregisegcenter.hu/en/ermek"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aranyregisegcenter.hu/ermek"/>
+  </url>
+  <url>
+    <loc>https://aranyregisegcenter.hu/bunda</loc>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://aranyregisegcenter.hu/bunda"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://aranyregisegcenter.hu/en/bunda"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aranyregisegcenter.hu/bunda"/>
+  </url>
+  <url>
+    <loc>https://aranyregisegcenter.hu/en/bunda</loc>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://aranyregisegcenter.hu/bunda"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://aranyregisegcenter.hu/en/bunda"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aranyregisegcenter.hu/bunda"/>
+  </url>
+  <url>
+    <loc>https://aranyregisegcenter.hu/becsles</loc>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://aranyregisegcenter.hu/becsles"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://aranyregisegcenter.hu/en/becsles"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aranyregisegcenter.hu/becsles"/>
+  </url>
+  <url>
+    <loc>https://aranyregisegcenter.hu/en/becsles</loc>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://aranyregisegcenter.hu/becsles"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://aranyregisegcenter.hu/en/becsles"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aranyregisegcenter.hu/becsles"/>
+  </url>
+  <url>
+    <loc>https://aranyregisegcenter.hu/rolunk</loc>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://aranyregisegcenter.hu/rolunk"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://aranyregisegcenter.hu/en/rolunk"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aranyregisegcenter.hu/rolunk"/>
+  </url>
+  <url>
+    <loc>https://aranyregisegcenter.hu/en/rolunk</loc>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://aranyregisegcenter.hu/rolunk"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://aranyregisegcenter.hu/en/rolunk"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aranyregisegcenter.hu/rolunk"/>
+  </url>
+  <url>
+    <loc>https://aranyregisegcenter.hu/kapcsolat</loc>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://aranyregisegcenter.hu/kapcsolat"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://aranyregisegcenter.hu/en/kapcsolat"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aranyregisegcenter.hu/kapcsolat"/>
+  </url>
+  <url>
+    <loc>https://aranyregisegcenter.hu/en/kapcsolat</loc>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://aranyregisegcenter.hu/kapcsolat"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://aranyregisegcenter.hu/en/kapcsolat"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aranyregisegcenter.hu/kapcsolat"/>
+  </url>
+  <url>
+    <loc>https://aranyregisegcenter.hu/impresszum</loc>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://aranyregisegcenter.hu/impresszum"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://aranyregisegcenter.hu/en/impresszum"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aranyregisegcenter.hu/impresszum"/>
+  </url>
+  <url>
+    <loc>https://aranyregisegcenter.hu/en/impresszum</loc>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://aranyregisegcenter.hu/impresszum"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://aranyregisegcenter.hu/en/impresszum"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aranyregisegcenter.hu/impresszum"/>
+  </url>
+  <url>
+    <loc>https://aranyregisegcenter.hu/adatvedelem</loc>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://aranyregisegcenter.hu/adatvedelem"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://aranyregisegcenter.hu/en/adatvedelem"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aranyregisegcenter.hu/adatvedelem"/>
+  </url>
+  <url>
+    <loc>https://aranyregisegcenter.hu/en/adatvedelem</loc>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://aranyregisegcenter.hu/adatvedelem"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://aranyregisegcenter.hu/en/adatvedelem"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aranyregisegcenter.hu/adatvedelem"/>
+  </url>
 </urlset>

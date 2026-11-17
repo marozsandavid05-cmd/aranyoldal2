@@ -162,28 +162,29 @@
     });
   }
 
-  /* ---------- nyelvváltó: az EN felirat akkor lesz link, ha az angol oldal elkészült (window.ARC_EN = true az en/ build után) ---------- */
-  if (window.ARC_EN) {
-    document.querySelectorAll('.nyelv__en[data-en]').forEach(function (s) {
-      var a = document.createElement('a');
-      a.className = 'nyelv__en'; a.href = s.getAttribute('data-en'); a.lang = 'en'; a.hreflang = 'en'; a.textContent = 'EN';
-      s.parentNode.replaceChild(a, s);
-    });
-  }
-
-  /* ---------- árak az adatfájlból ---------- */
+  /* ---------- árak az adatfájlból (az angol oldalon angol ezres-tagolás, HUF és angol dátum) ---------- */
   var A = window.ARC_ARAK;
-  function ft(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '\u202f'); }
+  var EN = doc.lang === 'en';
+  var HO = ['január', 'február', 'március', 'április', 'május', 'június', 'július', 'augusztus', 'szeptember', 'október', 'november', 'december'];
+  var MONTH = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  function ft(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, EN ? ',' : '\u202f'); }
+  function egys(e) { e = e || 'Ft/g'; return EN ? e.replace('Ft/db', 'HUF each').replace('Ft', 'HUF') : e; }
+  function datumSzo(s) {
+    if (!EN) return s;
+    var m = /^(\d{4})\. (\S+) (\d{1,2})\.$/.exec(s || '');
+    return m && HO.indexOf(m[2]) > -1 ? (+m[3]) + ' ' + MONTH[HO.indexOf(m[2])] + ' ' + m[1] : null;
+  }
   if (A) {
     document.querySelectorAll('[data-arak]').forEach(function (tb) {
       var lista = A[tb.getAttribute('data-arak')] || [];
       lista.forEach(function (r, i) {
         var td = tb.querySelector('[data-i="' + i + '"] .ar');
-        if (td) td.textContent = ft(r.tol) + '-' + ft(r.ig) + ' ' + (r.egyseg || 'Ft/g');
+        if (td) td.textContent = ft(r.tol) + '-' + ft(r.ig) + ' ' + egys(r.egyseg);
       });
     });
-    document.querySelectorAll('[data-arak-datum]').forEach(function (el) { el.textContent = A.frissitve; });
-    document.querySelectorAll('[data-arak-jeloles]').forEach(function (el) { if (A.jeloles) el.textContent = A.jeloles; });
+    var fd = datumSzo(A.frissitve);
+    if (fd) document.querySelectorAll('[data-arak-datum]').forEach(function (el) { el.textContent = fd; });
+    if (!EN) document.querySelectorAll('[data-arak-jeloles]').forEach(function (el) { if (A.jeloles) el.textContent = A.jeloles; });
   }
 
   /* ---------- nyitvatartás: a mai nap ---------- */

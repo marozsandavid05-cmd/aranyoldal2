@@ -7,9 +7,13 @@ const ARAK_URL = 'https://aranyregiseg-arfolyam.marozsandavid05.workers.dev/arak
 (function () {
   'use strict';
   var HONAPOK = ['január', 'február', 'március', 'április', 'május', 'június', 'július', 'augusztus', 'szeptember', 'október', 'november', 'december'];
+  var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  /* az angol oldalon (html lang="en") angol ezres-tagolás (10,900), HUF és angol dátum (13 November 2026) */
+  var EN = document.documentElement.lang === 'en';
+  var EGYSEG = EN ? ' HUF/g' : ' Ft/g';
 
   function ezres(n) {
-    return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '\u00a0');
+    return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, EN ? ',' : '\u00a0');
   }
 
   function magyarDatum(iso) {
@@ -18,7 +22,7 @@ const ARAK_URL = 'https://aranyregiseg-arfolyam.marozsandavid05.workers.dev/arak
     var ho = Number(m[2]);
     var nap = Number(m[3]);
     if (ho < 1 || ho > 12 || nap < 1 || nap > 31) return null;
-    return m[1] + '. ' + HONAPOK[ho - 1] + ' ' + nap + '.';
+    return EN ? nap + ' ' + MONTHS[ho - 1] + ' ' + m[1] : m[1] + '. ' + HONAPOK[ho - 1] + ' ' + nap + '.';
   }
 
   function joSav(s) {
@@ -33,7 +37,7 @@ const ARAK_URL = 'https://aranyregiseg-arfolyam.marozsandavid05.workers.dev/arak
     Array.prototype.forEach.call(cellak, function (td) {
       var fem = adat[td.getAttribute('data-ar-fem')];
       var s = fem && fem[td.getAttribute('data-ar-fin')];
-      if (joSav(s)) td.textContent = ezres(s[0]) + '-' + ezres(s[1]) + ' Ft/g';
+      if (joSav(s)) td.textContent = ezres(s[0]) + '-' + ezres(s[1]) + EGYSEG;
     });
     Array.prototype.forEach.call(document.querySelectorAll('[data-arak-datum]'), function (el) {
       el.textContent = datum;
