@@ -73,6 +73,65 @@
 .lepes h3{font-size:clamp(30px,2.6vw,44px);margin-bottom:14px}
 .lepes p{font-size:17.5px}
 .becs__link{margin-top:10px}
+/* a lépés saját kerek képe: csak telefonon látszik (asztalon a ragadós nagy kör viszi a képet) */
+.lepes__kor{display:none}
+
+/* ===================================================================== FŐOLDAL · KÉSZPÉNZÉRT VÁSÁROLUNK szalag
+   vékony, lassú sor a hero alatt, a meglévő betűkkel; reduced-motion alatt áll, a tételek tördelve látszanak */
+.szalag{position:relative;z-index:2;display:flex;align-items:center;gap:clamp(16px,2vw,30px);padding:15px var(--margo);background:var(--mely);
+  box-shadow:inset 0 1px 0 rgb(var(--arany-rgb) / .2),inset 0 -1px 0 rgb(var(--arany-rgb) / .2)}
+.szalag__fej{flex:none;font:600 14.5px/1.2 var(--sans);color:var(--arany-vil);white-space:nowrap}
+.szalag__ablak{flex:1;min-width:0;overflow:clip;-webkit-mask-image:linear-gradient(90deg,transparent,var(--ej) 4%,var(--ej) 94%,transparent);mask-image:linear-gradient(90deg,transparent,var(--ej) 4%,var(--ej) 94%,transparent)}
+.szalag__sor{display:flex;width:max-content;gap:0}
+.szalag__sor li{margin-right:2.1em;font:400 18px/1.3 var(--serif);color:var(--hamu-s);white-space:nowrap;display:flex;align-items:center}
+.szalag__sor li::after{content:"";width:4px;height:4px;border-radius:50%;background:rgb(var(--arany-rgb) / .7);margin-left:2.1em}
+.js.mo .szalag__sor.fut{animation:szalag var(--szalag-ido,70s) linear infinite;will-change:transform}
+@keyframes szalag{to{transform:translate3d(-50%,0,0)}}
+.rm .szalag__ablak{-webkit-mask-image:none;mask-image:none}
+/* mozgás nélkül egy nyugodt, vesszővel tagolt sor */
+.rm .szalag__sor{display:block;width:auto}
+.rm .szalag__sor li{display:inline;margin-right:.35em;white-space:normal}
+.rm .szalag__sor li::after{content:",";width:auto;height:auto;border-radius:0;background:none;margin-left:0}
+.rm .szalag__sor li:last-child::after{content:""}
+
+/* ===================================================================== FŐOLDAL · PULT: mai árak, elérhetőség, értékelés */
+.p-fo .pult{position:relative;padding:clamp(64px,9vh,110px) var(--margo) clamp(70px,10vh,120px)}
+.pult__racs{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;max-width:1560px;margin:0 auto;align-items:start}
+.pult__arak{grid-column:1/7}
+.pult__fej{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 24px;margin-bottom:clamp(20px,3vh,30px)}
+.pult__fej h2{font-size:clamp(34px,3.2vw,56px)}
+.pult__datum{font-size:15px;color:var(--hamu)}
+.pult__lista{margin:0}
+.pult__sor{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:baseline;gap:6px 20px;padding:18px 0;border-top:1px solid rgb(var(--csont-rgb) / .12)}
+.pult__sor:last-child{border-bottom:1px solid rgb(var(--csont-rgb) / .12)}
+.pult__sor dt{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px}
+.pult__fem{font:400 clamp(22px,1.7vw,28px)/1.15 var(--serif);color:var(--csont)}
+.pult__fin{font-size:15px;color:var(--hamu);font-variant-numeric:tabular-nums}
+.pult__sor dd{margin:0;font:400 clamp(24px,2vw,34px)/1.1 var(--serif);color:var(--arany-vil);font-variant-numeric:tabular-nums lining-nums;white-space:nowrap}
+.pult__megj{margin-top:18px;font-size:15px;line-height:1.6;color:var(--hamu);max-width:56ch}
+.pult__megj .link{margin-left:2px}
+/* asztalon: bal hasábban az árak, jobbra az elérhetőség, alattuk teljes szélességben az értékelés */
+.pult__jobb{display:contents}
+.pult__arak{grid-row:1/3}
+#eler-cim{grid-column:8/13;grid-row:1;align-self:end;padding-bottom:20px}
+.eler{grid-column:8/13;grid-row:2;align-self:start}
+.pult__alcim{font-size:clamp(24px,1.8vw,30px);line-height:1.15}
+.eler{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.eler a{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-rows:auto auto;column-gap:14px;row-gap:3px;align-items:center;min-height:76px;padding:14px 16px;
+  text-decoration:none;border-radius:3px;background:rgb(var(--csont-rgb) / .045);box-shadow:inset 0 0 0 1px rgb(var(--arany-rgb) / .2);transition:background-color .25s,box-shadow .25s}
+.eler a:hover,.eler a:focus-visible{background:rgb(var(--arany-rgb) / .1);box-shadow:inset 0 0 0 1px rgb(var(--arany-rgb) / .55)}
+.eler .ik{grid-row:1/3;width:26px;height:26px;color:var(--arany-vil)}
+.eler b{font:600 16px/1.2 var(--sans);color:var(--csont)}
+.eler span{font-size:14.5px;line-height:1.3;color:var(--hamu);overflow-wrap:anywhere}
+.ertekel{grid-column:1/-1;grid-row:3;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:14px 40px;margin-top:clamp(44px,6vh,70px);padding-top:clamp(26px,4vh,40px);border-top:1px solid rgb(var(--csont-rgb) / .12)}
+.ertekel__szoveg{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 22px}
+.ertekel__szoveg p{margin-top:0}
+.ertekel__szoveg p{margin-top:8px;font-size:15.5px;line-height:1.55;color:var(--hamu);max-width:40ch}
+.ertekel__gomb .ik{width:18px;height:18px;color:var(--arany-vil)}
+.velemenyek{grid-column:1/-1;display:grid;gap:14px}
+.velemenyek[hidden]{display:none}
+.velemeny blockquote{margin:0;font:400 18px/1.45 var(--serif);color:var(--csont)}
+.velemeny__nev{margin-top:6px;font-size:14px;color:var(--hamu)}
 
 /* negyven év: világos lap csúszik a sötétre */
 .p-fo .negyven{position:relative;z-index:2;background:var(--papir);color:var(--tinta);border-radius:30px 30px 0 0;margin-top:-6vh;
@@ -473,16 +532,19 @@ fieldset.mezo legend{width:100%;margin-bottom:10px}
   .p-fo .hero__jobb{width:min(280px,25vw)}
 }
 @media (max-width:980px){
-  .p-fo .hero{display:flex;flex-direction:column;height:auto;min-height:max(100svh,720px)}
-  .p-fo .hero .lupe-ter{flex:1 0 auto;min-height:max(80svh,600px)}
+  .p-fo .hero{display:flex;flex-direction:column;height:auto;min-height:0}
+  .p-fo .hero .lupe-ter{flex:1 0 auto;min-height:max(66svh,520px)}
   .p-fo .hero .lupe-mozgo{inset:-2%}
   .p-fo .hero .lupe-kep{object-position:50% 50%}
   .p-fo .hero__szo{position:absolute;left:var(--margo);right:var(--margo);top:calc(var(--nav) + 2vh);font-size:clamp(40px,11.4vw,96px);white-space:normal;line-height:1.04}
   .p-fo .hero__szo span{display:block}
-  .p-fo .hero__jobb{position:absolute;left:var(--margo);right:var(--margo);width:auto;top:calc(max(80svh,600px) - 64px);justify-self:auto}
+  .p-fo .hero__jobb{position:absolute;left:var(--margo);right:var(--margo);width:auto;top:calc(max(66svh,520px) - 64px);justify-self:auto}
   .p-fo .hero__jobb .olvaso__szoveg,.p-fo .hero__jobb .olvaso__cim,.lupe-vonal{display:none}
-  .p-fo .hero__bal{width:auto;padding:30px var(--margo) 34px}
-  .p-fo .hero__cim{font-size:26px}
+  .p-fo .hero__bal{width:auto;padding:28px var(--margo) 34px;gap:14px}
+  .p-fo .hero__cim{font-size:24px}
+  .p-fo .hero__alcim{font-size:16px}
+  .p-fo .tenyek{font-size:14px}
+  .p-fo .aru__fej h2{font-size:clamp(34px,9.4vw,46px)}
   .p-fo .aru__fej{display:block}
   .p-fo .aru__fej p{margin-top:16px}
   .aru__sor a{grid-template-columns:minmax(0,1fr) auto;row-gap:6px;padding:22px 0}
@@ -491,11 +553,48 @@ fieldset.mezo legend{width:100%;margin-bottom:10px}
   .aru__mondat{grid-column:1/2;font-size:15.5px}
   .aru__kor{grid-column:2/3;grid-row:1/4;width:72px;transform:none;opacity:1}
   .becs__racs{display:block}
-  .becs__ragad{position:sticky;top:calc(var(--nav) + 12px);height:auto;z-index:2;margin:0 auto;width:min(56vw,240px);padding:10px 0}
-  .becs__kor{width:min(56vw,240px)}
-  .becs__lepesek{padding-bottom:18svh}
-  .becs__fej{padding:40px 0 10px}
-  .lepes{min-height:auto;padding:36px 0;opacity:1}
+  /* telefonon nincs ragadós kör: minden lépés mellett a saját kis kerek képe áll, így a kép mindig a látható lépéshez tartozik,
+     és semmilyen szöveget nem takar */
+  .becs__ragad{display:none}
+  .becs__lepesek{padding-bottom:0}
+  .becs__fej{padding:0 0 6px}
+  .becs__fej h2{font-size:clamp(34px,9.4vw,46px)}
+  .becs__fej p{font-size:17px}
+  .lepes{min-height:auto;padding:26px 0;opacity:1;display:grid;grid-template-columns:84px minmax(0,1fr);column-gap:18px;align-items:center;max-width:none}
+  .lepes+.lepes{border-top:1px solid rgb(var(--csont-rgb) / .1)}
+  .lepes__kor{display:block;grid-column:1;grid-row:1/3;width:84px;aspect-ratio:1;border-radius:50%;overflow:hidden;
+    box-shadow:0 0 0 1.5px var(--arany),0 0 0 6px var(--vilag),0 0 0 7px rgb(var(--arany-rgb) / .3)}
+  .lepes__kor img{width:100%;height:100%;object-fit:cover}
+  .lepes[data-lepes="1"] .lepes__kor img{object-position:55% 40%}
+  .lepes__sz{grid-column:2;margin-bottom:6px;align-self:end}
+  .lepes h3{grid-column:2;margin-bottom:0;font-size:27px;align-self:start}
+  .lepes p,.lepes .becs__link{grid-column:1/-1;margin-top:14px}
+  .lepes p{font-size:16.5px}
+  .p-fo .becs{padding-top:64px;padding-bottom:90px}
+
+  .szalag{flex-direction:column;align-items:stretch;gap:8px;padding:14px var(--margo) 15px}
+  .szalag__sor li{font-size:17px}
+  .p-fo .pult{padding:52px var(--margo) 64px}
+  .pult__racs{display:block}
+  .pult__fej h2{font-size:clamp(30px,8.4vw,40px)}
+  .pult__sor{padding:14px 0;grid-template-columns:minmax(0,1fr) auto}
+  .pult__sor dt{display:grid;gap:2px}
+  .pult__fem{font-size:21px}
+  .pult__fin{font-size:14px}
+  .pult__sor dd{font-size:22px}
+  .pult__jobb{display:grid;grid-template-columns:minmax(0,1fr);margin-top:46px;gap:18px}
+  .pult__arak,#eler-cim,.eler,.ertekel{grid-column:auto;grid-row:auto}
+  #eler-cim{padding-bottom:0}
+  .ertekel__szoveg{display:block}
+  .ertekel__szoveg p{margin-top:8px}
+  .eler{gap:8px}
+  .eler a{grid-template-columns:1fr;justify-items:start;min-height:84px;padding:14px;row-gap:6px}
+  .eler .ik{grid-row:auto}
+  .eler span{font-size:13.5px}
+  .ertekel{grid-template-columns:1fr;gap:16px;margin-top:10px;padding-top:24px}
+  .ertekel__gomb{justify-self:start}
+  .p-fo .aru{padding-top:56px;padding-bottom:64px}
+  .aru__zaro{margin-top:24px}
   .negyven__racs{display:block;margin-top:-6vh}
   .negyven h2,.negyven__szoveg{margin-bottom:34px}
   .negyven dl{margin-bottom:12px}
@@ -831,20 +930,22 @@ fieldset.mezo legend{width:100%;margin-bottom:10px}
   html:not(.mo) .bs__kep~.bs__jegy{margin-top:0;align-self:center}
 }
 
-/* telefon és álló tablet: lépésenként kép, szám, szöveg egymás alatt; az első kép a fejléc alatt nyit */
+/* telefon és álló tablet: a cím, utána lépésenként egy tiszta blokk: kép (egészben, legfeljebb a képernyő fele), alatta a szám,
+   a lépés neve és a szöveg; a lépéslista telefonon nem kell (a lépéseken saját sorszám áll), a lépések között rendes térköz */
 @media (max-width:980px){
+  .bs{padding-bottom:clamp(56px,9vh,90px);margin-bottom:0}
   .bs__szinpad{display:flex;flex-direction:column;padding-top:var(--fej)}
-  .bs__kep{order:-1;height:auto;aspect-ratio:var(--ar,4/3);max-height:72svh;flex:none;margin:0}
-  .bs__kep~.bs__kep{order:0;margin-top:clamp(48px,8vh,72px)}
-  .bs__elso{display:block;padding:24px 0 0}
-  .bs h1{font-size:clamp(44px,12.5vw,68px)}
-  .bs__index{margin-top:30px}
-  .bs__index ol{grid-template-columns:1fr 1fr;column-gap:16px}
-  .bs__index a{font-size:18px}
-  .bs__jegy{margin-top:30px;scroll-margin-top:calc(var(--nav) + 16px)}
-  .bs__szam{font-size:clamp(48px,15vw,70px)}
+  .bs__elso{display:block;padding:18px 0 0;order:-2}
+  .bs h1{font-size:clamp(36px,10vw,56px)}
+  .bs__fej p{font-size:16.5px}
+  .bs__index{display:none}
+  .bs__kep{order:0;height:auto;width:100%;aspect-ratio:var(--ar,4/3);max-height:46svh;flex:none;margin:clamp(52px,8vh,76px) 0 0}
+  .bs__kep .lupe-kep{object-position:0% 50%}
+  .bs__jegy{margin-top:20px;scroll-margin-top:calc(var(--nav) + 16px)}
+  .bs__szam{font-size:clamp(44px,13vw,60px)}
+  .bs__mi{margin-top:8px}
+  .bs__jegy h2{margin-top:16px;font-size:28px}
   .bs__szoveg{max-width:none}
-  .bs__kep~.bs__jegy{margin-top:24px}
 }
 
 /* ===================================================================== TIBOR-KÖR (2026-11): márkasor az Órák oldalon, új képek kivágása */
@@ -957,3 +1058,10 @@ fieldset.mezo legend{width:100%;margin-bottom:10px}
 }
 @media (min-width:1700px){.p-orak .oh{--orak-tart:200px}}
 @media (min-width:981px) and (max-width:1180px){.p-orak .oh{--orak-tart:300px}}
+
+/* ===================================================================== TELEFON: kisebb szakaszcímek (2026-11)
+   telefonon a szakaszcímek legfeljebb 40 px-esek, a nagy nyitó feliratok (h1, Ezüst, Órák) maradnak;
+   a sok oldalanként hatókörözött betűméret miatt egy helyen, felülíró szabállyal */
+@media (max-width:520px){
+  main h2[data-sor]{font-size:min(9.6vw,38px)!important;line-height:1.1}
+}

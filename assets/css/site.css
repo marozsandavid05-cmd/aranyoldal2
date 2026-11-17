@@ -187,3 +187,61 @@ main{position:relative}
 @media (prefers-reduced-motion:reduce){
   .gomb,.link,.nav{transition:none}
 }
+
+/* ===================================================================== ELÉRHETŐSÉG, LOGÓ, NYELV (2026-11) */
+.sr-svg{position:absolute;width:0;height:0;overflow:hidden}
+.ik{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+/* a cég saját jele a fejlécben: a figura és a kétsoros felirat, átlátszó háttéren */
+.marka__logo{display:block;height:46px;width:auto}
+.nav__kapcs{display:flex;align-items:center;gap:2px}
+.nav__tel{display:inline-flex;align-items:center;gap:9px;min-height:44px;padding:0 10px 0 0;color:var(--csont)}
+.nav__tel .ik{color:var(--arany-vil)}
+.nav__tel:hover span{color:var(--arany-vil)}
+.ikon{display:inline-grid;place-items:center;width:42px;height:44px;color:var(--hamu);text-decoration:none;border-radius:2px;transition:color .2s}
+.ikon:hover,.ikon:focus-visible{color:var(--arany-vil)}
+.nyelv{display:flex;align-items:center;gap:6px;font:600 13.5px/1 var(--sans);letter-spacing:.04em}
+.nyelv a,.nyelv__en{display:inline-grid;place-items:center;min-width:30px;min-height:44px;text-decoration:none}
+.nyelv a[aria-current]{color:var(--arany-vil)}
+.nyelv__per{color:rgb(var(--csont-rgb) / .35)}
+.nyelv__en{color:var(--hamu);cursor:default}
+a.nyelv__en{cursor:pointer}
+a.nyelv__en:hover{color:var(--csont)}
+/* a telefonos menü alján a négy elérhetőség */
+.mmenu__kapcs{display:none}
+/* telefonon a képernyő alján visszafogott sáv a négy elérhetőséggel */
+.also{display:none}
+@media (max-width:1365px){
+  .nav__tel span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+  .nav__tel{padding:0;width:42px;justify-content:center}
+  .nav__tel .ik{color:var(--hamu)}
+  .nav__tel:hover .ik{color:var(--arany-vil)}
+}
+@media (max-width:1180px){
+  .marka__logo{height:40px}
+  .nav{gap:20px}
+}
+@media (max-width:980px){
+  /* érintésen a függőleges húzás mindig az oldalt görgeti, a nyitókép-lupe csak a koppintást kapja */
+  .lupe-ter{touch-action:pan-y pinch-zoom}
+  .nav__kapcs{display:none}
+  .marka__logo{height:36px}
+  .nyelv{margin-left:auto}
+  .mmenu .mmenu__kapcs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:22px}
+  .mmenu .mmenu__kapcs a{display:grid;justify-items:center;gap:7px;padding:12px 4px;font:500 13.5px/1.2 var(--sans);color:var(--csont);text-decoration:none;
+    border-radius:3px;background:rgb(var(--csont-rgb) / .05)}
+  .mmenu__kapcs .ik{width:22px;height:22px;color:var(--arany-vil)}
+  .also{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));position:fixed;left:0;right:0;bottom:0;z-index:28;
+    padding:6px 8px calc(6px + env(safe-area-inset-bottom));background:rgb(var(--ej-rgb) / .97);box-shadow:0 -1px 0 rgb(var(--arany-rgb) / .22);
+    transition:transform .35s var(--ease)}
+  .also a{display:grid;justify-items:center;align-content:center;gap:4px;min-height:52px;font:500 12.5px/1 var(--sans);color:var(--hamu-s);text-decoration:none}
+  .also .ik{width:21px;height:21px;color:var(--arany-vil)}
+  .also a:active{color:var(--csont)}
+  .menu-nyitva .also{transform:translateY(110%)}
+  body{padding-bottom:calc(64px + env(safe-area-inset-bottom))}
+}
+@media (max-width:380px){
+  .marka__logo{height:32px}
+}
+@media (prefers-reduced-motion:reduce){
+  .also{transition:none}
+}

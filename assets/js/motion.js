@@ -155,6 +155,22 @@
   document.querySelectorAll('.mmenu a').forEach(function (a) { a.addEventListener('click', function () { menu(false); }); });
   addEventListener('keydown', function (e) { if (e.key === 'Escape' && doc.classList.contains('menu-nyitva')) { menu(false); burger.focus(); } });
 
+  /* ---------- e-mail: asztali gépen a Gmail új levél ablaka, telefonon a levelezőapp (mailto) ---------- */
+  if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    document.querySelectorAll('a[data-gmail]').forEach(function (a) {
+      a.href = a.getAttribute('data-gmail'); a.target = '_blank'; a.rel = 'noopener';
+    });
+  }
+
+  /* ---------- nyelvváltó: az EN felirat akkor lesz link, ha az angol oldal elkészült (window.ARC_EN = true az en/ build után) ---------- */
+  if (window.ARC_EN) {
+    document.querySelectorAll('.nyelv__en[data-en]').forEach(function (s) {
+      var a = document.createElement('a');
+      a.className = 'nyelv__en'; a.href = s.getAttribute('data-en'); a.lang = 'en'; a.hreflang = 'en'; a.textContent = 'EN';
+      s.parentNode.replaceChild(a, s);
+    });
+  }
+
   /* ---------- árak az adatfájlból ---------- */
   var A = window.ARC_ARAK;
   function ft(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '\u202f'); }
