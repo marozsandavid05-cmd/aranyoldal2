@@ -61,6 +61,16 @@
     document.querySelectorAll('img[loading="lazy"]').forEach(function (i) { if (!i.complete) i.addEventListener('load', queueRefresh, { once: true }); });
   }
 
+  /* ---------- fotó-úszás: a [data-uszo] keretben a kép görgetésre lassan elcsúszik (egyetlen mozgató, GSAP scrub);
+     a keret clip-pel vág, a CSS mozgással 1,06-ra nagyít, reduced-motion vagy GSAP nélkül a kép áll ---------- */
+  if (hasG && !reduce) {
+    document.querySelectorAll('[data-uszo]').forEach(function (k) {
+      var img = k.querySelector('img'); if (!img) return;
+      gsap.fromTo(img, { yPercent: -2.4 }, { yPercent: 2.4, ease: 'none',
+        scrollTrigger: { trigger: k, start: 'top bottom', end: 'bottom top', scrub: true } });
+    });
+  }
+
   /* ---------- címek: SplitText soronkénti maszk-reveal, a végén visszaáll (az ékezet nem vágódik) ---------- */
   if (hasG && !reduce && typeof SplitText !== 'undefined') {
     var cimek = [].slice.call(document.querySelectorAll('[data-sor]'));
