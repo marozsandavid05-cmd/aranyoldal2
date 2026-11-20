@@ -97,6 +97,18 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://aranyregisegcenter.hu/bunda"/>
   </url>
   <url>
+    <loc>https://aranyregisegcenter.hu/markas-ekszerek</loc>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://aranyregisegcenter.hu/markas-ekszerek"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://aranyregisegcenter.hu/en/markas-ekszerek"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aranyregisegcenter.hu/markas-ekszerek"/>
+  </url>
+  <url>
+    <loc>https://aranyregisegcenter.hu/en/markas-ekszerek</loc>
+    <xhtml:link rel="alternate" hreflang="hu" href="https://aranyregisegcenter.hu/markas-ekszerek"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://aranyregisegcenter.hu/en/markas-ekszerek"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aranyregisegcenter.hu/markas-ekszerek"/>
+  </url>
+  <url>
     <loc>https://aranyregisegcenter.hu/becsles</loc>
     <xhtml:link rel="alternate" hreflang="hu" href="https://aranyregisegcenter.hu/becsles"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://aranyregisegcenter.hu/en/becsles"/>

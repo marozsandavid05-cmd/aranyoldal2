@@ -188,7 +188,7 @@ main{position:relative}
   .gomb,.link,.nav{transition:none}
 }
 
-/* ===================================================================== ELÉRHETŐSÉG, LOGÓ, NYELV (2026-11) */
+/* ===================================================================== ELÉRHETŐSÉG, LOGÓ, NYELV */
 .sr-svg{position:absolute;width:0;height:0;overflow:hidden}
 .ik{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 /* a cég saját jele a fejlécben: a figura és a kétsoros felirat, átlátszó háttéren */

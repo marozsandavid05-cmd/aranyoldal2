@@ -4,7 +4,11 @@
      "m": { ... } (nem kötelező, telefonos kép és pontok, saját "nev" listával is), "nev": [címkék], "z": legnagyobb nagyítás, "mq": telefonos media query }
    Egér: a lupe követi. Érintés: csak valódi koppintásra megy oda, a képen induló görgetésre nem. Üresjárat: lassan vándorol a részletek között.
    Ugyanaz a rAF viszi a kép halk sodródását és a lámpa fényét (egy driver elemenként), csak látható nyitókép alatt.
-   Reduced-motion: a lupe az első részleten áll, sodródás nélkül. */
+   Reduced-motion: a lupe az első részleten áll, sodródás nélkül.
+   "hely" (a d vagy m blokkban, nem kötelező): pontonként a lencse saját helye a kép arányában (lehet 0 alatt, 1 fölött is).
+   Ilyenkor üresjáratban a lencse a tárgy MELLETT áll, és a "p" pontot mutatja nagyítva, szaggatott vonallal a pontra;
+   a tárgyat nem takarja. Egérrel és koppintással ugyanúgy az egér, ujj alá megy, mint hely nélkül.
+   "mrejt": telefonos módban hely nélkül a lencse üresjáratban rejtve, csak koppintásra jelenik meg. */
 (function () {
   'use strict';
   var RM = window.ARC && window.ARC.reduce;
@@ -46,7 +50,13 @@
       vl = document.createElementNS(NS, 'line'); vp = document.createElementNS(NS, 'circle'); vp.setAttribute('r', '3');
       vonal.appendChild(vl); vonal.appendChild(vp); ter.appendChild(vonal);
     }
+    /* mellett-mód: a lencse helye és a nagyított pont külön; a vonal a lencse peremétől a pontig fut */
+    var mv = document.createElementNS('http://www.w3.org/2000/svg', 'svg'), mvl = null, mvp = null;
+    mv.setAttribute('class', 'lupe-vonal lupe-vonal--mellett'); mv.setAttribute('aria-hidden', 'true'); mv.style.opacity = '0';
+    mvl = document.createElementNS('http://www.w3.org/2000/svg', 'line'); mvp = document.createElementNS('http://www.w3.org/2000/svg', 'circle'); mvp.setAttribute('r', '3');
+    mv.appendChild(mvl); mv.appendChild(mvp);
     var mod = '', K = cfg.d, Z = 3, R = 110, aktiv = 0;
+    var nez = { x: 0, y: 0 }, nezCel = { x: 0, y: 0 }, ugrT = 0;
     var geo = { s: 1, ox: 0, oy: 0 };
     var cel = { x: 0, y: 0 }, cur = { x: 0, y: 0 }, eger = false, utolso = 0, lathato = true, fut = false, t0 = performance.now(), betoltve = false;
     var kez = false, cimkeAkt = -1, szabad = 0, tElo = 0;
@@ -56,6 +66,8 @@
       if (m === mod) return;
       mod = m; K = cfg[m];
       aktiv = aktiv % K.p.length;
+      if (K.hely && !mv.parentNode) ter.appendChild(mv);
+      if (!K.hely) mv.style.opacity = '0';
       var pre = new Image();
       pre.onload = function () { lk.style.backgroundImage = 'url("' + K.src + '")'; };
       pre.src = K.src;
@@ -102,6 +114,12 @@
       } catch (e) {}
     }
     function pontXY(i) { var p = K.p[i % K.p.length]; return { x: geo.ox + p[0] * K.w * geo.s, y: geo.oy + p[1] * K.h * geo.s }; }
+    function helyXY(i) { if (!K.hely) return pontXY(i); var p = K.hely[i % K.hely.length]; return { x: geo.ox + p[0] * K.w * geo.s, y: geo.oy + p[1] * K.h * geo.s }; }
+    function rejtes() {
+      if (!cfg.mrejt) return;
+      var rejt = mod === 'm' && !K.hely && !kez && szabad < .5;
+      lencse.classList.toggle('rejt', rejt);
+    }
     /* a lencse csak a nyitókép betöltéskor látható téglalapján belül járhat: a fejléc alatt, a hajtás fölött,
        a címkével együtt; a címke a lencse fölé kerül, ha alul nincs neki hely */
     var CIMKE = 0, PAD = 12, ALJ = 26, cimkeW = 0;
@@ -170,15 +188,26 @@
       vp.setAttribute('cx', ax.toFixed(1)); vp.setAttribute('cy', ay.toFixed(1));
       vonal.style.opacity = d > R + BEZ + 40 ? '1' : '0';
     }
-    function rajzol(x, y) {
+    function rajzol(x, y, nx, ny) {
       var sz = szorit(x, y); x = sz.x; y = sz.y;
       vonalRajz(x, y);
       lencse.style.setProperty('--lx', (x - R) + 'px');
       lencse.style.setProperty('--ly', (y - R) + 'px');
-      lk.style.backgroundPosition = (-((x - geo.ox) * Z - R)) + 'px ' + (-((y - geo.oy) * Z - R)) + 'px';
+      /* mellett-módban a lencse a nézett pontot mutatja, nem azt, ami alatta van; egérnél (szabad) a kettő egybeúszik */
+      var fx = x, fy = y;
+      if (K.hely && nx !== undefined) { fx = nx + (x - nx) * szabad; fy = ny + (y - ny) * szabad; }
+      lk.style.backgroundPosition = (-((fx - geo.ox) * Z - R)) + 'px ' + (-((fy - geo.oy) * Z - R)) + 'px';
+      if (K.hely) {
+        var RR = R + BEZ, dx = fx - x, dy = fy - y, dd = Math.sqrt(dx * dx + dy * dy) || 1;
+        mvl.setAttribute('x1', (x + dx / dd * (RR + 6)).toFixed(1)); mvl.setAttribute('y1', (y + dy / dd * (RR + 6)).toFixed(1));
+        mvl.setAttribute('x2', (fx - dx / dd * 7).toFixed(1)); mvl.setAttribute('y2', (fy - dy / dd * 7).toFixed(1));
+        mvp.setAttribute('cx', fx.toFixed(1)); mvp.setAttribute('cy', fy.toFixed(1));
+        mv.style.opacity = dd > RR + 30 ? '1' : '0';
+      }
+      rejtes();
       /* melyik megnevezett részlet van a lencse belső körén belül (a nagyított képen is látszik) */
       var leg = -1, ld = R * .85 / Z;
-      for (var k = 0; k < K.p.length; k++) { var q = pontXY(k), d = Math.sqrt((q.x - x) * (q.x - x) + (q.y - y) * (q.y - y)); if (d < ld) { ld = d; leg = k; } }
+      for (var k = 0; k < K.p.length; k++) { var q = pontXY(k), d = Math.sqrt((q.x - fx) * (q.x - fx) + (q.y - fy) * (q.y - fy)); if (d < ld) { ld = d; leg = k; } }
       if (leg !== cimkeAkt) { cimkeAkt = leg; felirat(); }
     }
     function valaszt(i, kezzel) {
@@ -186,9 +215,17 @@
       gombok.forEach(function (g, k) { g.setAttribute('aria-pressed', k === i ? 'true' : 'false'); });
       if (szoveg && cfg.szoveg) szoveg.textContent = cfg.szoveg[i];
       felirat();
-      var p = pontXY(i); cel.x = p.x; cel.y = p.y;
+      var p = helyXY(i), n = pontXY(i); cel.x = p.x; cel.y = p.y; nezCel.x = n.x; nezCel.y = n.y;
+      /* mellett-módban, ha a lencse a tárgy másik oldalára kerül, nem úszik át a tárgyon: elhalványul, átugrik, visszajön */
+      if (K.hely && !RM && betoltve && !eger && !kez && szabad < .01) {
+        var kx = geo.ox + K.w * geo.s / 2;
+        if ((cur.x - kx) * (cel.x - kx) < 0) {
+          lencse.classList.add('ugrik'); mv.style.visibility = 'hidden'; clearTimeout(ugrT);
+          ugrT = setTimeout(function () { cur.x = cel.x; cur.y = cel.y; nez.x = nezCel.x; nez.y = nezCel.y; lencse.classList.remove('ugrik'); mv.style.visibility = ''; }, 650);
+        }
+      }
       if (kezzel) { eger = false; utolso = performance.now(); }
-      if (RM) { cur.x = cel.x; cur.y = cel.y; rajzol(cur.x, cur.y); }
+      if (RM) { cur.x = cel.x; cur.y = cel.y; nez.x = n.x; nez.y = n.y; rajzol(cur.x, cur.y, nez.x, nez.y); }
       indit();
     }
     gombok.forEach(function (g, k) { g.addEventListener('click', function () { valaszt(k, true); }); });
@@ -196,6 +233,9 @@
     if (finom && !RM) {
       ter.addEventListener('pointermove', function (e) {
         if (e.target.closest && e.target.closest('a, button, .lupe-tiltott')) { if (eger) { eger = false; valaszt(aktiv); } return; }
+        /* mellett-módban a lupe-ter tágabb a képnél: a kép melletti sötét sávban a lencse nem követ */
+        if (K.hely) { var bi = img.getBoundingClientRect();
+          if (e.clientX < bi.left || e.clientX > bi.right || e.clientY < bi.top || e.clientY > bi.bottom) { if (eger) { eger = false; valaszt(aktiv); } return; } }
         var r = ter.getBoundingClientRect();
         cel.x = e.clientX - r.left; cel.y = e.clientY - r.top; eger = true; utolso = performance.now(); indit();
       });
@@ -232,7 +272,7 @@
       if (mozgo) mozgo.style.transform = 'translate3d(' + (Math.sin(s * .11) * 7).toFixed(2) + 'px,' + (Math.cos(s * .09) * 5).toFixed(2) + 'px,0) scale(1.035)';
       if (feny) feny.style.transform = 'translate3d(' + (Math.sin(s * .07) * 9).toFixed(2) + '%,' + (Math.cos(s * .05) * 6).toFixed(2) + '%,0)';
       geom();
-      if (!eger && !kez) { var pc = pontXY(aktiv); cel.x = pc.x; cel.y = pc.y; }
+      if (!eger && !kez) { var pc = helyXY(aktiv), pn = pontXY(aktiv); cel.x = pc.x; cel.y = pc.y; nezCel.x = pn.x; nezCel.y = pn.y; }
       /* időarányos simítás (60 fps-re hangolva): lassú vagy fojtott képkockánál sem marad le a lencse az egértől */
       var dt = Math.min(100, Math.max(1, t - (tElo || t - 16.7))); tElo = t;
       /* koppintás után (kez) ugyanaz a szabad mód, mint egérrel: a lencse közepe a kép teljes területén az ujj alá megy,
@@ -240,29 +280,32 @@
       var sc = (eger || kez) ? 1 : 0;
       var f = dt / 16.7, k = 1 - Math.pow(1 - (eger ? .3 : kez ? .09 : .05), f);
       szabad += (sc - szabad) * (1 - Math.pow(.85, f)); if (Math.abs(sc - szabad) < .004) szabad = sc;
-      cur.x += (cel.x - cur.x) * k; cur.y += (cel.y - cur.y) * k;
+      if (!lencse.classList.contains('ugrik') || eger || kez) {
+        cur.x += (cel.x - cur.x) * k; cur.y += (cel.y - cur.y) * k;
+        nez.x += (nezCel.x - nez.x) * k; nez.y += (nezCel.y - nez.y) * k;
+      }
       if ((eger || kez) && Math.abs(cel.x - cur.x) < .3 && Math.abs(cel.y - cur.y) < .3) { cur.x = cel.x; cur.y = cel.y; }
       var lx = cur.x, ly = cur.y;
       /* a halk lebegés a vándorláshoz tartozik: koppintás után a lencse az ujj alatt áll, átmenettel */
       if (!eger) { var lb = finom ? 1 : 1 - szabad; lx += Math.sin(s * .8) * 3 * lb; ly += Math.cos(s * .6) * 2.5 * lb; }
-      rajzol(lx, ly);
+      rajzol(lx, ly, nez.x, nez.y);
       indit();
     }
     function indit() { if (!fut && !RM && lathato && betoltve && !ter.hasAttribute('data-alszik')) { fut = true; requestAnimationFrame(lep); } }
-    ter.addEventListener('lupe:ebred', function () { if (betoltve) { meret(); var p = pontXY(aktiv); cel.x = p.x; cel.y = p.y; } indit(); });
+    ter.addEventListener('lupe:ebred', function () { if (betoltve) { meret(); var p = helyXY(aktiv), n = pontXY(aktiv); cel.x = p.x; cel.y = p.y; nezCel.x = n.x; nezCel.y = n.y; } indit(); });
 
     function start() {
       if (betoltve) return;
       betoltve = true;
       if (mozgo && !RM) mozgo.style.transform = 'scale(1.035)';
       meret(); valaszt(aktiv);
-      var p = pontXY(aktiv); cur.x = p.x; cur.y = p.y; rajzol(cur.x, cur.y);
+      var p = helyXY(aktiv), n = pontXY(aktiv); cur.x = p.x; cur.y = p.y; nez.x = n.x; nez.y = n.y; rajzol(cur.x, cur.y, nez.x, nez.y);
       lencse.classList.add('be');
       utolso = performance.now(); indit();
     }
     if (img.complete && img.naturalWidth) start(); else img.addEventListener('load', start, { once: true });
     setTimeout(start, 2500);
-    addEventListener('resize', function () { meret(); valaszt(aktiv); if (RM) rajzol(cel.x, cel.y); });
+    addEventListener('resize', function () { meret(); valaszt(aktiv); if (RM) rajzol(cel.x, cel.y, nezCel.x, nezCel.y); });
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (es) { lathato = es[0].isIntersecting; indit(); }).observe(ter);
     }

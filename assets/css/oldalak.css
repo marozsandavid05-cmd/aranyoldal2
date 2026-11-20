@@ -339,7 +339,8 @@
 
 .idezet{padding:clamp(130px,18vh,220px) var(--margo);display:grid;justify-items:center;text-align:center;gap:40px}
 .idezet blockquote{margin:0;max-width:22ch;font:400 clamp(34px,3.9vw,70px)/1.18 var(--serif);letter-spacing:-.015em}
-.idezet blockquote::before{content:"„";display:block;font-size:1.6em;line-height:.6;color:var(--arany-vil)}
+/* a nyitó idézőjel (alsó „) a doboza alján túl fest: a margó a jel festett aljától a szöveg első sorának ékezetéig hagy rést */
+.idezet blockquote::before{content:"„";display:block;font-size:1.6em;line-height:.6;margin-bottom:.42em;color:var(--arany-vil)}
 .idezet__cta{display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center;justify-content:center}
 .idezet__cta .szam{font-size:clamp(24px,2vw,32px);text-decoration:none}
 
@@ -887,7 +888,7 @@ fieldset.mezo legend{width:100%;margin-bottom:10px}
 .bs__kep{grid-column:5/10;margin:calc(var(--fej) + 3vh) 0 clamp(28px,5vh,60px);z-index:0}
 .bs__kep .lupe-mozgo{position:absolute;inset:0}
 .bs__kep .lupe-kep{width:100%;height:100%;object-fit:contain;object-position:50% 50%}
-#lupe-l1{--ar:893/1048}#lupe-l2{--ar:1475/1567}#lupe-l3{--ar:1781/2400}#lupe-l4{--ar:4/3}
+#lupe-l1{--ar:700/222}#lupe-l2{--ar:1475/1567}#lupe-l3{--ar:1781/2400}#lupe-l4{--ar:4/3}
 .bs__elso{grid-row:1;grid-column:1/-1;display:grid;grid-template-columns:subgrid;align-items:end;padding-bottom:clamp(28px,5vh,60px);z-index:3;pointer-events:none}
 .bs__fej{grid-column:1/5;pointer-events:auto}
 .bs h1{font-size:clamp(44px,min(4.6vw,9.5vh),92px);line-height:1.04;letter-spacing:-.025em}
@@ -948,7 +949,7 @@ fieldset.mezo legend{width:100%;margin-bottom:10px}
   .bs__szoveg{max-width:none}
 }
 
-/* ===================================================================== TIBOR-KÖR (2026-11): márkasor az Órák oldalon, új képek kivágása */
+/* ===================================================================== MÁRKASOR: márkasor az Órák oldalon, új képek kivágása */
 .markak{margin-top:clamp(70px,10vh,120px);padding-top:clamp(34px,5vh,52px);border-top:1px solid rgb(var(--csont-rgb) / .22)}
 .markak__cim{font-size:18.5px;color:var(--hamu);max-width:44ch}
 .markak__sor{display:flex;flex-wrap:wrap;align-items:center;gap:clamp(28px,3.4vw,58px) clamp(34px,4.4vw,76px);margin-top:clamp(30px,4.4vh,46px)}
@@ -1050,23 +1051,26 @@ fieldset.mezo legend{width:100%;margin-bottom:10px}
    helyen), csak a felirat és benne a számlap nagyobb, ugyanazzal az aránnyal. A korábbi magassági korlát 290 px-et és
    2,5vh felső ráhagyást tartott vissza; most a betűméret a tinta valódi magasságából (az ékezet tetejétől a számlap
    aljáig kb. 1,03em) és az alsó sáv mért helyéből jön, a szélességi korlát az eredeti. Az alsó sáv lejjebb kerül, de a
-   hajtás felett marad. Az ékezet a morzsamenü sorába is érhet, mert a morzsamenü a bal margón áll, a felirat középen. */
+   hajtás felett marad. Az ékezet a morzsamenü sorába is érhet, mert a morzsamenü a bal margón áll, a felirat középen.
+   Teljes ablakban a skála 0,82 (--orak-skala), így a felirat a számlappal kb. 18%-kal kisebb, és a fennmaradó hely aljához
+   igazodik; az alsó három hasáb mérete és helye nem változik.
+   A legkisebb magasság 600 px: alacsony, de teljes asztali ablakban (pl. 1516 × 627) is a hajtás fölött az alsó sáv. */
 @media (min-width:981px){
-  .p-orak .oh{padding-top:var(--fej);padding-bottom:clamp(24px,3.6vh,42px)}
+  .p-orak .oh{padding-top:var(--fej);padding-bottom:clamp(24px,3.6vh,42px);--orak-skala:.82;min-height:max(100svh,600px)}
   .p-orak h1{line-height:.9;margin-bottom:clamp(16px,2.4vh,30px);
-    font-size:min(calc((100vw - 2 * var(--margo)) / 2.52),calc((100svh - var(--nav) - var(--orak-tart,212px)) / 1.03))}
+    font-size:calc(var(--orak-skala) * min(calc((100vw - 2 * var(--margo)) / 2.52),calc((100svh - var(--nav) - var(--orak-tart,212px)) / 1.03)))}
 }
 @media (min-width:1700px){.p-orak .oh{--orak-tart:200px}}
 @media (min-width:981px) and (max-width:1180px){.p-orak .oh{--orak-tart:300px}}
 
-/* ===================================================================== TELEFON: kisebb szakaszcímek (2026-11)
+/* ===================================================================== TELEFON: kisebb szakaszcímek
    telefonon a szakaszcímek legfeljebb 40 px-esek, a nagy nyitó feliratok (h1, Ezüst, Órák) maradnak;
    a sok oldalanként hatókörözött betűméret miatt egy helyen, felülíró szabállyal */
 @media (max-width:520px){
   main h2[data-sor]{font-size:min(9.6vw,38px)!important;line-height:1.1}
 }
 
-/* ===================================================================== ELENA KÉPEI (2026-11-18)
+/* ===================================================================== ÜGYFÉLKÉPEK
    Arany: a befektetési arany fotója teljes szélességben az árfolyam és a „Mitől függ” között; a 999,9-es beütés
    és az érmék felirata a „Finomság” pont előtt látszik. A krém ártábla lekerekített alja rácsúszik a fotó tetejére
    (margin-top -30px, az .arak z-index 2). Gépen kb. 16:9, telefonon 4:5 kivágás.
@@ -1111,4 +1115,86 @@ fieldset.mezo legend{width:100%;margin-bottom:10px}
   .tomb__kep{aspect-ratio:4/5;max-height:84svh}
   .zar-o__kep{aspect-ratio:1080/807;margin-bottom:-24px;
     --el:linear-gradient(to right,transparent,#000 8%,#000 92%,transparent),linear-gradient(to bottom,transparent,#000 5%,#000 86%,transparent)}
+}
+
+/* Érmék: a kitüntetések egymás mellett, a sorok teteje egy vonalban */
+.erme-kepek{background:var(--papir);display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;align-items:start;padding:clamp(80px,11vh,130px) var(--margo)}
+.erme-kepek__k{margin:0}
+.erme-kepek__k:first-child{grid-column:2/7}
+.erme-kepek__k:last-child{grid-column:8/12}
+.erme-kepek__k img{width:100%;height:auto;border-radius:3px}
+.erme-kepek__k figcaption{margin-top:12px;font-size:15px;color:var(--tinta-2)}
+@media (max-width:980px){
+  .erme-kepek{display:grid;grid-template-columns:1fr;row-gap:40px}
+  .erme-kepek__k:first-child,.erme-kepek__k:last-child{grid-column:1}
+}
+
+/* Ezüst: „Nehéz a doboz?”. Bal hasábban a bevezető és alatta a két út (Behozza, Kimegyünk), jobbra mellettük a készlet
+   nagy fotója a három sor teljes magasságában. A bevezető fent, a két út lent a fotó aljához igazodik (a köztes sor 1fr),
+   így a bal oszlopban nincs üres lyuk. A fotó legfeljebb natív (1200 px) széles. */
+.p-ezust .doboz__racs{grid-template-rows:auto auto minmax(0,1fr) auto auto;row-gap:0;column-gap:clamp(24px,2.4vw,40px)}
+.p-ezust .doboz h2{margin-bottom:clamp(36px,5vh,56px)}
+.p-ezust .doboz__bev{grid-column:1/6;grid-row:2;font-size:clamp(19px,1.4vw,23px);line-height:1.55;max-width:34ch;padding-bottom:36px}
+.p-ezust .doboz__ut{grid-column:1/6;padding:28px 0 30px}
+.p-ezust .doboz__ut:nth-of-type(1){grid-row:4}
+.p-ezust .doboz__ut:nth-of-type(2){grid-row:5}
+.p-ezust .doboz__kep{grid-column:6/13;grid-row:2/6;align-self:start;max-width:1200px}
+.doboz__kep{grid-column:8/13;grid-row:2/3;margin:0}
+.doboz__kep img{width:100%;height:auto;border-radius:3px}
+.doboz__kep figcaption{margin-top:10px;font-size:15px;color:var(--hamu-s)}
+.doboz.vilagos .doboz__kep figcaption{color:var(--tinta-2)}
+
+/* Órák: az új órák csoportban, a sorok teteje egy vonalban */
+.o-csop{background:var(--v1);display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;align-items:start;padding:0 max(var(--margo),calc((100% - 1400px) / 2)) clamp(100px,13vh,160px)}
+.o-csop__k{margin:0}
+.o-csop__k img{width:100%;height:auto;border-radius:3px}
+.o-csop__k figcaption{margin-top:12px;font-size:15px;color:var(--hamu-s)}
+.o-csop__k--patek{grid-column:1/6}
+.o-csop__k--otos{grid-column:7/13;max-width:1006px;align-self:end}
+@media (max-width:980px){
+  .doboz__kep{margin-top:34px}
+  .o-csop{display:grid;grid-template-columns:1fr;row-gap:40px}
+  .o-csop__k--patek,.o-csop__k--otos{grid-column:1}
+}
+
+/* Becslés, 1. lépés: a fémjel-csík (700 × 222) dobozát a csíkhoz szabjuk. A doboz csak annyival magasabb a képnél,
+   hogy a lupe kerete ne vágódjon (a kép a doboz kb. 64%-a); a halk sodródás 1,035-ös nagyításával együtt is legfeljebb natív szélességű (676 × 1,035 ≈ 700 px), és a cím oszlopa (1-4) mellett áll. */
+@media (min-width:981px){
+  #lupe-l1{grid-column:5/10;justify-self:center;align-self:center;width:100%;max-width:676px;height:auto;aspect-ratio:700/347;margin:0}
+}
+
+/* Régiségek: megvett darabok, a porcelán nagyban, mellette a két Zsolnay lépcsőzetes tető nélkül, egy vonalra igazítva */
+.rg-targy{background:var(--papir-2);color:var(--tinta);display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;row-gap:clamp(36px,5vh,56px);align-items:start;
+  padding:clamp(90px,12vh,150px) max(var(--margo),calc((100% - 1400px) / 2)) clamp(110px,14vh,170px)}
+.rg-targy__cim{grid-column:1/-1;font-size:clamp(34px,3.6vw,64px)}
+.rg-targy__k{margin:0}
+.rg-targy__k img{width:100%;height:auto;border-radius:3px}
+.rg-targy__k figcaption{margin-top:12px;font-size:15px;color:var(--tinta-2)}
+.rg-targy__k--herend{grid-column:1/8;grid-row:2/4}
+.rg-targy__k--tal{grid-column:9/12;grid-row:2}
+.rg-targy__k--kaspo{grid-column:9/13;grid-row:3}
+@media (max-width:980px){
+  .rg-targy{grid-template-columns:1fr 1fr;column-gap:16px}
+  .rg-targy__k--herend{grid-column:1/-1;grid-row:2}
+  .rg-targy__k--tal{grid-column:1;grid-row:3}
+  .rg-targy__k--kaspo{grid-column:2;grid-row:3}
+}
+
+/* Régiségek nyitókép: a szalon-fotó élesen, natív méret közelében a bal oldalon, a jobb oldala és az alja a sötét alapba halkul.
+   A szöveg a jobb oldali sötét részen áll. */
+@media (min-width:981px){
+  .p-regi .rh{overflow:clip;isolation:isolate;
+    --rh-tw:min(620px,40vw);
+    --rh-h:min(calc(max(100svh,700px) - var(--fej)),1200px);
+    --rh-w:min(calc(var(--rh-h) * 1.0045),calc(100vw - var(--rh-tw) - 2 * var(--margo) - 24px))}
+  .p-regi .rh::before{content:"";position:absolute;inset:var(--fej) 0 0 0;z-index:0;pointer-events:none;
+    background:var(--ej);
+    -webkit-mask-image:linear-gradient(transparent,#000 110px);mask-image:linear-gradient(transparent,#000 110px)}
+  .p-regi .rh .lupe-ter{inset:var(--fej) auto auto 0;width:var(--rh-w);height:var(--rh-h);z-index:1}
+  .p-regi .rh .lupe-mozgo{--el:linear-gradient(transparent,#000 110px),linear-gradient(#000 calc(100% - 130px),transparent),linear-gradient(to right,#000 56%,transparent);
+    -webkit-mask-image:var(--el);mask-image:var(--el);-webkit-mask-composite:source-in;mask-composite:intersect}
+  .p-regi .rh .lupe-kep{object-position:0% 40%}
+  .p-regi .rh__szoveg{width:var(--rh-tw)}
+  .p-regi h1{font-size:clamp(56px,6.2vw,118px)}
+  .p-regi h1 .be{padding-left:.9em}
 }

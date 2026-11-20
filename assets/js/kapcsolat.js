@@ -59,7 +59,7 @@
       var C = EN ? ['Name', 'Phone', 'Where to look at it', 'Item', 'When to call', 'Valuation request: ', 'item']
         : ['Név', 'Telefon', 'Hol nézzük meg', 'Tárgy', 'Mikor hívhatjuk', 'Becslést kérek: ', 'tárgy'];
       var body = C[0] + ': ' + v('nev') + '\n' + C[1] + ': ' + v('telefon') + '\n' + C[2] + ': ' + v('hol') + '\n' + C[3] + ': ' + v('targy') + '\n' + C[4] + ': ' + v('mikor') + '\n\n' + v('uzenet');
-      location.href = 'mailto:aranyregisegcenter@gmail.com?subject=' + encodeURIComponent(C[5] + (v('targy') || C[6])) + '&body=' + encodeURIComponent(body);
+      location.href = 'mailto:aranyregisegkozpont@gmail.com?subject=' + encodeURIComponent(C[5] + (v('targy') || C[6])) + '&body=' + encodeURIComponent(body);
       var st = f.querySelector('.allapot');
       if (st) st.textContent = EN ? 'Your email program has opened with the message filled in. If it did not open, call us on +36 20 620 1377.'
         : 'Megnyílt a levelezőprogramja a kitöltött levéllel. Ha nem nyílt meg, hívjon minket: 06 20 620 1377.';

@@ -42,6 +42,9 @@
 .bu-sav__vonal::before,.bu-sav__vonal::after{content:"";position:absolute;top:-4px;width:9px;height:9px;border-radius:50%;background:var(--arany-mely)}
 .bu-sav__vonal::before{left:0}
 .bu-sav__vonal::after{right:0}
+.bu-sav__kep{grid-column:9/13;grid-row:1;margin:0 0 clamp(26px,4vh,44px);max-width:440px}
+.bu-sav__kep img{width:100%;height:auto;border-radius:3px}
+.bu-sav__kep figcaption{margin-top:10px;font-size:15px;color:var(--tinta-2)}
 .bu-sav__pl{grid-column:9/13;grid-row:2;align-self:end;margin:0 0 clamp(14px,2.2vh,26px);font-size:18.5px;line-height:1.6;color:var(--tinta-2);max-width:34ch}
 
 /* ===================================================================== FELTÉTEL: arany ékszerrel együtt
@@ -90,6 +93,7 @@
   .buh__jobb .buh__tel{display:none}
   .bu-sav{padding:clamp(56px,8vh,80px) var(--margo) clamp(48px,7vh,72px)}
   .bu-sav h2,.bu-sav__tol,.bu-sav__pl{grid-column:1/-1}
+  .bu-sav__kep{grid-column:1/-1;grid-row:6;width:min(72vw,440px);margin:clamp(34px,5vh,52px) 0 0}
   .bu-sav__pl{grid-row:5;margin:clamp(20px,3vh,32px) 0 0;max-width:38ch}
   .bu-gomb{padding:clamp(72px,10vh,100px) var(--margo)}
   .bu-gomb h2,.bu-gomb__szoveg,.bu-gomb__kep{grid-column:1/-1;grid-row:auto}
