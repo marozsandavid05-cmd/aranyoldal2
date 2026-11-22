@@ -17,7 +17,7 @@ Mit csinál:
      minden HU és EN oldalon (az x-default a magyar), JSON-LD WebPage inLanguage "en".
   5. Nyelvváltó: HU oldalon az EN link az angol párra, EN oldalon a HU link a magyar párra mutat.
   6. Relatív utak: az en/ oldal a gyökér assets/ mappáját használja (../assets/), nincs másolat.
-  7. sitemap.xml: mind a 26 indexelhető cím xhtml:link alternatívákkal (a 404 kimarad).
+  7. sitemap.xml: mind a 28 indexelhető cím xhtml:link alternatívákkal (a 404 kimarad).
 """
 import io, os, re, sys, json
 
@@ -25,7 +25,7 @@ GYOKER = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SZOTAR = os.path.join(GYOKER, "nyelv", "en.json")
 HIANYZO = os.path.join(GYOKER, "nyelv", "hianyzo.json")
 SITE = "https://aranyregisegcenter.hu"
-OLDALAK = ["index", "arany", "ezust", "platina-palladium", "orak", "regisegek", "ermek", "bunda",
+OLDALAK = ["index", "arany", "ezust", "platina-palladium", "orak", "regisegek", "ermek", "bunda", "markas-ekszerek",
            "becsles", "rolunk", "kapcsolat", "impresszum", "adatvedelem", "404"]
 
 HONAP = ["január", "február", "március", "április", "május", "június", "július", "augusztus",

@@ -18,10 +18,10 @@
 <meta property="og:locale" content="hu_HU">
 <link rel="icon" href="assets/img/favicon-48.png" type="image/png" sizes="48x48">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
-<link rel="preload" as="image" href="assets/img/arany-kincs-2400.webp" imagesrcset="assets/img/arany-kincs-900.webp 900w, assets/img/arany-kincs-1600.webp 1600w, assets/img/arany-kincs-2400.webp 2400w" imagesizes="100vw" media="all" fetchpriority="high">
+<link rel="preload" as="image" href="assets/img/arany-kez-1024.avif" imagesrcset="assets/img/arany-kez-640.avif 640w, assets/img/arany-kez-1024.avif 1024w" imagesizes="(max-width:980px) 100vw, 72vw" type="image/avif" fetchpriority="high">
 <link rel="stylesheet" href="assets/fonts/fonts.css">
 <link rel="stylesheet" href="assets/css/site.css?v=9">
-<link rel="stylesheet" href="assets/css/oldalak.css?v=20">
+<link rel="stylesheet" href="assets/css/oldalak.css?v=21">
 <link rel="stylesheet" href="assets/css/grafikon.css?v=1">
 
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Store","@id":"https://aranyregisegcenter.hu/#uzlet","name":"Arany Régiség Center","url":"https://aranyregisegcenter.hu/","telephone":"+36206201377","email":"aranyregisegkozpont@gmail.com","address":{"@type":"PostalAddress","streetAddress":"Teréz körút 35.","postalCode":"1067","addressLocality":"Budapest","addressCountry":"HU"},"geo":{"@type":"GeoCoordinates","latitude":47.50765,"longitude":19.06071},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"10:00","closes":"17:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"10:00","closes":"13:00"}],"areaServed":"Budapest"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Kezdőlap","item":"https://aranyregisegcenter.hu/"},{"@type":"ListItem","position":2,"name":"Arany felvásárlás","item":"https://aranyregisegcenter.hu/arany"}]}]}</script>
@@ -94,14 +94,14 @@
 <main id="tartalom">
 <nav class="ut" aria-label="Morzsamenü"><ol><li><a href="index.html">Kezdőlap</a></li><li>Mit vásárolunk</li><li aria-current="page">Arany</li></ol></nav>
 <section class="ah" aria-labelledby="ah-cim" data-vilag="--ej">
-    <div class="lupe-ter" id="lupe-arany" data-lupe='{"z":2.6,"zmin":1.6,"rmax":150,
-      "d":{"src":"assets/img/arany-kincs-nagy.webp","w":4200,"h":2800,"p":[[0.66,0.42],[0.57,0.62]]},
-      "nev":["Márkanév a számlapon","Arany óratok"]}'>
-      <div class="lupe-mozgo">
-        <img class="lupe-kep" src="assets/img/arany-kincs-2400.webp" srcset="assets/img/arany-kincs-900.webp 900w, assets/img/arany-kincs-1600.webp 1600w, assets/img/arany-kincs-2400.webp 2400w" sizes="100vw" width="2400" height="1600" alt="Régi arany holmik egy halomban sötét alapon: széles arany karperec, gyűrűk, lánc és arany tokos órák, köztük egy Vacheron Constantin" fetchpriority="high">
-      </div>
-      <div class="lupe-feny" aria-hidden="true"></div>
-    </div>
+    <div class="ah__lap" aria-hidden="true"></div>
+    <figure class="ah__kep">
+      <picture>
+        <source type="image/avif" srcset="assets/img/arany-kez-640.avif 640w, assets/img/arany-kez-1024.avif 1024w" sizes="(max-width:980px) 100vw, 72vw">
+        <source type="image/webp" srcset="assets/img/arany-kez-640.webp 640w, assets/img/arany-kez-1024.webp 1024w" sizes="(max-width:980px) 100vw, 72vw">
+        <img src="assets/img/arany-kez-1024.jpg" srcset="assets/img/arany-kez-640.jpg 640w, assets/img/arany-kez-1024.jpg 1024w" sizes="(max-width:980px) 100vw, 72vw" width="1024" height="864" alt="Nyitott tenyér, rajta egy halom arany ékszer: gyűrűk kővel, láncok, karperecek, medálok, az ujjakról lelógó láncokkal, világos, mintás háttér előtt" fetchpriority="high">
+      </picture>
+    </figure>
     <div class="ah__fent">
       <h1 id="ah-cim"><span>Arany</span> <em>felvásárlás</em></h1>
     </div>
@@ -125,6 +125,16 @@
       <figure class="hozhat__kor rv" aria-hidden="true"><img src="assets/img/arany-karperec-500.webp" srcset="assets/img/arany-karperec-500.webp 500w, assets/img/arany-karperec-900.webp 900w" sizes="(max-width:980px) 46vw, 24vw" width="900" height="900" alt="" loading="lazy"></figure>
       <h2 id="hozhat-cim" data-sor>Mit hozhat be</h2>
       <p class="rv">Nem kell szétválogatnia semmit. Hozza el, ami van, és a pultnál együtt nézzük át darabonként.</p>
+    </div>
+    <div class="hozhat__kincs rv">
+      <div class="lupe-ter" id="lupe-arany" data-lupe='{"z":2.6,"zmin":1.6,"rmax":150,"ragad":true,
+        "d":{"src":"assets/img/arany-kincs-nagy.webp","w":4200,"h":2800,"p":[[0.66,0.42],[0.57,0.62]]},
+        "nev":["Márkanév a számlapon","Arany óratok"]}'>
+        <div class="lupe-mozgo">
+          <img class="lupe-kep" src="assets/img/arany-kincs-1600.webp" srcset="assets/img/arany-kincs-900.webp 900w, assets/img/arany-kincs-1600.webp 1600w, assets/img/arany-kincs-2400.webp 2400w" sizes="(max-width:980px) 100vw, min(1560px, 100vw - 2 * clamp(20px, 4.2vw, 72px))" width="2400" height="1600" alt="Régi arany holmik egy halomban sötét alapon: széles arany karperec, gyűrűk, lánc és arany tokos órák, köztük egy Vacheron Constantin" loading="lazy" decoding="async">
+        </div>
+        <div class="lupe-feny" aria-hidden="true"></div>
+      </div>
     </div>
     <div class="hozhat__racs">
       <div class="rv"><h3>Ékszer</h3><p>Gyűrű, lánc, karperec, fülbevaló, medál, bross, nyakék. Hordott, divatjamúlt darab is.</p></div>
@@ -192,6 +202,13 @@
   </figure>
 
   <section class="fugg v-1" aria-labelledby="fugg-cim" data-vilag="--v1">
+    <figure class="fugg__kep rv">
+      <picture>
+        <source type="image/avif" srcset="assets/img/arany-halom-560.avif 560w, assets/img/arany-halom-1000.avif 1000w" sizes="(max-width:980px) 92vw, 40vw">
+        <source type="image/webp" srcset="assets/img/arany-halom-560.webp 560w, assets/img/arany-halom-1000.webp 1000w" sizes="(max-width:980px) 92vw, 40vw">
+        <img src="assets/img/arany-halom-1000.jpg" srcset="assets/img/arany-halom-560.jpg 560w, assets/img/arany-halom-1000.jpg 1000w" sizes="(max-width:980px) 92vw, 40vw" width="1000" height="1000" alt="Arany ékszerek halomban sötét alapon: sima és vésett karperec, gyémántos karperec, köves gyűrűk, vastag láncok és díszes medálok" loading="lazy" decoding="async">
+      </picture>
+    </figure>
     <h2 id="fugg-cim" data-sor>Mitől függ, mennyit kap</h2>
     <div class="fugg__sor">
       <div class="rv"><b>Finomság</b><p>A fémjel mutatja meg, hány ezrelék arany van a tárgyban. A 14 karátos (585) a leggyakoribb, a 18 karátos (750) többet ér grammonként.</p></div>
