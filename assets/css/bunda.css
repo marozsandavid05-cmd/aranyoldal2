@@ -47,6 +47,26 @@
 .bu-sav__kep figcaption{margin-top:10px;font-size:15px;color:var(--tinta-2)}
 .bu-sav__pl{grid-column:9/13;grid-row:2;align-self:end;margin:0 0 clamp(14px,2.2vh,26px);font-size:18.5px;line-height:1.6;color:var(--tinta-2);max-width:34ch}
 
+/* Asztalon és tableten a kép és a szöveg egy egység: a kép jobbra áll a teljes magasságban, mellette balra,
+   olvasási sorrendben a cím, a két ár (a vonal két végén, átlósan szemben) és a mondat. A kép tetejével a cím,
+   az aljával a mondat egy vonalban van, a maradék magasság egyenlően a cím alá és a mondat fölé kerül, így a kép mellett
+   nem marad üres felület. A két szám mérete a bal oszlop
+   szélességéből jön (konténer-egység), hogy a „másfél millió forintig” egy sorban, a kép előtt férjen el. */
+@media (min-width:981px){
+  .bu-sav__in{container-type:inline-size;grid-template-columns:minmax(0,1fr) min(440px,32%);grid-template-rows:auto 1fr auto auto 1fr;
+    column-gap:clamp(48px,5.5vw,104px);align-items:start}
+  .bu-sav__kep{grid-column:2;grid-row:1/6;margin:0;max-width:none}
+  .bu-sav h2{grid-column:1;grid-row:1}
+  .bu-sav__tol{grid-column:1;grid-row:2;align-self:end}
+  .bu-sav__vonal{grid-column:1;grid-row:3}
+  .bu-sav__ig{grid-column:1;grid-row:4}
+  .bu-sav__pl{grid-column:1;grid-row:5;align-self:end;margin:clamp(18px,3vh,30px) 0 0}
+  .bu-sav__ar b{font-size:clamp(56px,min(7.2vw,19vh),200px)}
+  @supports (width:1cqi){
+    .bu-sav__ar b{font-size:clamp(56px,min((100cqi - min(440px,32cqi) - clamp(48px,5.5vw,104px) - 96px) / 6.7,19vh),200px)}
+  }
+}
+
 /* ===================================================================== FELTÉTEL: arany ékszerrel együtt
    Dohány mélység, a cím a bal kétharmadon, jobbra álló kép: sötét kabát, rajta a gombsor (a gomb a kabáton,
    oldalról látszó domborulattal, így nem érme). Görgetésre a kép a kereten belül alig közelít. */
