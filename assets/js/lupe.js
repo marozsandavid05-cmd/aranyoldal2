@@ -92,6 +92,9 @@
       var r = geom();
       var kicsi = Math.min(r.width, r.height);
       R = Math.round(Math.max(66, Math.min(cfg.rmax || 150, kicsi * (mod === 'm' ? (cfg.rkm || .2) : (cfg.rk || .13)))));
+      /* alacsony képsávban (pl. telefonos nyitókép) a teljes foglalat a kép magasságán belül marad, 6 px ráhagyással */
+      var fer = Math.floor((r.height - 14) / 2) - BEZ;
+      if (fer < R) R = Math.max(30, fer);
       /* a nagyítás nem mehet a forrás natív felbontása fölé (különben a lencse homályosabb, mint a fotó) */
       Z = Math.max(cfg.zmin || 2, Math.min((mod === 'm' && cfg.zm) || cfg.z || 4, (cfg.nat || 1) / geo.s));
       Z = Math.max(cfg.zmin || 2, cfg.zmin ? Math.floor(Z * 10) / 10 : Math.floor(Z * 2) / 2);
@@ -174,7 +177,7 @@
       var x0 = h.x0 + RR, x1 = h.x1 - RR; if (x1 < x0) x0 = x1 = (h.x0 + h.x1) / 2;
       x = Math.min(x1, Math.max(x0, x));
       var y0 = h.y0 + RR, y1 = h.y1 - RR;
-      if (y1 < y0) y0 = y1 = (h.y0 + h.y1) / 2;
+      if (y1 < y0) y0 = y1 = Math.min(h.r.height - RR - 7, Math.max(RR + 7, (h.y0 + h.y1) / 2));
       var kt = kiter(x, Math.min(y1, Math.max(y0, y)), h, false);
       if (sz) return { x: kt.x + (sz.x - kt.x) * szabad, y: kt.y + (sz.y - kt.y) * szabad };
       return { x: kt.x, y: kt.y };

@@ -92,7 +92,7 @@
       var H = ahTer.offsetHeight, uj = H;
       var mindket = H - Math.max(0, g2 + 14 - vonal);
       if (mindket >= 200) uj = mindket;
-      else if (kulonSor) uj = H - Math.max(0, g1 + 18 - vonal);
+      else if (kulonSor) uj = H - Math.max(0, g1 + 14 - vonal);
       else uj = mindket;
       uj = Math.max(130, Math.round(uj));
       if (uj < H) {
