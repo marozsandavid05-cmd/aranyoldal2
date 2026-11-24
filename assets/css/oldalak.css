@@ -159,62 +159,22 @@
 .hivas__cta{display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center;justify-content:center}
 
 /* ===================================================================== ARANY */
-/* nyitókép: a fejléc alatt egy világos lap (felül lekerekítve), rajta jobbra, a lap aljáig a kéz az arannyal, éles szélű fotóként.
-   A fotó fehér, mintás felső részére a cím is átér. A fotó bal széle a felső, üres mintás sávban széles sávon válik átlátszóvá,
-   lejjebb (a kép 23-32%-ától, ott kezdődnek a tárgyak a bal szélen) csak keskeny, puha szélt kap; így a cím alatt nincs éles él, az arany pedig nem lesz áttetsző. A logó a képfájlból le van vágva. */
-.p-arany .ah{position:relative;height:max(100svh,700px);--lap:var(--papir)}
-.p-arany .ah__lap{position:absolute;inset:var(--fej) 0 0 0;background:var(--lap);border-radius:30px 30px 0 0}
-.p-arany .ah__kep{position:absolute;z-index:1;top:var(--fej);right:0;bottom:0;margin:0;aspect-ratio:1024/864;max-width:calc(66.667% - var(--margo) / 3 - 16px);
-  border-radius:0 30px 0 0;overflow:clip;
-  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 16%),linear-gradient(180deg,transparent 23%,#000 32%),linear-gradient(90deg,transparent 0,#000 5%);
-  -webkit-mask-composite:source-over,source-in;
-  mask-image:linear-gradient(90deg,transparent 0,#000 16%),linear-gradient(180deg,transparent 23%,#000 32%),linear-gradient(90deg,transparent 0,#000 5%);
-  mask-composite:add,intersect}
-.p-arany .ah__kep picture,.p-arany .ah__kep img{display:block;width:100%;height:100%}
-.p-arany .ah__kep img{object-fit:cover;object-position:50% 100%}
+.p-arany .ah{position:relative;height:max(100svh,700px)}
+.p-arany .ah .lupe-ter{position:absolute;inset:var(--fej) 0 0 24%;-webkit-mask-image:linear-gradient(90deg,transparent,var(--ej) 20%);mask-image:linear-gradient(90deg,transparent,var(--ej) 20%)}
+.p-arany .ah .lupe-mozgo{position:absolute;inset:-2%;width:104%;height:104%}
+.p-arany .ah .lupe-kep{width:100%;height:100%;object-fit:cover;object-position:30% 50%}
 .p-arany .ah__fent{position:absolute;z-index:3;left:var(--margo);right:var(--margo);top:calc(var(--fej) + 3vh);display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;pointer-events:none}
 .p-arany .ah__fent *{pointer-events:auto}
 .p-arany h1{grid-column:1/8;font-size:clamp(56px,min(6.6vw,12vh),132px);line-height:1;letter-spacing:-.03em;margin-top:1vh}
-.p-arany .ah h1{color:var(--tinta)}
-/* asztali nézetben a cím egy sorban fut át a lapról a fotó üres, mintás felső sávjára; a betűméret ehhez a sávhoz igazodik
-   (a fotó felső kb. 198/864-ed része üres minta; a 0,19-es szorzó legalább kb. 4% hézagot hagy a cím és az arany között) */
-@media (min-width:981px){
-  .p-arany .ah{--cim:min(9.2vw,190px,calc((max(100svh,700px) - var(--fej)) * .19 - 2.4vh - 10px))}
-  .p-arany .ah__fent{top:calc(var(--fej) + 2.4vh)}
-  .p-arany .ah h1{grid-column:1/-1;margin-top:0;white-space:nowrap;font-size:var(--cim)}
-  .p-arany .ah h1 span{display:inline}
-}
 .p-arany h1 span{display:block}
 .p-arany h1 em{font-style:normal;color:var(--arany-vil)}
-.p-arany .ah h1 em{color:var(--arany-mely)}
 .p-arany .ah__lent{position:absolute;z-index:3;left:var(--margo);right:var(--margo);bottom:clamp(30px,5vh,54px);display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;align-items:end;pointer-events:none}
 .p-arany .ah__lent>*{pointer-events:auto}
-.p-arany .ah__alcim{grid-column:1/5;font-size:17px;line-height:1.6;color:var(--tinta-2)}
+.p-arany .ah__alcim{grid-column:1/5;font-size:17px;line-height:1.6}
 .p-arany .ah__cta{grid-column:1/5;display:flex;flex-wrap:wrap;gap:8px 22px;align-items:center;margin-top:20px}
-.p-arany .ah .gomb{background:var(--tinta);color:var(--papir-2)}
-.p-arany .ah .gomb:hover{background:var(--ej)}
-.p-arany .ah .gomb--szellem{background:transparent;color:var(--tinta);box-shadow:inset 0 0 0 1px rgb(var(--tinta-rgb) / .45)}
-.p-arany .ah .gomb--szellem:hover{background:rgb(var(--tinta-rgb) / .06);box-shadow:inset 0 0 0 1px var(--tinta)}
-.p-arany .ah :focus-visible{outline-color:var(--tinta)}
-.p-arany .ah__bal{grid-column:1/5;grid-row:2}
-.p-arany .ah__teny{grid-column:1/5;grid-row:1;margin:0 0 30px;display:grid;gap:10px;font-size:15px;line-height:1.5;color:var(--tinta-2);padding:18px 20px;border-radius:3px;
-  background:rgb(255 255 255 / .7);box-shadow:inset 0 0 0 1px rgb(126 78 30 / .3)}
-.p-arany .ah__teny b{color:var(--tinta);font-weight:600}
-@media (min-width:981px){
-  /* a cím alatti oszlop egy egész: a bevezető a gombokkal és az ígéretek egyenlő közökkel osztják ki a cím alatti magasságot;
-     a betűméret a képernyő magasságával nő, hogy az oszlopban ne maradjon lyuk */
-  .p-arany .ah__lent{top:calc(var(--fej) + 2.4vh + var(--cim));right:auto;bottom:0;width:calc((100% - 2 * var(--margo) - 264px) / 3 + 72px);
-    display:flex;flex-direction:column;justify-content:space-between;gap:28px}
-  .p-arany .ah__lent::before,.p-arany .ah__lent::after{content:""}
-  .p-arany .ah__alcim{font-size:clamp(17px,min(2.85vh,1.6vw),40px);line-height:1.55}
-  .p-arany .ah__cta{margin-top:clamp(20px,2.6vh,30px)}
-  .p-arany .ah__teny{margin:0;font-size:clamp(15px,min(2.1vh,1.2vw),29px);gap:clamp(10px,1.2vh,16px);padding:clamp(18px,2.4vh,32px) clamp(20px,2.5vh,34px)}
-}
-/* a régi nyitókép a „Mit hozhat be” részbe került, a lupe vele együtt (4200 px-es forrás, a nagyítás éles) */
-.hozhat__kincs{max-width:1560px;margin:0 auto 70px}
-.hozhat__kincs .lupe-ter{aspect-ratio:2400/1100;border-radius:4px}
-.hozhat__kincs .lupe-mozgo{position:absolute;inset:-2%;width:104%;height:104%}
-.hozhat__kincs .lupe-kep{width:100%;height:100%;object-fit:cover;object-position:50% 50%}
+.p-arany .ah__bal{grid-column:1/5}
+.p-arany .ah__teny{grid-column:10/13;display:grid;gap:12px;font-size:15px;line-height:1.5;color:var(--hamu-s);background:rgb(var(--ej-rgb) / .88);padding:20px 22px;border-radius:3px;box-shadow:inset 0 0 0 1px rgb(var(--arany-rgb) / .22)}
+.p-arany .ah__teny b{color:var(--csont);font-weight:600}
 
 .p-arany .hozhat{padding:clamp(110px,15vh,180px) var(--margo) clamp(90px,12vh,140px)}
 .hozhat__fej{max-width:1560px;margin:0 auto 60px;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px}
@@ -651,10 +611,9 @@ fieldset.mezo legend{width:100%;margin-bottom:10px}
   .p-arany .ah{height:auto;min-height:max(100svh,760px);display:flex;flex-direction:column;padding-top:var(--fej)}
   .p-arany .ah__fent{position:relative;left:auto;right:auto;top:auto;padding:12px var(--margo) 0;display:block}
   .p-arany h1{font-size:clamp(52px,14vw,110px)}
-  .p-arany .ah__lap{border-radius:24px 24px 0 0}
-  .p-arany .ah__kep{position:relative;top:auto;right:auto;bottom:auto;flex:none;width:100%;max-width:none;aspect-ratio:auto;height:min(78vw,34svh);margin-top:14px;
-    border-radius:0;-webkit-mask-image:none;mask-image:none}
-  .p-arany .ah__lent{position:relative;left:auto;right:auto;top:auto;bottom:auto;width:auto;display:block;padding:22px var(--margo) 30px}
+  .p-arany .ah .lupe-ter{position:relative;inset:auto;height:calc(44svh - 56px);flex:none;-webkit-mask-image:none;mask-image:none;margin-top:10px}
+  .p-arany .ah .lupe-kep{object-position:55% 58%}
+  .p-arany .ah__lent{position:relative;left:auto;right:auto;bottom:auto;display:block;padding:22px var(--margo) 30px}
   .p-arany .ah__teny{display:none}
   .hozhat__fej,.arak__racs,.suly__racs,.finom__fej,.doboz__racs,.mit__fej,.atnez__racs,.lakas__fej,.ermearak__racs,.menet__racs,.hozza__racs,.korut__racs,.urlap-szek__racs,.terkep-szek,.zar-a{display:block}
   .hozhat__fej p,.arak__bev,.suly__bev,.finom__fej p,.mit__fej p,.atnez__bev,.lakas__fej p,.hozza__bev,.korut__sz2,.urlap-fej p{margin-top:16px}
@@ -664,8 +623,6 @@ fieldset.mezo legend{width:100%;margin-bottom:10px}
   .p-arany .fugg{display:block}
   .fugg__kep{margin-bottom:44px}
   .p-arany .fugg h2{margin-bottom:30px}
-  .hozhat__kincs{margin:0 calc(-1 * var(--margo)) 50px}
-  .hozhat__kincs .lupe-ter{aspect-ratio:4/3;border-radius:0}
   .zar-a__tel{justify-items:start;text-align:left;margin-top:30px}
   .p-ezust .eh{height:auto;min-height:max(100svh,760px);display:flex;flex-direction:column}
   .p-ezust .eh .lupe-ter{position:relative;inset:auto;height:52svh;flex:none}
@@ -689,7 +646,6 @@ fieldset.mezo legend{width:100%;margin-bottom:10px}
   .p-regi .rh__lent{grid-template-columns:1fr;gap:18px}
   .atnez__elem{grid-template-columns:1fr;margin-top:40px}
   .lakas__ut{grid-template-columns:1fr 1fr;row-gap:40px}
-  .lakas__ut::before,.lakas__ut::after{display:none}
   .p-erme .mh{height:auto;min-height:max(100svh,760px);display:flex;flex-direction:column;padding-top:var(--fej)}
   .p-erme .mh .lupe-ter{position:relative;inset:auto;height:46svh;flex:none}
   .p-erme .mh__kartya{position:relative;left:auto;right:auto;bottom:auto;width:auto;margin:-40px var(--margo) 30px}
@@ -1048,7 +1004,7 @@ fieldset.mezo legend{width:100%;margin-bottom:10px}
   .p-ezust .eh__panel .gomb{white-space:normal}
   .p-ezust .eh__panel{top:auto;width:auto;grid-template-columns:1fr;justify-content:stretch}
   .p-regi .rh .lupe-kep{object-position:50% 50%}
-  .p-regi .rh .lupe-ter{height:min(58svh,104vw)}
+  .p-regi .rh .lupe-ter{height:min(58svh,92vw)}
   .p-regi .rh .lupe-mozgo{-webkit-mask-image:none;mask-image:none}
   .p-regi .rh__szoveg{width:auto}
 }
@@ -1277,12 +1233,93 @@ fieldset.mezo legend{width:100%;margin-bottom:10px}
   .p-regi h1 .be{padding-left:.9em}
 }
 
-/* Arany nyitókép telefonon: a két gomb egy sorban, hogy a nyitókép az alsó elérhetőség-sáv fölött véget érjen */
-@media (max-width:560px){
-  .p-arany .ah__lent{padding-bottom:24px}
-  .p-arany .ah__cta{flex-wrap:nowrap;gap:10px}
-  .p-arany .ah__cta .gomb{flex:1 1 auto;padding:0 14px;white-space:nowrap}
+/* ===================================================================== TELEFON: ugyanaz a mozgás, mint asztalon
+   Mozgással (html.js.mo) a görgetésre változó elemek telefonon is ugyanúgy működnek, a képernyőhöz igazított elrendezésben.
+   Reduced-motion alatt és JS nélkül a fenti, egymás alatti, kész végállapot marad. */
+@media (max-width:980px){
+  /* Főoldal, „Így zajlik a becslés”: ragadós színpad, fent a cím, alatta a kerek kép, alatta az éppen aktív lépés;
+     görgetésre a kép és a lépés vált (fooldal.js, ugyanaz a driver, mint asztalon) */
+  .js.mo .p-fo .becs{--blep:62svh;height:calc(100svh + 2 * var(--blep));padding:0}
+  .js.mo .becs__racs{position:sticky;top:0;height:100svh;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto auto;
+    align-content:center;padding:calc(var(--nav) + clamp(10px,2svh,22px)) var(--margo) calc(64px + env(safe-area-inset-bottom) + 12px);overflow:clip}
+  .js.mo .becs__fej{grid-row:1;grid-column:1;padding:0}
+  .js.mo .becs__fej h2{margin-bottom:6px}
+  .js.mo .becs__ragad{display:grid;position:static;grid-row:2;grid-column:1;height:auto;place-items:center;padding:0;margin:clamp(14px,2.6svh,26px) 0 clamp(16px,2.8svh,28px)}
+  .js.mo .becs__kor{width:clamp(130px,calc(100svh - 500px),min(76vw,40svh));box-shadow:0 0 0 1.5px var(--arany),0 0 0 7px var(--vilag),0 0 0 8px rgb(var(--arany-rgb) / .35),0 30px 70px -24px rgb(var(--arnyek-rgb) / .9)}
+  .js.mo .becs__lepesek{grid-row:3;grid-column:1;display:grid;align-items:start;min-height:9.5em}
+  .js.mo .lepes{grid-area:1/1;display:block;min-height:0;padding:0;opacity:0;transform:translateY(8px);pointer-events:none;
+    transition:opacity .45s var(--ease),transform .45s var(--ease)}
+  .js.mo .lepes.most{opacity:1;transform:none;pointer-events:auto}
+  .js.mo .lepes+.lepes{border-top:0}
+  .js.mo .lepes__kor{display:none}
+  .js.mo .lepes__sz{margin-bottom:8px}
+  .js.mo .lepes h3{font-size:26px;margin:0 0 8px}
+  .js.mo .lepes p,.js.mo .lepes .becs__link{margin-top:0}
+  .js.mo .lepes .becs__link{display:inline-block;margin-top:8px}
+
+  /* Becslés oldal: a lépés-színpad telefonon is ragad; a cím fent kigördül, a lépéslista, a kép és a lépés szövege a
+     képernyőn marad, és görgetésre lépésenként vált (becsles.js állítja a magasságot és a ragadás helyét) */
+  .js.mo .bs{--lep:62svh;height:var(--bsM,auto);padding-bottom:0;margin-bottom:0}
+  .js.mo .bs__szinpad{position:sticky;top:var(--bsTop,0px);height:auto;overflow:visible;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto auto auto;
+    grid-template-areas:"fej" "index" "kep" "jegy";padding:var(--fej) var(--margo) calc(64px + env(safe-area-inset-bottom) + 16px)}
+  .js.mo .bs__elso{display:contents}
+  .js.mo .bs__fej{grid-area:fej;padding-top:18px}
+  .js.mo .bs .bs__index{grid-area:index;display:block;margin-top:clamp(22px,3.4svh,34px)}
+  .js.mo .bs__index ol{display:flex;gap:10px}
+  .js.mo .bs__index a{display:grid;grid-template-columns:28px;min-height:44px;min-width:44px;place-items:center}
+  .js.mo .bs__index-ige{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .js.mo .bs .bs__kep{grid-area:kep;width:100%;height:clamp(170px,30svh,320px);max-height:none;aspect-ratio:auto;margin:clamp(14px,2.4svh,24px) 0 0;
+    opacity:0;pointer-events:none;z-index:0;transition:opacity .2s linear}
+  .js.mo .bs .bs__kep.aktiv{opacity:1;z-index:2;pointer-events:auto;transition:opacity .5s var(--ease)}
+  .js.mo .bs__kep .lupe-kep{object-position:50% 50%}
+  .js.mo .bs .bs__jegy{grid-area:jegy;align-self:start;margin-top:clamp(12px,2svh,20px);opacity:0;transform:translateY(8px);pointer-events:none;
+    transition:opacity .3s var(--ease),transform .3s var(--ease)}
+  .js.mo .bs .bs__jegy.aktiv{opacity:1;transform:none;pointer-events:auto;transition:opacity .55s var(--ease) .18s,transform .55s var(--ease) .18s}
+  .js.mo .bs__szam{font-size:clamp(40px,11vw,56px)}
+  .js.mo .bs__jegy h2{margin-top:10px;font-size:24px}
+  .js.mo .bs__szoveg{margin-top:8px;font-size:15.5px}
+
+  /* Régiségek, hagyaték négy lépése: a vonal telefonon is görgetésre telik, függőlegesen, a pontok mentén */
+  .lakas__ut{grid-template-columns:1fr;row-gap:34px;padding-left:38px}
+  .lakas__ut::before,.lakas__ut::after{display:block;left:9px;right:auto;top:10px;bottom:10px;width:2px;height:auto}
+  .lakas__ut::after{transform-origin:top;transform:scaleY(var(--halad,1))}
+  .lakas__ut li{padding-top:0}
+  .lakas__ut li::before{left:-38px;top:2px}
+
+  /* Főoldal nyitókép: a nagyító-gombok alatt a magyarázó szöveg telefonon is ott van, mint asztalon. A szaggatott
+     mutatóvonal és a fölötte álló cím telefonon nem fér el: a lencse a kép szélességének nagy részét kitölti, ráfutna */
+  .p-fo .hero__jobb .olvaso__szoveg{display:block;min-height:6.2em;font-size:15px}
+  .p-fo .hero__bal{padding-top:164px}
+
+  /* érintésnél nincs hover: a sorban a kerek kép akkor nő meg, amikor a sor a képernyő közepén jár (motion.js .most) */
+  .aru__kor,.pp-mit__sorok .aru__kor{transform:scale(.86);opacity:.75;transition:transform .5s var(--ease),opacity .4s}
+  .aru__sor a.most .aru__kor,.pp-mit__sorok li.most .aru__kor{transform:scale(1.12);opacity:1}
+  .aru__sor a.most .aru__kor img,.pp-mit__sorok li.most .aru__kor img{transform:scale(1.4)}
+  .aru__sor a.most .aru__nev{color:var(--arany-vil);transform:translateX(10px)}
+  .rm .aru__kor,.rm .pp-mit__sorok .aru__kor{transform:none;opacity:1}
 }
-@media (max-width:560px) and (max-height:760px){
-  .p-arany .ah__kep{height:min(78vw,26svh)}
+
+/* Telefon: ami asztalon ragad vagy látszik, az telefonon is */
+@media (max-width:980px){
+  /* Órák, „Mit nézünk meg”: a kép asztalon a lista mellett ragad, telefonon is, arányosan kisebb jobb oszlopban */
+  .mit__test{display:grid;grid-template-columns:minmax(0,1fr) 36%;column-gap:16px;align-items:start}
+  .mit__test .mit__sorok{grid-column:1;grid-row:1}
+  .mit__kep{grid-column:2;grid-row:1;position:sticky;top:calc(var(--nav) + 18px);max-width:none;margin:0;padding-top:30px}
+  .mit__kep figcaption{font-size:14px;margin-top:10px}
+  .mit.vilagos .mit__test .mit__sor{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:12px;row-gap:6px}
+  .mit__test .mit__ora{grid-column:1/2;grid-row:1/3;font-size:26px;min-width:1.9ch}
+  .mit.vilagos .mit__test .mit__sor h3,.mit.vilagos .mit__test .mit__sor p{grid-column:2/3}
+  .mit.vilagos .mit__test .mit__sor h3{font-size:21px}
+  .mit.vilagos .mit__test .mit__sor p{font-size:15px}
+  /* Arany nyitókép: a tény-doboz asztalon a képen áll, telefonon a szöveg alatt, ugyanazzal a tartalommal */
+  .p-arany .ah__teny{display:grid;margin-top:20px}
+}
+
+/* Keskeny telefon: a hosszú e-mail-cím és az ártábla ára ne tolja ki az oldalt */
+.jog dd,.jog p{overflow-wrap:anywhere}
+@media (max-width:420px){
+  .tabla td.ar{white-space:normal}
+}
+@media (max-width:980px){
+  .jog__oldal nav a{min-height:44px;display:flex;align-items:center}
 }

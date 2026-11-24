@@ -202,4 +202,15 @@
   document.querySelectorAll('[data-nap]').forEach(function (tr) {
     if (+tr.getAttribute('data-nap') === nap) { tr.classList.add('ma'); var m = tr.querySelector('.ma-jel'); if (m) m.hidden = false; }
   });
+
+  /* ---------- érintésnél nincs hover: az áru-sor kerek képe akkor nő meg, amikor a sor a képernyő közepén jár ---------- */
+  if (!reduce && 'IntersectionObserver' in window && !matchMedia('(hover:hover) and (pointer:fine)').matches) {
+    var sorok = document.querySelectorAll('.aru__sor a, .pp-mit__sorok li');
+    if (sorok.length) {
+      var sio = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { e.target.classList.toggle('most', e.isIntersecting); });
+      }, { rootMargin: '-49% 0px -50% 0px' });
+      [].forEach.call(sorok, function (el) { sio.observe(el); });
+    }
+  }
 })();

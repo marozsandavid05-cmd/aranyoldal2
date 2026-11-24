@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /_qa/
+Disallow: /workers/
+
+Sitemap: https://aranyregisegkozpont.hu/sitemap.xml

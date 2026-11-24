@@ -62,8 +62,10 @@ html[lang=en] .p-marka .mkh__nagy{font-size:clamp(40px,min(4.9vw,8.4vh),94px)}
 /* ===================================================================== ÁR: a gramm-sáv csak a márkás ékszerre, alatta a feltételek */
 .p-marka .mk-ar{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;align-items:center;max-width:1560px;margin:0 auto;
   padding:clamp(100px,14vh,170px) var(--margo)}
-.mk-ar__kep{grid-column:1/6;margin:0;aspect-ratio:1;overflow:hidden;border-radius:4px}
-.mk-ar__kep img{width:100%;height:100%;object-fit:cover}
+.mk-ar__kep{grid-column:1/6;margin:0}
+.mk-ar__kep picture{display:block;aspect-ratio:1;overflow:hidden;border-radius:4px}
+.mk-ar__kep img{display:block;width:100%;height:100%;object-fit:cover}
+.mk-ar__kep figcaption{margin-top:12px;font-size:15px;line-height:1.45;color:var(--hamu-s)}
 .mk-ar__szoveg{grid-column:7/13}
 .mk-ar__szoveg h2{font-size:clamp(34px,3.4vw,60px);margin-bottom:clamp(26px,4vh,40px)}
 .mk-ar__sav{display:grid;gap:6px;padding-left:clamp(18px,1.6vw,26px);border-left:2px solid var(--arany)}

@@ -24,7 +24,7 @@ import io, os, re, sys, json
 GYOKER = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SZOTAR = os.path.join(GYOKER, "nyelv", "en.json")
 HIANYZO = os.path.join(GYOKER, "nyelv", "hianyzo.json")
-SITE = "https://aranyregisegcenter.hu"
+SITE = "https://aranyregisegkozpont.hu"
 OLDALAK = ["index", "arany", "ezust", "platina-palladium", "orak", "regisegek", "ermek", "bunda", "markas-ekszerek",
            "becsles", "rolunk", "kapcsolat", "impresszum", "adatvedelem", "404"]
 
@@ -260,7 +260,10 @@ def en_oldal(hu, oldal, F):
                         '<meta property="og:locale" content="en_GB">\n<meta property="og:locale:alternate" content="hu_HU">', 1)
     html = re.sub(r'<link rel="canonical" href="[^"]*">', f'<link rel="canonical" href="{tiszta(oldal, "en")}">', html, count=1)
     if oldal != "404":
-        html = html.replace('<meta property="og:type"', f'<meta property="og:url" content="{tiszta(oldal, "en")}">\n<meta property="og:type"', 1)
+        if 'property="og:url"' in html:
+            html = re.sub(r'<meta property="og:url" content="[^"]*">', f'<meta property="og:url" content="{tiszta(oldal, "en")}">', html, count=1)
+        else:
+            html = html.replace('<meta property="og:type"', f'<meta property="og:url" content="{tiszta(oldal, "en")}">\n<meta property="og:type"', 1)
     html = html.replace("<!--NYELVVALTO-->", nyelvvalto(oldal, "en"), 1)
     # telefonszám nemzetközi alakban, nyitvatartás órával (10:00-17:00), angol olvasónak egyértelműbb
     html = html.replace("06 20 620 1377", "+36 20 620 1377").replace("06&nbsp;20&nbsp;620&nbsp;1377", "+36&nbsp;20&nbsp;620&nbsp;1377")

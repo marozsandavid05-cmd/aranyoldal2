@@ -1,7 +1,9 @@
 /* Becslés: a nyitó négy lépése. Asztalon mozgással a színpad ragad (CSS sticky), és a görgetés helyzete választja ki
    az aktív lépést: a kép és a szám osztállyal vált, az áttűnést a CSS viszi (egy driver). A régi kép előbb eltűnik,
    az új csak utána úszik be, így egyszerre egy kép és egy lencse látszik. A lépéslista mutatja, hol tartunk, és
-   kattintásra a lépéshez görget. Telefonon, reduced-motion alatt és JS nélkül a négy lépés egymás alatt áll. */
+   kattintásra a lépéshez görget. Telefonon mozgással ugyanez a ragadós színpad: a cím fent kigördül, a lépéslista, a kép
+   és a lépés szövege a képernyőn marad (a magasságot és a ragadás helyét a méret() számolja).
+   Reduced-motion alatt és JS nélkül a négy lépés egymás alatt áll. */
 (function () {
   'use strict';
   var ARC = window.ARC || {};
@@ -12,7 +14,21 @@
   var linkek = [].slice.call(bs.querySelectorAll('.bs__index a'));
   var N = kepek.length, aktiv = 0, tiszt = null;
   var asztal = matchMedia('(min-width:981px)');
-  function ragad() { return !ARC.reduce && asztal.matches; }
+  var szinpad = bs.querySelector('.bs__szinpad'), index = bs.querySelector('.bs__index');
+  function ragad() { return !ARC.reduce; }
+  /* telefonon a színpad magasabb lehet a képernyőnél: a ragadás helye úgy áll be, hogy a lépéslista a fejléc alatt,
+     a lépés szövege a képernyő alján belül legyen; a szakasz magassága = színpad + 3,5 lépésnyi görgetés (mint asztalon) */
+  var elo = 0;
+  function meret() {
+    elo = 0;
+    if (!ragad() || asztal.matches) { bs.style.removeProperty('--bsM'); bs.style.removeProperty('--bsTop'); return; }
+    bs.style.setProperty('--bsTop', '0px');
+    var h = szinpad.offsetHeight, top = 0;
+    if (h > innerHeight) top = Math.min(innerHeight - h, navH() + 8 - (index ? index.offsetTop : 0));
+    elo = -top;
+    bs.style.setProperty('--bsTop', top + 'px');
+    bs.style.setProperty('--bsM', (h + 3.5 * lep()) + 'px');
+  }
   function lep() { return parseFloat(getComputedStyle(bs).getPropertyValue('--lep')) / 100 * innerHeight || innerHeight * .78; }
   function navH() { var n = document.querySelector('.nav'); return n ? n.offsetHeight : 0; }
 
@@ -45,7 +61,7 @@
   function figyel() {
     f = false;
     if (!ragad()) return;
-    var off = -bs.getBoundingClientRect().top;
+    var off = -bs.getBoundingClientRect().top - elo;
     valt(Math.max(0, Math.min(N - 1, Math.round(off / lep()))));
   }
   function mod() {
@@ -58,12 +74,14 @@
     }
   }
   addEventListener('scroll', function () { if (!f) { f = true; requestAnimationFrame(figyel); } }, { passive: true });
-  addEventListener('resize', figyel);
-  if (asztal.addEventListener) asztal.addEventListener('change', mod);
-  mod();
+  addEventListener('resize', function () { meret(); figyel(); });
+  if (asztal.addEventListener) asztal.addEventListener('change', function () { meret(); mod(); });
+  meret(); mod();
+  addEventListener('load', function () { meret(); figyel(); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { meret(); figyel(); });
   /* közvetlen hivatkozás egy lépésre (#lepes-3): ragadós módban a lépés görgetési pontjára */
   var h = /^#lepes-(\d)$/.exec(location.hash);
-  if (h && ragad()) setTimeout(function () { window.scrollTo(0, bs.getBoundingClientRect().top + scrollY + (h[1] - 1) * lep() + 2); figyel(); }, 60);
+  if (h && ragad()) setTimeout(function () { window.scrollTo(0, bs.getBoundingClientRect().top + scrollY + elo + (h[1] - 1) * lep() + 2); figyel(); }, 60);
   /* telefonon és reduced-motion alatt az éppen olvasott lépés jelölése (a lista is mutatja, hol tartunk) */
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (es) {
@@ -79,7 +97,7 @@
     var a = e.target.closest && e.target.closest('a'); if (!a) return;
     var i = linkek.indexOf(a); if (i < 0) return;
     e.preventDefault(); e.stopPropagation();
-    var y = ragad() ? bs.getBoundingClientRect().top + scrollY + i * lep() + 2
+    var y = ragad() ? bs.getBoundingClientRect().top + scrollY + elo + i * lep() + 2
                     : kepek[i].getBoundingClientRect().top + scrollY - (parseFloat(getComputedStyle(kepek[i]).marginTop) ? 0 : navH());
     if (ragad()) valt(i);
     if (ARC.lenis) ARC.lenis.scrollTo(y, { duration: 1.2 });

@@ -8,7 +8,9 @@
    "hely" (a d vagy m blokkban, nem kötelező): pontonként a lencse saját helye a kép arányában (lehet 0 alatt, 1 fölött is).
    Ilyenkor üresjáratban a lencse a tárgy MELLETT áll, és a "p" pontot mutatja nagyítva, szaggatott vonallal a pontra;
    a tárgyat nem takarja. Egérrel és koppintással ugyanúgy az egér, ujj alá megy, mint hely nélkül.
-   "mrejt": telefonos módban hely nélkül a lencse üresjáratban rejtve, csak koppintásra jelenik meg. */
+   "mrejt": telefonos módban hely nélkül a lencse üresjáratban rejtve, csak koppintásra jelenik meg.
+   Érintéssel a lencse húzható is: a lencsén induló oldalirányú húzás (vagy koppintás után bármilyen irányú) viszi
+   a lencsét az ujj alatt, a függőleges húzás görgeti az oldalt. Esc: a lencse visszatér a vándorláshoz. */
 (function () {
   'use strict';
   var RM = window.ARC && window.ARC.reduce;
@@ -59,7 +61,7 @@
     var nez = { x: 0, y: 0 }, nezCel = { x: 0, y: 0 }, ugrT = 0;
     var geo = { s: 1, ox: 0, oy: 0 };
     var cel = { x: 0, y: 0 }, cur = { x: 0, y: 0 }, eger = false, utolso = 0, lathato = true, fut = false, t0 = performance.now(), betoltve = false;
-    var kez = false, cimkeAkt = -1, szabad = 0, tElo = 0;
+    var kez = false, huz = false, cimkeAkt = -1, szabad = 0, tElo = 0, rx = -1e4, ry = -1e4;
 
     function kepValt() {
       var m = mq && mq.matches && cfg.m ? 'm' : 'd';
@@ -189,7 +191,7 @@
       vonal.style.opacity = d > R + BEZ + 40 ? '1' : '0';
     }
     function rajzol(x, y, nx, ny) {
-      var sz = szorit(x, y); x = sz.x; y = sz.y;
+      var sz = szorit(x, y); x = sz.x; y = sz.y; rx = x; ry = y;
       vonalRajz(x, y);
       lencse.style.setProperty('--lx', (x - R) + 'px');
       lencse.style.setProperty('--ly', (y - R) + 'px');
@@ -260,7 +262,36 @@
         var r = ter.getBoundingClientRect();
         cel.x = k.x - r.left; cel.y = k.y - r.top; kez = true; utolso = performance.now() + 4000; indit();
       });
+      /* húzás: a lencsén induló érintés. Az első mozdulat dönt: oldalirányban (vagy ha a lencse épp koppintásra áll)
+         a lencse megy az ujjal, és az oldal nem görget; függőlegesen az oldal görget, a lencse marad. */
+      var th = null;
+      ter.addEventListener('touchstart', function (e) {
+        th = null; if (e.touches.length !== 1) return;
+        var t = e.touches[0];
+        if (e.target.closest && e.target.closest('a, button, .lupe-tiltott')) return;
+        var r = ter.getBoundingClientRect(), x = t.clientX - r.left, y = t.clientY - r.top;
+        if (Math.sqrt((x - rx) * (x - rx) + (y - ry) * (y - ry)) > R + BEZ) return;
+        th = { x: t.clientX, y: t.clientY, dont: false };
+      }, { passive: true });
+      ter.addEventListener('touchmove', function (e) {
+        if (!th || e.touches.length !== 1) return;
+        var t = e.touches[0];
+        if (!th.dont) {
+          var dx = Math.abs(t.clientX - th.x), dy = Math.abs(t.clientY - th.y);
+          if (dx + dy < 6) return;
+          th.dont = true;
+          if (!kez && dy > dx) { th = null; return; }
+          huz = true; erint = null;
+        }
+        if (e.cancelable) e.preventDefault();
+        var r = ter.getBoundingClientRect();
+        cel.x = t.clientX - r.left; cel.y = t.clientY - r.top; kez = true; utolso = performance.now() + 4000; indit();
+      }, { passive: false });
+      var huzVeg = function () { if (huz) { huz = false; utolso = performance.now() + 4000; } th = null; };
+      ter.addEventListener('touchend', huzVeg); ter.addEventListener('touchcancel', huzVeg);
     }
+    /* Esc: a koppintással vagy húzással odavitt lencse visszatér a vándorláshoz */
+    addEventListener('keydown', function (e) { if (e.key === 'Escape' && kez) { kez = false; huz = false; valaszt(aktiv, true); } });
 
     /* data-alszik: takart réteg (például a Becslés lépés-színpadán a nem aktív kép), a rAF áll; lupe:ebred indítja újra */
     function lep(t) {
@@ -278,7 +309,7 @@
       /* koppintás után (kez) ugyanaz a szabad mód, mint egérrel: a lencse közepe a kép teljes területén az ujj alá megy,
          a szűkített határ csak a vándorlásra marad; a szabad úsztatása miatt oda- és visszaúton sincs ugrás */
       var sc = (eger || kez) ? 1 : 0;
-      var f = dt / 16.7, k = 1 - Math.pow(1 - (eger ? .3 : kez ? .09 : .05), f);
+      var f = dt / 16.7, k = 1 - Math.pow(1 - ((eger || huz) ? .3 : kez ? .09 : .05), f);
       szabad += (sc - szabad) * (1 - Math.pow(.85, f)); if (Math.abs(sc - szabad) < .004) szabad = sc;
       if (!lencse.classList.contains('ugrik') || eger || kez) {
         cur.x += (cel.x - cur.x) * k; cur.y += (cel.y - cur.y) * k;

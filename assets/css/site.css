@@ -245,3 +245,16 @@ a.nyelv__en:hover{color:var(--csont)}
 @media (prefers-reduced-motion:reduce){
   .also{transition:none}
 }
+
+/* Telefon: minden önálló érintési cél legalább 44 px (a szövegben futó link kivétel) és olvasható betű */
+@media (max-width:980px){
+  .nyelv a,.nyelv__en{min-width:44px}
+  .marka{min-height:44px}
+  .burger{min-width:44px;min-height:46px}
+  .ut{font-size:14px}
+  .ut a{padding:0;min-height:44px;min-width:44px;display:inline-flex;align-items:center}
+  main dd a,main .szam,.kh__felirat a{min-height:44px;display:inline-flex;align-items:center}
+  .lab__racs a,.lab__sor a{min-height:44px;min-width:44px;display:inline-flex;align-items:center;padding:0}
+  .maplibregl-ctrl-group button{width:44px!important;height:44px!important}
+  .also a{font-size:14px}
+}
