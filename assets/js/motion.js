@@ -61,6 +61,57 @@
     document.querySelectorAll('img[loading="lazy"]').forEach(function (i) { if (!i.complete) i.addEventListener('load', queueRefresh, { once: true }); });
   }
 
+  /* ---------- Arany nyitókép telefonon: a kép magassága a képernyő magasságához igazodik, hogy a „Becslést kérek”
+     gomb mindig az alsó elérhetőség-sáv fölött legyen. Ha a második gomb is kifér (a kép legalább 200 px marad),
+     mindkettő látszik; ha nem, a második teljesen a sáv alá kerül. A kép csak kisebb lehet a CSS-beli magasságnál.
+     JS nélkül a CSS-magasság marad. ---------- */
+  var ah = document.querySelector('.p-arany .ah');
+  if (ah) {
+    var ahTer = ah.querySelector('.lupe-ter'), ahLent = ah.querySelector('.ah__lent'), ahGomb = ah.querySelectorAll('.ah__cta .gomb');
+    var ahMq = matchMedia('(max-width:980px)'), ahW = 0;
+    var szonda = document.createElement('div');
+    szonda.setAttribute('aria-hidden', 'true');
+    szonda.style.cssText = 'position:absolute;left:0;top:0;width:1px;height:100svh;visibility:hidden;pointer-events:none';
+    var hajtas = function (kenyszer) {
+      if (!ahTer || !ahLent || ahGomb.length < 2) return;
+      if (!kenyszer && innerWidth === ahW) return;
+      ahW = innerWidth;
+      ahTer.style.height = '';
+      if (!ahMq.matches) return;
+      var also = document.querySelector('.also');
+      var savH = also && getComputedStyle(also).display !== 'none' ? also.offsetHeight : 0;
+      document.body.appendChild(szonda);
+      var sv = szonda.offsetHeight; szonda.remove();
+      var vonal = sv - savH;
+      /* a gombok helye a belépő-animáció eltolása nélkül: a nem mozgó .ah__bal alja a gombsor alja */
+      var cta = ahGomb[0].parentNode, cr = cta.getBoundingClientRect();
+      var alap = ah.querySelector('.ah__bal').getBoundingClientRect().bottom + scrollY;
+      var g1 = alap - (cr.bottom - ahGomb[0].getBoundingClientRect().bottom);
+      var g2 = alap - (cr.bottom - ahGomb[1].getBoundingClientRect().bottom);
+      var kulonSor = ahGomb[1].getBoundingClientRect().top >= ahGomb[0].getBoundingClientRect().bottom;
+      var H = ahTer.offsetHeight, uj = H;
+      var mindket = H - Math.max(0, g2 + 14 - vonal);
+      if (mindket >= 200) uj = mindket;
+      else if (kulonSor) uj = H - Math.max(0, g1 + 18 - vonal);
+      else uj = mindket;
+      uj = Math.max(130, Math.round(uj));
+      if (uj < H) {
+        ahTer.style.height = uj + 'px';
+        dispatchEvent(new Event('resize'));
+      }
+    };
+    hajtas(true);
+    /* a betűk betöltése és a cím darabolása később megnöveli a szövegdobozt: ilyenkor újraszámol */
+    var ahKes = 0, ujra = function () { cancelAnimationFrame(ahKes); ahKes = requestAnimationFrame(function () { hajtas(true); }); };
+    if ('ResizeObserver' in window) {
+      var ahRo = new ResizeObserver(ujra);
+      [ah, ah.querySelector('.ah__fent'), ah.querySelector('.ah__bal')].forEach(function (e) { if (e) ahRo.observe(e); });
+    }
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(ujra);
+    addEventListener('load', ujra);
+    addEventListener('resize', function (e) { if (e.isTrusted) hajtas(false); });
+  }
+
   /* ---------- fotó-úszás: a [data-uszo] keretben a kép görgetésre lassan elcsúszik (egyetlen mozgató, GSAP scrub);
      a keret clip-pel vág, a CSS mozgással 1,06-ra nagyít, reduced-motion vagy GSAP nélkül a kép áll ---------- */
   if (hasG && !reduce) {
