@@ -40,6 +40,8 @@
     } else start();
   }
 
+  /* Web3Forms hozzáférési kulcs (üres: a levelezőprogram nyílik) */
+  var KULCS = '09c75041-c58e-42be-ad53-4b13f5da9984';
   var f = document.querySelector('.urlap');
   if (f) {
     f.addEventListener('submit', function (e) {
@@ -59,10 +61,34 @@
       var C = EN ? ['Name', 'Phone', 'Where to look at it', 'Item', 'When to call', 'Valuation request: ', 'item']
         : ['Név', 'Telefon', 'Hol nézzük meg', 'Tárgy', 'Mikor hívhatjuk', 'Becslést kérek: ', 'tárgy'];
       var body = C[0] + ': ' + v('nev') + '\n' + C[1] + ': ' + v('telefon') + '\n' + C[2] + ': ' + v('hol') + '\n' + C[3] + ': ' + v('targy') + '\n' + C[4] + ': ' + v('mikor') + '\n\n' + v('uzenet');
-      location.href = 'mailto:aranyregisegkozpont@gmail.com?subject=' + encodeURIComponent(C[5] + (v('targy') || C[6])) + '&body=' + encodeURIComponent(body);
+      var targy = C[5] + (v('targy') || C[6]);
       var st = f.querySelector('.allapot');
-      if (st) st.textContent = EN ? 'Your email program has opened with the message filled in. If it did not open, call us on +36 20 620 1377.'
-        : 'Megnyílt a levelezőprogramja a kitöltött levéllel. Ha nem nyílt meg, hívjon minket: 06 20 620 1377.';
+      var gomb = f.querySelector('[type=submit]');
+      if (!KULCS) {
+        location.href = 'mailto:aranyregisegkozpont@gmail.com?subject=' + encodeURIComponent(targy) + '&body=' + encodeURIComponent(body);
+        if (st) st.textContent = EN ? 'Your email program has opened with the message filled in. If it did not open, call us on +36 20 620 1377.'
+          : 'Megnyílt a levelezőprogramja a kitöltött levéllel. Ha nem nyílt meg, hívjon minket: 06 20 620 1377.';
+        return;
+      }
+      /* közvetlen küldés: a Web3Forms továbbítja az üzenetet az üzlet e-mail-címére */
+      if (gomb) gomb.disabled = true;
+      if (st) st.textContent = EN ? 'Sending…' : 'Küldés folyamatban…';
+      /* urlencoded: egyszerű kérés, nincs CORS-előkérés, és a mezőnevek ékezete is épen marad (multipartban a szerver latin1-ként olvassa) */
+      var adat = new URLSearchParams();
+      adat.append('access_key', KULCS); adat.append('subject', targy); adat.append('from_name', 'Arany Régiség Center weboldal');
+      adat.append(C[0], v('nev')); adat.append(C[1], v('telefon')); adat.append(C[2], v('hol')); adat.append(C[3], v('targy')); adat.append(C[4], v('mikor')); adat.append(EN ? 'Message' : 'Üzenet', v('uzenet'));
+      var hp = f.querySelector('[name=botcheck]'); if (hp && hp.checked) return;
+      fetch('https://api.web3forms.com/submit', { method: 'POST', headers: { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' }, body: adat.toString() })
+        .then(function (r) { return r.json(); })
+        .then(function (r) {
+          if (!r.success) throw new Error('hiba');
+          f.reset();
+          if (st) st.textContent = EN ? 'Thank you, your message has arrived. We will call you back soon.' : 'Megkaptuk az üzenetét, hamarosan visszahívjuk.';
+        })
+        .catch(function () {
+          if (st) st.textContent = EN ? 'The message could not be sent. Please call us on +36 20 620 1377.' : 'Az üzenetet nem sikerült elküldeni. Kérjük, hívjon minket: 06 20 620 1377.';
+        })
+        .then(function () { if (gomb) gomb.disabled = false; });
     });
   }
 })();
