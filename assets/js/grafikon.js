@@ -200,6 +200,14 @@
     });
   }
 
+  /* a forrás-sor végén az „Utolsó adat: …” (EN: „Latest data: …”) dátuma az utolsó adatpontból; csak a záró szöveg-csomópont változik */
+  function utolsoAdat(fig, iso) {
+    var c = fig.querySelector('.arf__forras'), n = c && c.lastChild;
+    if (!n || n.nodeType !== 3 || !/^\d{4}-\d{2}-\d{2}$/.test(iso || '')) return;
+    var re = EN ? /(Latest data: ).*$/ : /(Utolsó adat: ).*$/;
+    if (re.test(n.nodeValue)) n.nodeValue = n.nodeValue.replace(re, '$1' + datum(iso));
+  }
+
   function indit() {
     var figs = document.querySelectorAll('.arf[data-arf-aktiv]');
     if (!figs.length) return;
@@ -218,6 +226,7 @@
         if (!fig._adat || uj.frissitve <= fig._adat.frissitve) return;
         fig._adat = uj;
         try { rajzol(fig, uj); } catch (e) {}
+        try { utolsoAdat(fig, uj.napok[uj.napok.length - 1]); } catch (e) {}
       });
     }).catch(function () {});
   }
